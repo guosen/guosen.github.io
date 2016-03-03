@@ -6,19 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Bolts | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Download##~~dependencies {  compile ‘com.parse.bolts:bolts-tasks:1.4.0’  compile ‘com.parse.bolts:bolts-applinks:1.4.0’}~~
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务～～private Task uploadImages(final">
+  <meta name="description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
+简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bolts">
 <meta property="og:url" content="http://yoursite.com/2016/03/02/第一篇博客/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="Download##~~dependencies {  compile ‘com.parse.bolts:bolts-tasks:1.4.0’  compile ‘com.parse.bolts:bolts-applinks:1.4.0’}~~
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务～～private Task uploadImages(final">
-<meta property="og:updated_time" content="2016-03-02T11:17:11.000Z">
+<meta property="og:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
+简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
+<meta property="og:updated_time" content="2016-03-03T07:52:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bolts">
-<meta name="twitter:description" content="Download##~~dependencies {  compile ‘com.parse.bolts:bolts-tasks:1.4.0’  compile ‘com.parse.bolts:bolts-applinks:1.4.0’}~~
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务～～private Task uploadImages(final">
+<meta name="twitter:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
+简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -235,9 +235,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Download">Download</h1><p>##<br>~~<br>dependencies {<br>  compile ‘com.parse.bolts:bolts-tasks:1.4.0’<br>  compile ‘com.parse.bolts:bolts-applinks:1.4.0’<br>}<br>~~</p>
-<h1 id="简介">简介</h1><h2 id="Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调">Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调</h2><h1 id="用法">用法</h1><h2 id="1定义一个任务">1定义一个任务</h2><p>～～<br>private Task<void> uploadImages(final Post post, List<image> images) {<br>        Task<void> ret = Task.forResult(null);<br>        for (final Image image : images) {<br>            ret = ret.onSuccessTask(new Continuation<void, task<void="">&gt;() {<br>                @Override<br>                public Task<void> then(Task<void> task) throws Exception {<br>                    if (post.mPublishingStatus == PublishingStatus.CANCELED) {<br>                        //取消发布。<br>                        return Task.forError(new CancelledException());<br>                    }<br>                    return uploadImage(image);<br>                }<br>            });<br>        }<br>        return ret;<br>    }</void></void></void,></void></image></void></p>
-<p>～～<br>2 任务的嵌套<br> onSuccessTask  continueWithTask  </p>
+        <h1 id="Download">Download</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-tasks:1.4.0'</span></span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-applinks:1.4.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="简介">简介</h1><h2 id="Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调">Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调</h2><h1 id="用法">用法</h1><h2 id="1定义一个任务">1定义一个任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Task&lt;Void&gt; uploadImages(final Post post, List&lt;Image&gt; images) &#123;</span><br><span class="line">        Task&lt;Void&gt; ret = Task.forResult(null);</span><br><span class="line">        <span class="keyword">for</span> (final Image image : images) &#123;</span><br><span class="line">            ret = ret.onSuccessTask(new Continuation&lt;Void, Task&lt;Void&gt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public Task&lt;Void&gt; <span class="keyword">then</span>(Task&lt;Void&gt; task) throws Exception &#123;</span><br><span class="line">                    <span class="keyword">if</span> (post.mPublishingStatus == PublishingStatus.CANCELED) &#123;</span><br><span class="line">                        //取消发布。</span><br><span class="line">                        <span class="built_in">return</span> Task.forError(new CancelledException());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="built_in">return</span> uploadImage(image);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>2 任务的嵌套<br> onSuccessTask  continueWithTask  </p>
 
       
     </div>
