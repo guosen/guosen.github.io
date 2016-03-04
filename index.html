@@ -72,12 +72,12 @@
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
 						<li>菜单</li>
-						<li>标签</li>
+						<li>標籤</li>
 						
 						<li>友情链接</li>
 						
 						
-						<li>开始</li>
+						<li>關於</li>
 						
 					</ul>
 				</div>
@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/github/" style="font-size: 10px;">github</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a>
 					</div>
 				</section>
 				
@@ -195,6 +195,93 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
+  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/04/Android-消息机制Handle-Looper-Message/">Android 消息机制Handle-Looper-Message</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
+<li>publicHandler() </li>
+<li>publicHandler(Callbackcallback) </li>
+<li>publicHandler(Looperlooper) </li>
+<li>publicHandler(Looperlooper, Callbackcallback) </li>
+</ol>
+<p><code>bash
+    //实现这个函数来接收消息
+    public void handleMessage(Message msg) {
+    }</code><br>能够处理Message，我们有两种办法： </p>
+<ol>
+<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
+<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
+</ol>
+<p>}<br>};<br>``</p>
+<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><p>``bash<br>class LooperThread extends Thread {<br>      public Handler mHandler;<br>      public void run() {<br>          Looper.prepare();</p>
+<pre><code>    mHandler = <span class="keyword">new</span> Handler() {
+        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>{
+            <span class="comment">// process incoming messages here</span>
+        }
+    };
+    Looper.loop();
+}
+</code></pre><p>  }<br><code>将当前线程初始化为一个Looper，源码如下：</code>bash<br>public static void prepare() {<br>        prepare(true);<br>    }</p>
+<pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span>(<span class="params">boolean quitAllowed</span>) </span>{
+    <span class="keyword">if</span> (sThreadLocal.<span class="keyword">get</span>() != <span class="keyword">null</span>) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);
+    }
+    sThreadLocal.<span class="keyword">set</span>(<span class="keyword">new</span> Looper(quitAllowed));
+}
+</code></pre><p>``<br>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
+<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   

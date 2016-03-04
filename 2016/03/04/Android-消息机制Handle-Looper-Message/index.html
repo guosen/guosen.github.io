@@ -4,18 +4,42 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>为什么写博客 ？ | Dev-Sw</title>
+  <title>Android 消息机制Handle-Looper-Message | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原因作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。写什么呢主要就是技术文章，然后随想，吐槽等等。">
+  <meta name="description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
+publicHandler() 
+publicHandler(Callbackcallback) 
+publicHandler(Looperlooper) 
+publicHandler(Looperlooper, Callbackcallback) 
+
+bash
+    //实现这个函数来接收消息
+    public v">
 <meta property="og:type" content="article">
-<meta property="og:title" content="为什么写博客 ？">
-<meta property="og:url" content="http://yoursite.com/2016/03/03/hello-world/index.html">
+<meta property="og:title" content="Android 消息机制Handle-Looper-Message">
+<meta property="og:url" content="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="原因作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。写什么呢主要就是技术文章，然后随想，吐槽等等。">
-<meta property="og:updated_time" content="2016-03-03T05:54:25.000Z">
+<meta property="og:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
+publicHandler() 
+publicHandler(Callbackcallback) 
+publicHandler(Looperlooper) 
+publicHandler(Looperlooper, Callbackcallback) 
+
+bash
+    //实现这个函数来接收消息
+    public v">
+<meta property="og:updated_time" content="2016-03-04T09:48:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="为什么写博客 ？">
-<meta name="twitter:description" content="原因作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。写什么呢主要就是技术文章，然后随想，吐槽等等。">
+<meta name="twitter:title" content="Android 消息机制Handle-Looper-Message">
+<meta name="twitter:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
+publicHandler() 
+publicHandler(Callbackcallback) 
+publicHandler(Looperlooper) 
+publicHandler(Looperlooper, Callbackcallback) 
+
+bash
+    //实现这个函数来接收消息
+    public v">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -195,11 +219,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/03/hello-world/" class="article-date">
-  	<time datetime="2016-03-03T05:54:25.000Z" itemprop="datePublished">2016-03-03</time>
+      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
+  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
 </a>
     </div>
   
@@ -212,7 +236,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      为什么写博客 ？
+      Android 消息机制Handle-Looper-Message
     </h1>
   
 
@@ -220,6 +244,10 @@
       
       <div class="article-info article-info-post">
         
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
+	</div>
+
         
 
         <div class="clearfix"></div>
@@ -228,7 +256,38 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="原因">原因</h2><h3 id="作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。">作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。</h3><h2 id="写什么呢">写什么呢</h2><h3 id="主要就是技术文章，然后随想，吐槽等等。">主要就是技术文章，然后随想，吐槽等等。</h3>
+        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
+<li>publicHandler() </li>
+<li>publicHandler(Callbackcallback) </li>
+<li>publicHandler(Looperlooper) </li>
+<li>publicHandler(Looperlooper, Callbackcallback) </li>
+</ol>
+<p><code>bash
+    //实现这个函数来接收消息
+    public void handleMessage(Message msg) {
+    }</code><br>能够处理Message，我们有两种办法： </p>
+<ol>
+<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
+<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
+</ol>
+<p>}<br>};<br>``</p>
+<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><p>``bash<br>class LooperThread extends Thread {<br>      public Handler mHandler;<br>      public void run() {<br>          Looper.prepare();</p>
+<pre><code>    mHandler = <span class="keyword">new</span> Handler() {
+        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>{
+            <span class="comment">// process incoming messages here</span>
+        }
+    };
+    Looper.loop();
+}
+</code></pre><p>  }<br><code>将当前线程初始化为一个Looper，源码如下：</code>bash<br>public static void prepare() {<br>        prepare(true);<br>    }</p>
+<pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span>(<span class="params">boolean quitAllowed</span>) </span>{
+    <span class="keyword">if</span> (sThreadLocal.<span class="keyword">get</span>() != <span class="keyword">null</span>) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);
+    }
+    sThreadLocal.<span class="keyword">set</span>(<span class="keyword">new</span> Looper(quitAllowed));
+}
+</code></pre><p>``<br>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
+<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
       
     </div>
     
@@ -237,18 +296,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android 消息机制Handle-Looper-Message
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/02/hello-world-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">采用Hexo+github搭建属于自己的博客</div>
+    <a href="/2016/03/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为什么写博客 ？</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -283,7 +333,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="为什么写博客 ？" data-url="http://yoursite.com/2016/03/03/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="Android-消息机制Handle-Looper-Message" data-title="Android 消息机制Handle-Looper-Message" data-url="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
