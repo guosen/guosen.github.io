@@ -114,7 +114,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a>
+						<a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a>
 					</div>
 				</section>
 				
@@ -196,6 +196,62 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android-中关于视频检索" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/11/Android-中关于视频检索/" class="article-date">
+  	<time datetime="2016-03-11T03:43:52.000Z" itemprop="datePublished">2016-03-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/11/Android-中关于视频检索/">Android 中关于视频检索</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitmap/">bitmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/视频检索/">视频检索</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-PreferenceFragment的用法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -223,12 +279,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><p>``bash</p>
-<p><preferencecategory android:title="就看天气"><br>        <preference android:key="introduction" android:title="应用介绍"><br>        <preference android:key="current_version" android:title="当前版本"><br>        <preference android:key="check_version" android:title="检查更新"><br>    </preference></preference></preference></preferencecategory><br><code>``bash
-public void onCreate(Bundle savedInstanceState){
-     addPreferencesFromResource(R.xml.about);
-     mIntroduction = findPreference(INTRODUCTION);
-     mIntroduction.setOnPreferenceClickListener(this);
-}</code><br>按钮点击事件<br>``bash<br> @Override public boolean onPreferenceClick(Preference preference) {<br>    if(mShare == preference){</p>
+<p><preferencecategory android:title="就看天气"><br>        <preference android:key="introduction" android:title="应用介绍"><br>        <preference android:key="current_version" android:title="当前版本"><br>        <preference android:key="check_version" android:title="检查更新"><br>    </preference></preference></preference></preferencecategory></p>
+<h2 id="``">``</h2><p>``bash<br>public void onCreate(Bundle savedInstanceState){<br>     addPreferencesFromResource(R.xml.about);<br>     mIntroduction = findPreference(INTRODUCTION);<br>     mIntroduction.setOnPreferenceClickListener(this);<br>}</p>
+<h2 id="``-1">``</h2><p>按钮点击事件<br>``bash<br> @Override public boolean onPreferenceClick(Preference preference) {<br>    if(mShare == preference){</p>
 <pre><code>}
 </code></pre><p>}<br>``</p>
 
