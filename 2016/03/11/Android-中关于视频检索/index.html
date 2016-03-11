@@ -6,28 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Android 中关于视频检索 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java
-MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
-        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
-        String[">
+  <meta name="description" content="``javaMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 中关于视频检索">
 <meta property="og:url" content="http://yoursite.com/2016/03/11/Android-中关于视频检索/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="java
-MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
-        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
-        String[">
-<meta property="og:updated_time" content="2016-03-11T04:55:50.000Z">
+<meta property="og:description" content="``javaMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
+<meta property="og:updated_time" content="2016-03-11T04:59:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 中关于视频检索">
-<meta name="twitter:description" content="java
-MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
-        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
-        String[">
+<meta name="twitter:description" content="``javaMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -244,25 +232,8 @@ MediaMetadataRetriever mmr = new MediaMetadataRetriever();
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>java
-MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    public List&lt;VideoInfo&gt; getVideoList() {
-        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();
-        String[] thumbColumn = {
-                MediaStore.Video.Thumbnails.DATA,
-                MediaStore.Video.Thumbnails.VIDEO_ID
-        };
-        String[] mediaColumns = {
-                MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.TITLE,
-                MediaStore.Video.Media.MIME_TYPE,
-                MediaStore.Video.Media.DISPLAY_NAME,
-                MediaStore.Video.Media.DURATION,
-                MediaStore.Video.Media.HEIGHT,
-                MediaStore.Video.Media.WIDTH
-        };
-        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);
+        <p>``java<br>MediaMetadataRetriever mmr = new MediaMetadataRetriever();<br>    public List<videoinfo> getVideoList() {<br>        List<videoinfo> videoInfoList = new ArrayList&lt;&gt;();<br>        String[] thumbColumn = {<br>                MediaStore.Video.Thumbnails.DATA,<br>                MediaStore.Video.Thumbnails.VIDEO_ID<br>        };<br>        String[] mediaColumns = {<br>                MediaStore.Video.Media._ID,<br>                MediaStore.Video.Media.DATA,<br>                MediaStore.Video.Media.TITLE,<br>                MediaStore.Video.Media.MIME_TYPE,<br>                MediaStore.Video.Media.DISPLAY_NAME,<br>                MediaStore.Video.Media.DURATION,<br>                MediaStore.Video.Media.HEIGHT,<br>                MediaStore.Video.Media.WIDTH<br>        };<br>        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</videoinfo></videoinfo></p>
+<h2 id="``"> ``</h2><p> <code>bash
         if (cursor == null) {
             ToastUtil.showMessage(&quot;没有找到相关视频文件&quot;);
             return null;

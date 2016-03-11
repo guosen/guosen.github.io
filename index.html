@@ -222,25 +222,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>java
-MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-    public List&lt;VideoInfo&gt; getVideoList() {
-        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();
-        String[] thumbColumn = {
-                MediaStore.Video.Thumbnails.DATA,
-                MediaStore.Video.Thumbnails.VIDEO_ID
-        };
-        String[] mediaColumns = {
-                MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.TITLE,
-                MediaStore.Video.Media.MIME_TYPE,
-                MediaStore.Video.Media.DISPLAY_NAME,
-                MediaStore.Video.Media.DURATION,
-                MediaStore.Video.Media.HEIGHT,
-                MediaStore.Video.Media.WIDTH
-        };
-        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);
+        <p>``java<br>MediaMetadataRetriever mmr = new MediaMetadataRetriever();<br>    public List<videoinfo> getVideoList() {<br>        List<videoinfo> videoInfoList = new ArrayList&lt;&gt;();<br>        String[] thumbColumn = {<br>                MediaStore.Video.Thumbnails.DATA,<br>                MediaStore.Video.Thumbnails.VIDEO_ID<br>        };<br>        String[] mediaColumns = {<br>                MediaStore.Video.Media._ID,<br>                MediaStore.Video.Media.DATA,<br>                MediaStore.Video.Media.TITLE,<br>                MediaStore.Video.Media.MIME_TYPE,<br>                MediaStore.Video.Media.DISPLAY_NAME,<br>                MediaStore.Video.Media.DURATION,<br>                MediaStore.Video.Media.HEIGHT,<br>                MediaStore.Video.Media.WIDTH<br>        };<br>        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</videoinfo></videoinfo></p>
+<h2 id="``"> ``</h2><p> <code>bash
         if (cursor == null) {
             ToastUtil.showMessage(&quot;没有找到相关视频文件&quot;);
             return null;
