@@ -6,16 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Android 中关于视频检索 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="``bashMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
+  <meta name="description" content="bash
+MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
+        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
+        String[">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 中关于视频检索">
 <meta property="og:url" content="http://yoursite.com/2016/03/11/Android-中关于视频检索/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="``bashMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
-<meta property="og:updated_time" content="2016-03-11T04:50:23.000Z">
+<meta property="og:description" content="bash
+MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
+        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
+        String[">
+<meta property="og:updated_time" content="2016-03-11T04:52:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 中关于视频检索">
-<meta name="twitter:description" content="``bashMediaMetadataRetriever mmr = new MediaMetadataRetriever();    public List getVideoList() {        List videoInfoList = new ArrayList&amp;lt;&amp;gt;();        String[] thumbColumn = {                Med">
+<meta name="twitter:description" content="bash
+MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+    public List&amp;lt;VideoInfo&amp;gt; getVideoList() {
+        List&amp;lt;VideoInfo&amp;gt; videoInfoList = new ArrayList&amp;lt;&amp;gt;();
+        String[">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -232,13 +244,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>``bash<br>MediaMetadataRetriever mmr = new MediaMetadataRetriever();<br>    public List<videoinfo> getVideoList() {<br>        List<videoinfo> videoInfoList = new ArrayList&lt;&gt;();<br>        String[] thumbColumn = {<br>                MediaStore.Video.Thumbnails.DATA,<br>                MediaStore.Video.Thumbnails.VIDEO_ID<br>        };<br>        String[] mediaColumns = {<br>                MediaStore.Video.Media._ID,<br>                MediaStore.Video.Media.DATA,<br>                MediaStore.Video.Media.TITLE,<br>                MediaStore.Video.Media.MIME_TYPE,<br>                MediaStore.Video.Media.DISPLAY_NAME,<br>                MediaStore.Video.Media.DURATION,<br>                MediaStore.Video.Media.HEIGHT,<br>                MediaStore.Video.Media.WIDTH<br>        };<br>        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);<br>        if (cursor == null) {<br>            ToastUtil.showMessage(“没有找到相关视频文件”);<br>            return null;<br>        }<br>        if (cursor.moveToFirst()) {<br>            do {<br>                VideoInfo videoInfo = new VideoInfo();<br>                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));<br>                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI<br>                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + “=” + id, null, null);<br>                if (thumbCursor.moveToFirst()) {<br>                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));<br>                    videoInfo.thumbPath = thumb;<br>                }<br>                videoInfo.id = id;<br>                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));<br>                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));<br>                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));<br>                    mmr.setDataSource(videoInfo.path);<br>                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);<br>                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);<br>                    videoInfoList.add(videoInfo);</videoinfo></videoinfo></p>
-<pre><code>        } <span class="keyword">while</span> (<span class="built_in">cursor</span>.moveToNext());
-    }
-    <span class="built_in">cursor</span>.<span class="keyword">close</span>();
-    <span class="keyword">return</span> videoInfoList;
-}
-</code></pre><p>``</p>
+        <p><code>bash
+MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+    public List&lt;VideoInfo&gt; getVideoList() {
+        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();
+        String[] thumbColumn = {
+                MediaStore.Video.Thumbnails.DATA,
+                MediaStore.Video.Thumbnails.VIDEO_ID
+        };
+        String[] mediaColumns = {
+                MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DATA,
+                MediaStore.Video.Media.TITLE,
+                MediaStore.Video.Media.MIME_TYPE,
+                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.DURATION,
+                MediaStore.Video.Media.HEIGHT,
+                MediaStore.Video.Media.WIDTH
+        };
+        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);
+        if (cursor == null) {
+            ToastUtil.showMessage(&quot;没有找到相关视频文件&quot;);
+            return null;
+        }
+        if (cursor.moveToFirst()) {
+            do {
+                VideoInfo videoInfo = new VideoInfo();
+                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
+                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
+                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + &quot;=&quot; + id, null, null);
+                if (thumbCursor.moveToFirst()) {
+                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
+                    videoInfo.thumbPath = thumb;
+                }
+                videoInfo.id = id;
+                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
+                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+                    mmr.setDataSource(videoInfo.path);
+                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+                    videoInfoList.add(videoInfo);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return videoInfoList;
+    }</code></p>
 
       
     </div>
