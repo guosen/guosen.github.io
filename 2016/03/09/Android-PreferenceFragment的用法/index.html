@@ -6,22 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>Android PreferenceFragment的用法 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义``bash
-                            
-````bashpublic void onCreate(Bundle savedInstanceState){     addPreferencesFromResource(R.xml.about);">
+  <meta name="description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义1234567891011&amp;lt;PreferenceCategory android:title=&quot;就看天气&quot;&amp;gt;        &amp;lt;Preference            android:key=&quot;introduction&quot;            android:t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android PreferenceFragment的用法">
 <meta property="og:url" content="http://yoursite.com/2016/03/09/Android-PreferenceFragment的用法/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义``bash
-                            
-````bashpublic void onCreate(Bundle savedInstanceState){     addPreferencesFromResource(R.xml.about);">
-<meta property="og:updated_time" content="2016-03-11T04:43:57.000Z">
+<meta property="og:description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义1234567891011&amp;lt;PreferenceCategory android:title=&quot;就看天气&quot;&amp;gt;        &amp;lt;Preference            android:key=&quot;introduction&quot;            android:t">
+<meta property="og:updated_time" content="2016-03-11T05:10:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android PreferenceFragment的用法">
-<meta name="twitter:description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义``bash
-                            
-````bashpublic void onCreate(Bundle savedInstanceState){     addPreferencesFromResource(R.xml.about);">
+<meta name="twitter:description" content="简介使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity用法xml定义1234567891011&amp;lt;PreferenceCategory android:title=&quot;就看天气&quot;&amp;gt;        &amp;lt;Preference            android:key=&quot;introduction&quot;            android:t">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -238,12 +232,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><p>``bash</p>
-<p><preferencecategory android:title="就看天气"><br>        <preference android:key="introduction" android:title="应用介绍"><br>        <preference android:key="current_version" android:title="当前版本"><br>        <preference android:key="check_version" android:title="检查更新"><br>    </preference></preference></preference></preferencecategory></p>
-<h2 id="``">``</h2><p>``bash<br>public void onCreate(Bundle savedInstanceState){<br>     addPreferencesFromResource(R.xml.about);<br>     mIntroduction = findPreference(INTRODUCTION);<br>     mIntroduction.setOnPreferenceClickListener(this);<br>}</p>
-<h2 id="``-1">``</h2><p>按钮点击事件<br>``bash<br> @Override public boolean onPreferenceClick(Preference preference) {<br>    if(mShare == preference){</p>
-<pre><code>}
-</code></pre><p>}<br>``</p>
+        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;PreferenceCategory android:title=<span class="string">"就看天气"</span>&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"introduction"</span></span><br><span class="line">            android:title=<span class="string">"应用介绍"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"current_version"</span></span><br><span class="line">            android:title=<span class="string">"当前版本"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"check_version"</span></span><br><span class="line">            android:title=<span class="string">"检查更新"</span>/&gt;</span><br><span class="line">    &lt;/PreferenceCategory&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">	 addPreferencesFromResource(R.xml.about);</span><br><span class="line">     mIntroduction = findPreference(INTRODUCTION);</span><br><span class="line">     mIntroduction.setOnPreferenceClickListener(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>按钮点击事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> @Override public boolean onPreferenceClick(Preference preference) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mShare == preference)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>

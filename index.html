@@ -222,35 +222,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>``java<br>MediaMetadataRetriever mmr = new MediaMetadataRetriever();<br>    public List<videoinfo> getVideoList() {<br>        List<videoinfo> videoInfoList = new ArrayList&lt;&gt;();<br>        String[] thumbColumn = {<br>                MediaStore.Video.Thumbnails.DATA,<br>                MediaStore.Video.Thumbnails.VIDEO_ID<br>        };<br>        String[] mediaColumns = {<br>                MediaStore.Video.Media._ID,<br>                MediaStore.Video.Media.DATA,<br>                MediaStore.Video.Media.TITLE,<br>                MediaStore.Video.Media.MIME_TYPE,<br>                MediaStore.Video.Media.DISPLAY_NAME,<br>                MediaStore.Video.Media.DURATION,<br>                MediaStore.Video.Media.HEIGHT,<br>                MediaStore.Video.Media.WIDTH<br>        };<br>        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</videoinfo></videoinfo></p>
-<h2 id="``"> ``</h2><p> <code>bash
-        if (cursor == null) {
-            ToastUtil.showMessage(&quot;没有找到相关视频文件&quot;);
-            return null;
-        }
-        if (cursor.moveToFirst()) {
-            do {
-                VideoInfo videoInfo = new VideoInfo();
-                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));
-                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI
-                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + &quot;=&quot; + id, null, null);
-                if (thumbCursor.moveToFirst()) {
-                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
-                    videoInfo.thumbPath = thumb;
-                }
-                videoInfo.id = id;
-                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
-                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-                    mmr.setDataSource(videoInfo.path);
-                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
-                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-                    videoInfoList.add(videoInfo);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return videoInfoList;
-    }</code></p>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">MediaMetadataRetriever mmr = new MediaMetadataRetriever();</span><br><span class="line">    public List&lt;VideoInfo&gt; <span class="function"><span class="title">getVideoList</span></span>() &#123;</span><br><span class="line">        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();</span><br><span class="line">        String[] thumbColumn = &#123;</span><br><span class="line">                MediaStore.Video.Thumbnails.DATA,</span><br><span class="line">                MediaStore.Video.Thumbnails.VIDEO_ID</span><br><span class="line">        &#125;;</span><br><span class="line">        String[] mediaColumns = &#123;</span><br><span class="line">                MediaStore.Video.Media._ID,</span><br><span class="line">                MediaStore.Video.Media.DATA,</span><br><span class="line">                MediaStore.Video.Media.TITLE,</span><br><span class="line">                MediaStore.Video.Media.MIME_TYPE,</span><br><span class="line">                MediaStore.Video.Media.DISPLAY_NAME,</span><br><span class="line">                MediaStore.Video.Media.DURATION,</span><br><span class="line">                MediaStore.Video.Media.HEIGHT,</span><br><span class="line">                MediaStore.Video.Media.WIDTH</span><br><span class="line">        &#125;;</span><br><span class="line">        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</span><br><span class="line">        <span class="keyword">if</span> (cursor == null) &#123;</span><br><span class="line">            ToastUtil.showMessage(<span class="string">"没有找到相关视频文件"</span>);</span><br><span class="line">            <span class="built_in">return</span> null;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cursor.moveToFirst()) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                VideoInfo videoInfo = new VideoInfo();</span><br><span class="line">                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));</span><br><span class="line">                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI</span><br><span class="line">                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + <span class="string">"="</span> + id, null, null);</span><br><span class="line">                <span class="keyword">if</span> (thumbCursor.moveToFirst()) &#123;</span><br><span class="line">                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));</span><br><span class="line">                    videoInfo.thumbPath = thumb;</span><br><span class="line">                &#125;</span><br><span class="line">                videoInfo.id = id;</span><br><span class="line">                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));</span><br><span class="line">                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));</span><br><span class="line">                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));</span><br><span class="line">                    mmr.setDataSource(videoInfo.path);</span><br><span class="line">                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);</span><br><span class="line">                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);</span><br><span class="line">                    videoInfoList.add(videoInfo);</span><br><span class="line">            &#125; <span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        <span class="built_in">return</span> videoInfoList;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -307,12 +279,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><p>``bash</p>
-<p><preferencecategory android:title="就看天气"><br>        <preference android:key="introduction" android:title="应用介绍"><br>        <preference android:key="current_version" android:title="当前版本"><br>        <preference android:key="check_version" android:title="检查更新"><br>    </preference></preference></preference></preferencecategory></p>
-<h2 id="``">``</h2><p>``bash<br>public void onCreate(Bundle savedInstanceState){<br>     addPreferencesFromResource(R.xml.about);<br>     mIntroduction = findPreference(INTRODUCTION);<br>     mIntroduction.setOnPreferenceClickListener(this);<br>}</p>
-<h2 id="``-1">``</h2><p>按钮点击事件<br>``bash<br> @Override public boolean onPreferenceClick(Preference preference) {<br>    if(mShare == preference){</p>
-<pre><code>}
-</code></pre><p>}<br>``</p>
+        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;PreferenceCategory android:title=<span class="string">"就看天气"</span>&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"introduction"</span></span><br><span class="line">            android:title=<span class="string">"应用介绍"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"current_version"</span></span><br><span class="line">            android:title=<span class="string">"当前版本"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"check_version"</span></span><br><span class="line">            android:title=<span class="string">"检查更新"</span>/&gt;</span><br><span class="line">    &lt;/PreferenceCategory&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">	 addPreferencesFromResource(R.xml.about);</span><br><span class="line">     mIntroduction = findPreference(INTRODUCTION);</span><br><span class="line">     mIntroduction.setOnPreferenceClickListener(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>按钮点击事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> @Override public boolean onPreferenceClick(Preference preference) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mShare == preference)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -375,31 +346,16 @@
 <li>publicHandler(Looperlooper) </li>
 <li>publicHandler(Looperlooper, Callbackcallback) </li>
 </ol>
-<p><code>bash
-    //实现这个函数来接收消息
-    public void handleMessage(Message msg) {
-    }</code><br>能够处理Message，我们有两种办法： </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//实现这个函数来接收消息</span><br><span class="line">public void handleMessage(Message msg) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>能够处理Message，我们有两种办法： </p>
 <ol>
 <li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
 <li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
 </ol>
 <p>}<br>};<br>``</p>
-<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><p>``bash<br>class LooperThread extends Thread {<br>      public Handler mHandler;<br>      public void run() {<br>          Looper.prepare();</p>
-<pre><code>    mHandler = <span class="keyword">new</span> Handler() {
-        <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>{
-            <span class="comment">// process incoming messages here</span>
-        }
-    };
-    Looper.loop();
-}
-</code></pre><p>  }<br><code>将当前线程初始化为一个Looper，源码如下：</code>bash<br>public static void prepare() {<br>        prepare(true);<br>    }</p>
-<pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">prepare</span>(<span class="params">boolean quitAllowed</span>) </span>{
-    <span class="keyword">if</span> (sThreadLocal.<span class="keyword">get</span>() != <span class="keyword">null</span>) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);
-    }
-    sThreadLocal.<span class="keyword">set</span>(<span class="keyword">new</span> Looper(quitAllowed));
-}
-</code></pre><p>``<br>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
+<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class LooperThread extends Thread &#123;</span><br><span class="line">      public Handler mHandler;</span><br><span class="line">      public void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">          Looper.prepare();</span><br><span class="line"></span><br><span class="line">          mHandler = new <span class="function"><span class="title">Handler</span></span>() &#123;</span><br><span class="line">              public void handleMessage(Message msg) &#123;</span><br><span class="line">                  // process incoming messages here</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;;</span><br><span class="line">          Looper.loop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>将当前线程初始化为一个Looper，源码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void <span class="function"><span class="title">prepare</span></span>() &#123;</span><br><span class="line">        prepare(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void prepare(boolean quitAllowed) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sThreadLocal.get() != null) &#123;</span><br><span class="line">            throw new RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sThreadLocal.set(new Looper(quitAllowed));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
 <h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
       
     </div>
