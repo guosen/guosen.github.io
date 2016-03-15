@@ -4,21 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Bolts | Dev-Sw</title>
+  <title>Android 签名管理 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
+  <meta name="description" content="采用jdk生成签名##1keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore
+查看签名信息##1keytool -list -v -keystore debug.keystore
+给项目签名可以在项目文件下新建keystoere.properties,内容写上12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bolts">
-<meta property="og:url" content="http://yoursite.com/2016/03/02/第一篇博客/index.html">
+<meta property="og:title" content="Android 签名管理">
+<meta property="og:url" content="http://yoursite.com/2016/03/15/Android-签名管理/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
-<meta property="og:updated_time" content="2016-03-03T07:52:07.000Z">
+<meta property="og:description" content="采用jdk生成签名##1keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore
+查看签名信息##1keytool -list -v -keystore debug.keystore
+给项目签名可以在项目文件下新建keystoere.properties,内容写上12">
+<meta property="og:updated_time" content="2016-03-15T09:02:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bolts">
-<meta name="twitter:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
+<meta name="twitter:title" content="Android 签名管理">
+<meta name="twitter:description" content="采用jdk生成签名##1keytool -genkey -alias android.keystore -keyalg RSA -validity 20000 -keystore android.keystore
+查看签名信息##1keytool -list -v -keystore debug.keystore
+给项目签名可以在项目文件下新建keystoere.properties,内容写上12">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -198,11 +201,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android-签名管理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/02/第一篇博客/" class="article-date">
-  	<time datetime="2016-03-02T05:13:47.000Z" itemprop="datePublished">2016-03-02</time>
+      <a href="/2016/03/15/Android-签名管理/" class="article-date">
+  	<time datetime="2016-03-15T08:51:48.000Z" itemprop="datePublished">2016-03-15</time>
 </a>
     </div>
   
@@ -215,7 +218,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Bolts
+      Android 签名管理
     </h1>
   
 
@@ -224,7 +227,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bolts/">Bolts</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/打包/">打包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
 	</div>
 
         
@@ -235,9 +238,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Download">Download</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-tasks:1.4.0'</span></span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-applinks:1.4.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="简介">简介</h1><h2 id="Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调">Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调</h2><h1 id="用法">用法</h1><h2 id="1定义一个任务">1定义一个任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Task&lt;Void&gt; uploadImages(final Post post, List&lt;Image&gt; images) &#123;</span><br><span class="line">        Task&lt;Void&gt; ret = Task.forResult(null);</span><br><span class="line">        <span class="keyword">for</span> (final Image image : images) &#123;</span><br><span class="line">            ret = ret.onSuccessTask(new Continuation&lt;Void, Task&lt;Void&gt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public Task&lt;Void&gt; <span class="keyword">then</span>(Task&lt;Void&gt; task) throws Exception &#123;</span><br><span class="line">                    <span class="keyword">if</span> (post.mPublishingStatus == PublishingStatus.CANCELED) &#123;</span><br><span class="line">                        //取消发布。</span><br><span class="line">                        <span class="built_in">return</span> Task.forError(new CancelledException());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="built_in">return</span> uploadImage(image);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>2 任务的嵌套<br> onSuccessTask  continueWithTask  </p>
+        <h1 id="采用jdk生成签名">采用jdk生成签名</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -alias android.keystore -keyalg RSA -validity <span class="number">20000</span> -keystore android.keystore</span><br></pre></td></tr></table></figure></p>
+<h1 id="查看签名信息">查看签名信息</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore debug.keystore</span><br></pre></td></tr></table></figure></p>
+<h1 id="给项目签名">给项目签名</h1><h2 id="可以在项目文件下新建keystoere-properties,内容写上">可以在项目文件下新建keystoere.properties,内容写上</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keystore=sw.keystore</span><br><span class="line">storePassword=<span class="number">123456</span></span><br><span class="line">keyAlias=sw.keystore</span><br><span class="line">keyPassword=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+<p>把事先生成的签名文件复制在根目录下。</p>
+<p>#Gradle 脚本</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">java.io.File signFile=rootProject.file(<span class="string">"keystoere.properties"</span>)</span><br><span class="line">   <span class="keyword">if</span>(signFile.exists())&#123;</span><br><span class="line">       System.println(<span class="string">"file exist"</span>);</span><br><span class="line">       Properties properties=new Properties();</span><br><span class="line">       properties.load(new FileInputStream(signFile));</span><br><span class="line">       signingConfigs&#123;</span><br><span class="line">           release&#123;</span><br><span class="line">               storeFile rootProject.file(properties[<span class="string">'keystore'</span>])</span><br><span class="line">               storePassword properties[<span class="string">'storePassword'</span>]</span><br><span class="line">               keyAlias properties[<span class="string">'keyAlias'</span>]</span><br><span class="line">               keyPassword properties[<span class="string">'keyPassword'</span>]</span><br><span class="line">               System.println(storeFile);</span><br><span class="line">               System.println(keyAlias);</span><br><span class="line">               System.println(keyPassword);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       System.println(<span class="string">"file not exist"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：写脚本时候，变量要定义在被引用之前；<br>如果出现读取签名文件错误 检查信息是否写错；</p>
+<p>#运行脚本打包</p>
+<p>##</p>
+<ol>
+<li>./gradlew assemRelease 正式包</li>
+<li>./gradlew assemDebug 打测试包</li>
+</ol>
+<p>参考文章：<a href="https://yeungeek.gitbooks.io/gradle-plugin-user-guide/content/signing_configurations.html" target="_blank" rel="external">https://yeungeek.gitbooks.io/gradle-plugin-user-guide/content/signing_configurations.html</a></p>
 
       
     </div>
@@ -247,15 +261,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/02/hello-world-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          采用Hexo+github搭建属于自己的博客
-        
-      </div>
-    </a>
   
+    <a href="/2016/03/15/Android-Activity的详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android Activity的详解</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -288,7 +298,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="第一篇博客" data-title="Bolts" data-url="http://yoursite.com/2016/03/02/第一篇博客/"></div>
+	<div class="ds-thread" data-thread-key="Android-签名管理" data-title="Android 签名管理" data-url="http://yoursite.com/2016/03/15/Android-签名管理/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
