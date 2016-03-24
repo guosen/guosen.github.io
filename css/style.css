@@ -214,7 +214,7 @@ a {
 .search label {
   display: none;
 }
-form input.st-search-input_my {
+form input.st-default-search-input {
   font-size: 12px;
   padding: 4px 9px 4px 27px;
   height: 20px;
