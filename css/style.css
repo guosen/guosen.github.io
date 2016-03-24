@@ -219,6 +219,9 @@ form input.st-default-search-input {
   padding: 4px 9px 4px 27px;
   height: 20px;
   width: 190px;
+  position: absolute;
+  left: 32px;
+  top: 70px;
   color: #666;
   border: 1px solid #ccc;
   -webkit-border-radius: 15px;
