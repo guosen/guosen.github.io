@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Shell脚本的初步探析 | Dev-Sw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="slide]
+shell编程演讲者：守望[slide data-transition=”vertical3d”]
+什么是shell？ {:&amp;amp;.flexbox.vleft}[slide]
+shell {:&amp;amp;.flexbox.vleft}[ʃel]俗称壳（命令解析器)[slide]是一个命令行解释器，一种为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用shell来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本的初步探析">
+<meta property="og:url" content="http://yoursite.com/2016/03/24/Shell脚本的初步探析/index.html">
+<meta property="og:site_name" content="Dev-Sw">
+<meta property="og:description" content="slide]
+shell编程演讲者：守望[slide data-transition=”vertical3d”]
+什么是shell？ {:&amp;amp;.flexbox.vleft}[slide]
+shell {:&amp;amp;.flexbox.vleft}[ʃel]俗称壳（命令解析器)[slide]是一个命令行解释器，一种为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用shell来">
+<meta property="og:image" content="http://yoursite.com/shell_ppt/shell_redict.png">
+<meta property="og:image" content="http://yoursite.com/img_shell.png">
+<meta property="og:image" content="http://yoursite.com/shell_ppt/awk.png">
+<meta property="og:updated_time" content="2016-03-24T05:35:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell脚本的初步探析">
+<meta name="twitter:description" content="slide]
+shell编程演讲者：守望[slide data-transition=”vertical3d”]
+什么是shell？ {:&amp;amp;.flexbox.vleft}[slide]
+shell {:&amp;amp;.flexbox.vleft}[ʃel]俗称壳（命令解析器)[slide]是一个命令行解释器，一种为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用shell来">
+  
+    <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Guo Sen</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/guosen/guosen.github.io" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1775624907/home?wvr=5" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/question/32037895" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://androidcat.com/">Android标签</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/#/tag/Android">android掘金</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.csdn.net/">CSDN</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.trinea.cn/">Trinea</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/trending?l=java&since=monthly">Github排行</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">守望即是等待Waitting...</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Guo Sen</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Guo Sen</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/guosen/guosen.github.io" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1775624907/home?wvr=5" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/question/32037895" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Shell脚本的初步探析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/24/Shell脚本的初步探析/" class="article-date">
+  	<time datetime="2016-03-24T05:34:08.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Shell脚本的初步探析
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>slide]</p>
+<h1 id="shell编程">shell编程</h1><h2 id="演讲者：守望">演讲者：守望</h2><p>[slide data-transition=”vertical3d”]</p>
+<h1 id="什么是shell？_{:&amp;-flexbox-vleft}">什么是shell？ {:&amp;.flexbox.vleft}</h1><p>[slide]</p>
+<h1 id="shell_{:&amp;-flexbox-vleft}">shell {:&amp;.flexbox.vleft}</h1><h2 id="[ʃel]俗称壳（命令解析器)">[ʃel]俗称壳（命令解析器)</h2><p>[slide]<br>是一个命令行解释器，一种为用户提供了一个向内核发送请求以便运行程序的界面系统级程序，用户可以用shell来启动、挂起、甚至编写一些程序.例：sh是第一种Unix Shell，Windows Explorer是一个典型的图形界面Shell。 {:&amp;.flexbox.vleft}<br>[slide data-transition=”vertical3d”]<br>shell的分类 {:&amp;.flexbox.vleft}</p>
+<ul>
+<li>Bourne shell:1979年起Unix开始使用（sh,ksh,Bash);</li>
+<li>c shell:在BSD版的Unix语言与c语言类似所以因此得名(csh, tcsh);</li>
+<li>Bourne Again shell (bash)</li>
+<li>Korn shell (ksh)</li>
+<li>POSIX shell (sh)<br>[slide]<br>#shell编程？一门语言？<br>[slide data-transition=”vertical3d”]<h2 id="shell脚本（shell_script），是一种为shell编写的脚本程序，易编写易调试灵活性，shell脚本是解释执行的脚本语言，在shell中可直接调起Linux的命令。">shell脚本（shell script），是一种为shell编写的脚本程序，易编写易调试灵活性，shell脚本是解释执行的脚本语言，在shell中可直接调起Linux的命令。</h2>[slide]<h1 id="与高级编程语言">与高级编程语言</h1></li>
+</ul>
+<p>[slide data-transition=”vertical3d”]<br>理论上讲，只要一门语言提供了解释器（而不仅是编译器），这门语言就可以胜任脚本编程，常见的解释型语言都是可以用作脚本编程的，如：Perl、 Tcl、Python、PHP、Ruby。Perl是最老牌的脚本编程语言了，Python这些年也成了一些linux发行版的预置解释器。 {:&amp;.flexbox.vleft}<br>[slide]<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/php</span></span><br><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">10</span>; <span class="variable">$i</span>++)</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$i</span> . <span class="string">"\n"</span>;</span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/usr/bin/php test.php</span><br><span class="line">或者：</span><br><span class="line">chmod +x test.php</span><br><span class="line">./test.php</span><br></pre></td></tr></table></figure></p>
+<p>[slide data-transition=”vertical3d”]</p>
+<p>#环境<br>[slide]<br>shell编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。 {:&amp;.flexbox.vleft}<br>[slide style=”background-image:url(‘/img/bg1.png’)”]</p>
+<h2 id="一个简单的shell脚本">一个简单的shell脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">mkdir shell_tut</span><br><span class="line"><span class="built_in">cd</span> shell_tut</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ((i=<span class="number">0</span>; i&lt;<span class="number">2</span>; i++)); <span class="keyword">do</span></span><br><span class="line">    touch <span class="built_in">test</span>_<span class="variable">$i</span>.txt</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">＃第<span class="number">1</span>行：指定脚本解释器，这里是用/bin/sh做解释器的</span><br><span class="line">＃第<span class="number">2</span>行：切换到当前用户的home目录</span><br><span class="line">＃第<span class="number">3</span>行：创建一个目录shell_tu</span><br><span class="line">＃第<span class="number">4</span>行：循环创建文件</span><br><span class="line"><span class="comment">#运行 chmod +x ./test1.sh</span></span><br></pre></td></tr></table></figure>
+<p>[slide data-transition=”vertical3d”]</p>
+<p>##变量<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">your_name=<span class="string">"qinjx"</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>在命名变量名时，变量名称只能是英文字母和数字，而且首字母不能是数字</li>
+<li>等号=两边不能有空格</li>
+<li>如果变量值有空格，可用双引号” “或单引号’ ‘来包围变量值，但两者是有区别：双引号”   “内的一些特殊字符，可以保持原有的特性<br>##使用变量</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">your_name=<span class="string">"qinjx"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$your_name</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;your_name&#125;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> skill <span class="keyword">in</span> Ada Coffe Action Java <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"I am good at <span class="variable">$&#123;skill&#125;</span>Script"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>[slide data-transition=”vertical3d”]</p>
+<p>#字符串<br>[slide]<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">str=<span class="string">'this is a string'</span></span><br><span class="line"><span class="comment">#单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的</span></span><br><span class="line"><span class="comment">#单引号字串中不能出现单引号（对单引号使用转义符后也不行）</span></span><br><span class="line"></span><br><span class="line">your_name=<span class="string">'qinjx'</span></span><br><span class="line">str=<span class="string">"Hello, I know your are \"<span class="variable">$your_name</span>\"! \n"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#双引号里可以有变量</span></span><br><span class="line"><span class="comment">#双引号里可以出现转义字符</span></span><br></pre></td></tr></table></figure></p>
+<p>[slide]</p>
+<p>#条件判断与流程控制<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> condition</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">command</span>1 </span><br><span class="line">    <span class="built_in">command</span>2</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">command</span>N </span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var <span class="keyword">in</span> item1 item2 ... itemN; <span class="keyword">do</span> <span class="built_in">command</span>1; <span class="built_in">command</span>2… <span class="keyword">done</span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> condition</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">command</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>另外还有case语句；until语句<br>[slide]</p>
+<h1 id="shell函数">shell函数</h1><p>[slide]<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line"><span class="function"><span class="title">funWithReturn</span></span>()&#123;</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"The function is to get the sum of two numbers..."</span></span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"Input first number: "</span></span><br><span class="line">    <span class="built_in">read</span> aNum</span><br><span class="line">    <span class="built_in">echo</span> -n <span class="string">"Input another number: "</span></span><br><span class="line">    <span class="built_in">read</span> anotherNum</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"The two numbers are <span class="variable">$aNum</span> and <span class="variable">$anotherNum</span> !"</span></span><br><span class="line">    <span class="built_in">return</span> $((<span class="variable">$aNum</span>+<span class="variable">$anotherNum</span>))</span><br><span class="line">&#125;</span><br><span class="line">funWithReturn</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"The sum of two numbers is $? !"</span></span><br></pre></td></tr></table></figure></p>
+<p>[slide]</p>
+<h1 id="重定向_Redirection_{:&amp;-flexbox-vleft}">重定向 Redirection {:&amp;.flexbox.vleft}</h1><p> stdin(&lt;或&lt;&lt;)、stdout(&gt;或&gt;&gt;)、stderr(2&gt;或2&gt;&gt;)</p>
+<p>##将一条命令执行结果（标准输出，或者错误输出，本来都要打印到屏幕上面的）  重定向其它输出设备（文件，打开文件操作符，或打印机等等）<br>[slide]<br><img src="/shell_ppt/shell_redict.png" alt="alt text" title="Title"><br>[slide data-transition=”vertical3d”]</p>
+<h1 id="输出重定向">输出重定向</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span>-line1 [<span class="number">1</span>-n] &gt; file或文件操作符或设备</span><br><span class="line">ls <span class="number">1</span>&gt;suc.txt</span><br><span class="line">who &gt; users</span><br><span class="line">cat users</span><br><span class="line"><span class="comment">#1,2分别是标准输出，错误输出。</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="&gt;与&gt;&gt;(不覆盖追加在内容后面)">&gt;与&gt;&gt;(不覆盖追加在内容后面)</h2><p>例如：echo ‘追加在后面’ &gt;&gt; users<br>[slide]</p>
+<h1 id="输入重定向">输入重定向</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span>-line [n] &lt; file或文件描述符&amp;设备</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wc <span class="operator">-l</span> users</span><br><span class="line">       <span class="number">2</span> users</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span>1 &lt; infile &gt; outfile</span><br></pre></td></tr></table></figure>
+<p>[slide data-transition=”vertical3d”]</p>
+<h1 id="Here_Document">Here Document</h1><p>Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式Shell脚本或程序<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">command</span> &lt;&lt; delimiter</span><br><span class="line">    document</span><br><span class="line">delimite</span><br><span class="line"></span><br><span class="line">$ wc <span class="operator">-l</span> &lt;&lt; EOF</span><br><span class="line">    这是第一行</span><br><span class="line">    这是第二行</span><br><span class="line">    这是第三行</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">cat &lt;&lt; EOF</span><br><span class="line">这是第一行</span><br><span class="line">这是第二行</span><br><span class="line">这是第三行</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>[slide data-transition=”vertical3d”]</p>
+<h1 id="管道_{:&amp;-flexbox-vleft}">管道 {:&amp;.flexbox.vleft}</h1><p> 管道命令操作符是：”|”,它仅能处理经由前面一个指令传出的正确输出信息，也就是 standard output 的信息，对于 stdandard error 信息没有直接处理能力。然后，传递给下一个命令，作为标准的输入.</p>
+<h2 id=""><img src="/img_shell.png" alt="alt text" title="Title"></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat suc.txt|grep -n <span class="string">'D'</span></span><br></pre></td></tr></table></figure>
+<p>[slide]</p>
+<h1 id="grep、awk、sed">grep、awk、sed</h1><h2 id="三剑客">三剑客</h2><h3 id="对创建和修改文本文件的人来说是一个强大工具">对创建和修改文本文件的人来说是一个强大工具</h3><p>[slide]</p>
+<h1 id="grep">grep</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">grep [-acinv] [--color=auto] <span class="string">'搜寻字符串'</span> filename</span><br><span class="line">选项与参数：</span><br><span class="line"><span class="operator">-a</span> ：将 binary 文件以 text 文件的方式搜寻数据</span><br><span class="line">-c ：计算找到 <span class="string">'搜寻字符串'</span> 的次数</span><br><span class="line">-i ：忽略大小写的不同，所以大小写视为相同</span><br><span class="line">-n ：顺便输出行号</span><br><span class="line">-v ：反向选择，亦即显示出没有 <span class="string">'搜寻字符串'</span> 内容的那一行！</span><br><span class="line">--color=auto ：可以将找到的关键词部分加上颜色的显示喔！</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -n <span class="string">'t[ae]st'</span> shell_ppt/regular_express.txt</span><br></pre></td></tr></table></figure>
+<p>[slide]</p>
+<h1 id="awk_{:&amp;-flexbox-vleft}">awk {:&amp;.flexbox.vleft}</h1><p>读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域。默认域分隔符是”空白键” 或 “[tab]键”。<br><img src="/shell_ppt/awk.png" alt="alt text" title="awk工作流程图"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat shell_ppt/regular_awk.txt |awk -F <span class="string">':'</span> <span class="string">'&#123;println $0&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p>[slide data-transition=”vertical3d”]</p>
+<h1 id="sed">sed</h1><p>##sed可以说是一个编辑器逐行处理输入，然后把结果发送到屏幕<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">'s/test/mytest/g'</span> shell_ppt/regular_awk.txt</span><br><span class="line"><span class="comment">#如果没有g标记就只能替换每行第一个</span></span><br><span class="line"><span class="comment">#命令 a/ 在当前行后面加入一行文本</span></span><br><span class="line"><span class="comment">#命令 c/ 新文本改变本行文本等等</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">'2d'</span> shell_ppt/regular_awk.txt</span><br></pre></td></tr></table></figure>
+<p>[slide]</p>
+<h1 id="shell脚本在实际中的用处">shell脚本在实际中的用处</h1><p>[slide]</p>
+<h1 id="That’s_All_Thankyou!">That’s All Thankyou!</h1>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/23/Android自定义控件包含两个TextView/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android自定义控件包含两个TextView</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Shell脚本的初步探析" data-title="Shell脚本的初步探析" data-url="http://yoursite.com/2016/03/24/Shell脚本的初步探析/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Guo Sen
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

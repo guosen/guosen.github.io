@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: 签名 | Dev-Sw</title>
+  <title>Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dev-Sw">
-<meta property="og:url" content="http://yoursite.com/tags/签名/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Dev-Sw">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -196,52 +196,70 @@
 
       <div class="body-wrap">
   
+    <article id="post-第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/15/Android-签名管理/" class="archive-article-date">
-  	<time datetime="2016-03-15T08:51:48.000Z" itemprop="datePublished">Mar 15</time>
+    <div class="article-meta">
+      <a href="/2016/03/02/第一篇博客/" class="article-date">
+  	<time datetime="2016-03-02T05:13:47.000Z" itemprop="datePublished">2016-03-02</time>
 </a>
-        </div>
-    	 
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/15/Android-签名管理/">Android 签名管理</a>
+      <a class="article-title" href="/2016/03/02/第一篇博客/">Bolts</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Download">Download</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-tasks:1.4.0'</span></span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-applinks:1.4.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="简介">简介</h1><h2 id="Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调">Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调</h2><h1 id="用法">用法</h1><h2 id="1定义一个任务">1定义一个任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Task&lt;Void&gt; uploadImages(final Post post, List&lt;Image&gt; images) &#123;</span><br><span class="line">        Task&lt;Void&gt; ret = Task.forResult(null);</span><br><span class="line">        <span class="keyword">for</span> (final Image image : images) &#123;</span><br><span class="line">            ret = ret.onSuccessTask(new Continuation&lt;Void, Task&lt;Void&gt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public Task&lt;Void&gt; <span class="keyword">then</span>(Task&lt;Void&gt; task) throws Exception &#123;</span><br><span class="line">                    <span class="keyword">if</span> (post.mPublishingStatus == PublishingStatus.CANCELED) &#123;</span><br><span class="line">                        //取消发布。</span><br><span class="line">                        <span class="built_in">return</span> Task.forError(new CancelledException());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="built_in">return</span> uploadImage(image);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>2 任务的嵌套<br> onSuccessTask  continueWithTask  </p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/打包/">打包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bolts/">Bolts</a></li></ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      
+      <div class="clearfix"></div>
+    </div>
     
+  </div>
+  
+</article>
 
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
+  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -265,10 +283,10 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
