@@ -294,6 +294,7 @@ form input.st-search-input_my {
   background-color: #000;
   position: absolute;
   opacity: 0.7;
+  z-index: -1;
 }
 #container .left-col .intrude-less {
   width: 76%;
