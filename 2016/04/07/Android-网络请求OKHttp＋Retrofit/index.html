@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Android 网络请求OKHttp＋Retrofit | Dev-Sw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#简介
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 网络请求OKHttp＋Retrofit">
+<meta property="og:url" content="http://yoursite.com/2016/04/07/Android-网络请求OKHttp＋Retrofit/index.html">
+<meta property="og:site_name" content="Dev-Sw">
+<meta property="og:description" content="#简介
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
+<meta property="og:updated_time" content="2016-04-07T15:09:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android 网络请求OKHttp＋Retrofit">
+<meta name="twitter:description" content="#简介
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
+  
+    <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+
+		<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+			<label>Search</label>
+			<input type="text" id="st-search-input" class="st-default-search-input " maxlength="30" placeholder="Search" />
+		</form>
+	
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Guo Sen</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>標籤</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>關於</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/guosen/guosen.github.io" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/1775624907/home?wvr=5" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/question/32037895" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://androidcat.com/">Android标签</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://gold.xitu.io/#/tag/Android">android掘金</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.csdn.net/">CSDN</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.trinea.cn/">Trinea</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/trending?l=java&since=monthly">Github排行</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">守望即是等待Waitting...</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Guo Sen</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/assets/head.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Guo Sen</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/guosen/guosen.github.io" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/1775624907/home?wvr=5" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/question/32037895" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Android-网络请求OKHttp＋Retrofit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/" class="article-date">
+  	<time datetime="2016-04-07T14:47:57.000Z" itemprop="datePublished">2016-04-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android 网络请求OKHttp＋Retrofit
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#简介</p>
+<h2 id="Retrofit是Square开发的网络服务库,_简化Get/Post网络服务的使用,_配合Rx和Dagger有更好的效果-_Retrofit已经更新到第2-0版,_本文介绍一些常见的使用方式-">Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.</h2><p>#引入（gradle）</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:retrofit:2.0.0-beta1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.okhttp:okhttp:2.4.0'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:converter-gson:2.0.0-beta2'</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by shouwang on <span class="number">16</span>/<span class="number">4</span>/<span class="number">7</span>.</span><br><span class="line"> */</span><br><span class="line">public interface ApiService &#123;</span><br><span class="line">    String END_POINT=<span class="string">"http://api.meiyaapp.cn/"</span>;</span><br><span class="line"></span><br><span class="line">    @Headers(<span class="string">"Cache-Control: public, max-age=3600"</span>)</span><br><span class="line">    @GET(<span class="string">"v1/users/&#123;id&#125;?signature=123456"</span>)</span><br><span class="line">    Call&lt;HttpResponse&lt;UserInfo&gt;&gt; getUserInfo(</span><br><span class="line">          @Path(<span class="string">"id"</span>) int id,</span><br><span class="line">          @Query(<span class="string">"with_recipients"</span>) int with_recipients,</span><br><span class="line">          @Query(<span class="string">"with_talent"</span>) int with_talent</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">//其中的@Headers 是在这边增加头部 实现缓存功能</span><br></pre></td></tr></table></figure>
+<p>注：在retrofit2.0里去掉了CallBack接口参数。</p>
+<p>#定义接口服务类，用来管理和创建ApiService</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class ApiManager &#123;</span><br><span class="line">    public static final String HEADER_ACCEPT_JSON = <span class="string">"application/json"</span>;</span><br><span class="line">    public static final String HEADER_ACCEPT      = <span class="string">"Accept"</span>;</span><br><span class="line">    private        ApiService mApiService;</span><br><span class="line">    private static ApiManager sInstance;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public ApiManager(Context context) &#123;</span><br><span class="line">         mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ApiService <span class="function"><span class="title">createService</span></span>() &#123;</span><br><span class="line">         OkHttpClient client=new OkHttpClient();</span><br><span class="line">        //----------</span><br><span class="line">        //设置头部 例如返回类型是Json/text</span><br><span class="line">        //-----------</span><br><span class="line">         client.interceptors().add(new <span class="function"><span class="title">Interceptor</span></span>() &#123;</span><br><span class="line">             @Override</span><br><span class="line">             public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">                 final Request originalRequest = chain.request();</span><br><span class="line">                 final Request requestWithUserAgent = originalRequest.newBuilder()</span><br><span class="line">                         .addHeader(HEADER_ACCEPT, HEADER_ACCEPT_JSON)</span><br><span class="line">                         .build();</span><br><span class="line">                 Response response = chain.proceed(requestWithUserAgent);</span><br><span class="line">                 <span class="built_in">return</span> response;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">        //日志拦截 https://github.com/square/okhttp/wiki/Interceptors</span><br><span class="line">        client.interceptors().add(new LoggingInterceptor());</span><br><span class="line">        client.interceptors().add(new CacheInterceptor(mContext));</span><br><span class="line"></span><br><span class="line">        File cacheFile = new File(mContext.getCacheDir(), <span class="string">"[缓存目录]"</span>);</span><br><span class="line">        Cache cache = new Cache(cacheFile, <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">100</span>); //<span class="number">100</span>Mb</span><br><span class="line">        client.setCache(cache);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //设置请求  并设置HttpClient (OKHttp)</span><br><span class="line">        Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">                .baseUrl(ApiService.END_POINT)</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .client(client)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> retrofit.create(ApiService.class);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ApiService <span class="function"><span class="title">getService</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (mApiService == null) &#123;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mApiService == null)</span><br><span class="line">                    mApiService = createService();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> mApiService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ApiManager getInstance(Context context) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sInstance == null) &#123;</span><br><span class="line">            sInstance = new ApiManager(context.getApplicationContext());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> sInstance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>#Interceptor</p>
+<p>##Interceptor是拦截器, 在发送之前, 添加一些参数, 或者获取一些信息. loggingInterceptor是打印参数.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class CacheInterceptor implements Interceptor &#123;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public CacheInterceptor(Context context)&#123;</span><br><span class="line">        mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        <span class="keyword">if</span>(!NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            request = request.newBuilder()</span><br><span class="line">                    .cacheControl(CacheControl.FORCE_CACHE)</span><br><span class="line">                    .build();</span><br><span class="line">//            Logger.t(TAG).w(<span class="string">"no network"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Response originalResponse = chain.proceed(request);</span><br><span class="line">        <span class="keyword">if</span>(NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置</span><br><span class="line">            String cacheControl = request.cacheControl().toString();</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, cacheControl)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, <span class="string">"public, only-if-cached, max-stale=2419200"</span>)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#Activity里的调用</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;HttpResponse&lt;UserInfo&gt;&gt; call=ApiManager.getInstance(this).getService().getUserInfo(<span class="number">91625</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">call.enqueue(new Callback&lt;HttpResponse&lt;UserInfo&gt;&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onFailure(Throwable t) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onResponse(Response&lt;HttpResponse&lt;UserInfo&gt;&gt; response, Retrofit retrofit) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,response.body().data.username+<span class="string">"    ++++++++++"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/24/Hexo-Yilia-主题配置基于swiftype的站内搜索引擎/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo Yilia 主题配置基于swiftype的站内搜索引擎</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Android-网络请求OKHttp＋Retrofit" data-title="Android 网络请求OKHttp＋Retrofit" data-url="http://yoursite.com/2016/04/07/Android-网络请求OKHttp＋Retrofit/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Guo Sen
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','V_Z4S3cBMEPxHEPFxe2P','2.0.0');
+</script>
+
+
+
+    
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
