@@ -7,21 +7,24 @@
   <title>Android 网络请求OKHttp＋Retrofit | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="#简介
-Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
-##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.https://github.com/guosen/Volley
+#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 网络请求OKHttp＋Retrofit">
 <meta property="og:url" content="http://yoursite.com/2016/04/07/Android-网络请求OKHttp＋Retrofit/index.html">
 <meta property="og:site_name" content="Dev-Sw">
 <meta property="og:description" content="#简介
-Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
-##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
-<meta property="og:updated_time" content="2016-04-07T15:09:05.000Z">
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.https://github.com/guosen/Volley
+#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1">
+<meta property="og:updated_time" content="2016-04-08T10:21:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 网络请求OKHttp＋Retrofit">
 <meta name="twitter:description" content="#简介
-Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.#引入（gradle）
-##1234compile &apos;com.android.support:appcompat-v7:23.2.1&apos;    compile &apos;com.squareup.retrof">
+Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.https://github.com/guosen/Volley
+#引入（gradle）
+##1234compile &apos;com.android.support:appcompat-v7:23.2.1">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -241,7 +244,8 @@ Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 
     <div class="article-entry" itemprop="articleBody">
       
         <p>#简介</p>
-<h2 id="Retrofit是Square开发的网络服务库,_简化Get/Post网络服务的使用,_配合Rx和Dagger有更好的效果-_Retrofit已经更新到第2-0版,_本文介绍一些常见的使用方式-">Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.</h2><p>#引入（gradle）</p>
+<h2 id="Retrofit是Square开发的网络服务库,_简化Get/Post网络服务的使用,_配合Rx和Dagger有更好的效果-_Retrofit已经更新到第2-0版,_本文介绍一些常见的使用方式-">Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.</h2><p><a href="https://github.com/guosen/Volley" target="_blank" rel="external">https://github.com/guosen/Volley</a></p>
+<p>#引入（gradle）</p>
 <p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:retrofit:2.0.0-beta1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.okhttp:okhttp:2.4.0'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:converter-gson:2.0.0-beta2'</span></span><br></pre></td></tr></table></figure></p>
 <hr>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by shouwang on <span class="number">16</span>/<span class="number">4</span>/<span class="number">7</span>.</span><br><span class="line"> */</span><br><span class="line">public interface ApiService &#123;</span><br><span class="line">    String END_POINT=<span class="string">"http://api.meiyaapp.cn/"</span>;</span><br><span class="line"></span><br><span class="line">    @Headers(<span class="string">"Cache-Control: public, max-age=3600"</span>)</span><br><span class="line">    @GET(<span class="string">"v1/users/&#123;id&#125;?signature=123456"</span>)</span><br><span class="line">    Call&lt;HttpResponse&lt;UserInfo&gt;&gt; getUserInfo(</span><br><span class="line">          @Path(<span class="string">"id"</span>) int id,</span><br><span class="line">          @Query(<span class="string">"with_recipients"</span>) int with_recipients,</span><br><span class="line">          @Query(<span class="string">"with_talent"</span>) int with_talent</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">//其中的@Headers 是在这边增加头部 实现缓存功能</span><br></pre></td></tr></table></figure>
