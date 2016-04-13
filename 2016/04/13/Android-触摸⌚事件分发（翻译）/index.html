@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Dev-Sw">
 <meta property="og:description" content="#android 怎样处理触摸事件
 1.每一个用户触摸事件都被当作是一个MotionEvent对象；2.描述用户的当前行为  -ACTION_DOWN  -ACTION_UP  -ACTION_MOVE  -ACTION_POINTER_DOWN  -ACTION_POINTER_UP  -ACTION_CANCEL3.数据包括 -触摸的位置（x,y） -手指数 -时间点 4.手势（gesture">
-<meta property="og:updated_time" content="2016-04-13T08:48:18.000Z">
+<meta property="og:updated_time" content="2016-04-13T09:05:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 触摸事件分发详解（翻译）">
 <meta name="twitter:description" content="#android 怎样处理触摸事件
@@ -242,7 +242,7 @@
 <p> #android处理触摸事件流程<br> 1.事件的起始点是Activity的dispatchTouchEvent()<br> 2.事件是从上一层往下传递（ViewGroup-&gt;子View），并且可以在任意一层intercept（拦截事件）<br> 3.任何没有被消费的事件最终都会到Activity的onTouchEvent()去处理<br> 4.监听器onTouchListener可以拦截onTouch()z在任意一个View和viewGroup；</p>
 <p> #android处理触摸事各个流程<br> 1.Activity.dispatchTouchEvent()<br> 这个是最先被调用的<br> 分发事件到Root view（attch to window）<br> 2.view.onTouchEvent()<br> -发送事件到监听（如果有view.onTouchListener.onTouch()）<br> -如果没有消费会调用自己的View.onTouchEvent()<br> 3.viewGroup.dispatchTouchEvent()<br> -oninterceptTouchEvent(检查是否粗腰传递给子View)<br> -对于每个子控件，以相反的顺序分发事件<br> -如果没有子控件处理事件，就会传到OnTouchListener.onTouch()<br> -如果没有监听 onToucheEvent()<br> 4.Intercept (拦截事件)跳过子控件</p>
 <p> #自定义Touch事件<br> 1.重写onTouchEvent方法；<br> 2.消费事件（return true）<br> 3.有用的常量ViewConfiguration<br> -getScaledTouchSlop()<br> (拖动最短距离)<br> -getScaledMinimumFlingVelocity(最少平滑距离)<br> -getLongPressTimeout()<br> 判定为长按时间值；</p>
-<p> 原文：<a href="http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank" rel="external">http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf</a></p>
+<p> 原文：<a href="http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank" rel="external">http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf</a><br> 事例项目：<a href="https://github.com/guosen/custom-touch-examples" target="_blank" rel="external">https://github.com/guosen/custom-touch-examples</a></p>
 
       
     </div>
