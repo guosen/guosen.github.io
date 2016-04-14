@@ -4,21 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Android 触摸事件分发详解（翻译） | Dev-Sw</title>
+  <title>2016 新浪微博 Android 面试题 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#android 怎样处理触摸事件
-1.每一个用户触摸事件都被当作是一个MotionEvent对象；2.描述用户的当前行为  -ACTION_DOWN  -ACTION_UP  -ACTION_MOVE  -ACTION_POINTER_DOWN  -ACTION_POINTER_UP  -ACTION_CANCEL3.数据包括 -触摸的位置（x,y） -手指数 -时间点 4.手势（gesture">
+  <meta name="description" content="静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？##1.静态内部类：使用static修饰的内部类2.匿名内部类：使用new生成的内部类3.因为内部类的产生依赖于外部类，持有的引用是类名.this。
+ArrayList和Vector的主要区别是什么？ArrayList在Java1.2引入，用于替换VectorVector:## -线程同步 -当Vect">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 触摸事件分发详解（翻译）">
-<meta property="og:url" content="http://yoursite.com/2016/04/13/Android-触摸⌚事件分发（翻译）/index.html">
+<meta property="og:title" content="2016 新浪微博 Android 面试题">
+<meta property="og:url" content="http://yoursite.com/2016/04/14/Android-面试题/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="#android 怎样处理触摸事件
-1.每一个用户触摸事件都被当作是一个MotionEvent对象；2.描述用户的当前行为  -ACTION_DOWN  -ACTION_UP  -ACTION_MOVE  -ACTION_POINTER_DOWN  -ACTION_POINTER_UP  -ACTION_CANCEL3.数据包括 -触摸的位置（x,y） -手指数 -时间点 4.手势（gesture">
-<meta property="og:updated_time" content="2016-04-13T09:05:54.000Z">
+<meta property="og:description" content="静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？##1.静态内部类：使用static修饰的内部类2.匿名内部类：使用new生成的内部类3.因为内部类的产生依赖于外部类，持有的引用是类名.this。
+ArrayList和Vector的主要区别是什么？ArrayList在Java1.2引入，用于替换VectorVector:## -线程同步 -当Vect">
+<meta property="og:updated_time" content="2016-04-14T08:36:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 触摸事件分发详解（翻译）">
-<meta name="twitter:description" content="#android 怎样处理触摸事件
-1.每一个用户触摸事件都被当作是一个MotionEvent对象；2.描述用户的当前行为  -ACTION_DOWN  -ACTION_UP  -ACTION_MOVE  -ACTION_POINTER_DOWN  -ACTION_POINTER_UP  -ACTION_CANCEL3.数据包括 -触摸的位置（x,y） -手指数 -时间点 4.手势（gesture">
+<meta name="twitter:title" content="2016 新浪微博 Android 面试题">
+<meta name="twitter:description" content="静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？##1.静态内部类：使用static修饰的内部类2.匿名内部类：使用new生成的内部类3.因为内部类的产生依赖于外部类，持有的引用是类名.this。
+ArrayList和Vector的主要区别是什么？ArrayList在Java1.2引入，用于替换VectorVector:## -线程同步 -当Vect">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -204,11 +204,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Android-触摸⌚事件分发（翻译）" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android-面试题" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/13/Android-触摸⌚事件分发（翻译）/" class="article-date">
-  	<time datetime="2016-04-13T07:58:42.000Z" itemprop="datePublished">2016-04-13</time>
+      <a href="/2016/04/14/Android-面试题/" class="article-date">
+  	<time datetime="2016-04-14T08:11:50.000Z" itemprop="datePublished">2016-04-14</time>
 </a>
     </div>
   
@@ -221,7 +221,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Android 触摸事件分发详解（翻译）
+      2016 新浪微博 Android 面试题
     </h1>
   
 
@@ -237,12 +237,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#android 怎样处理触摸事件</p>
-<h2 id="1-每一个用户触摸事件都被当作是一个MotionEvent对象；">1.每一个用户触摸事件都被当作是一个MotionEvent对象；</h2><p>2.描述用户的当前行为<br>  -ACTION_DOWN<br>  -ACTION_UP<br>  -ACTION_MOVE<br>  -ACTION_POINTER_DOWN<br>  -ACTION_POINTER_UP<br>  -ACTION_CANCEL<br>3.数据包括<br> -触摸的位置（x,y）<br> -手指数<br> -时间点<br> 4.手势（gesture）就是从ACTION_DOWN到ACTION_UP之间过程</p>
-<p> #android处理触摸事件流程<br> 1.事件的起始点是Activity的dispatchTouchEvent()<br> 2.事件是从上一层往下传递（ViewGroup-&gt;子View），并且可以在任意一层intercept（拦截事件）<br> 3.任何没有被消费的事件最终都会到Activity的onTouchEvent()去处理<br> 4.监听器onTouchListener可以拦截onTouch()z在任意一个View和viewGroup；</p>
-<p> #android处理触摸事各个流程<br> 1.Activity.dispatchTouchEvent()<br> 这个是最先被调用的<br> 分发事件到Root view（attch to window）<br> 2.view.onTouchEvent()<br> -发送事件到监听（如果有view.onTouchListener.onTouch()）<br> -如果没有消费会调用自己的View.onTouchEvent()<br> 3.viewGroup.dispatchTouchEvent()<br> -oninterceptTouchEvent(检查是否粗腰传递给子View)<br> -对于每个子控件，以相反的顺序分发事件<br> -如果没有子控件处理事件，就会传到OnTouchListener.onTouch()<br> -如果没有监听 onToucheEvent()<br> 4.Intercept (拦截事件)跳过子控件</p>
-<p> #自定义Touch事件<br> 1.重写onTouchEvent方法；<br> 2.消费事件（return true）<br> 3.有用的常量ViewConfiguration<br> -getScaledTouchSlop()<br> (拖动最短距离)<br> -getScaledMinimumFlingVelocity(最少平滑距离)<br> -getLongPressTimeout()<br> 判定为长按时间值；</p>
-<p> 原文：<a href="http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank" rel="external">http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf</a><br> 事例项目：<a href="https://github.com/guosen/custom-touch-examples" target="_blank" rel="external">https://github.com/guosen/custom-touch-examples</a></p>
+        <h1 id="静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？">静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？</h1><p>##<br>1.静态内部类：使用static修饰的内部类<br>2.匿名内部类：使用new生成的内部类<br>3.因为内部类的产生依赖于外部类，持有的引用是类名.this。</p>
+<h1 id="ArrayList和Vector的主要区别是什么？">ArrayList和Vector的主要区别是什么？</h1><h2 id="ArrayList在Java1-2引入，用于替换Vector">ArrayList在Java1.2引入，用于替换Vector</h2><h1 id="Vector:">Vector:</h1><p>##<br> -线程同步<br> -当Vector中的元素超过它的初始大小时，Vector会将它的容量翻倍</p>
+<p> #ArrayList:</p>
+<p> ##<br> 1.线程不同步，但性能很好<br> 2.当ArrayList中的元素超过它的初始大小时，ArrayList只增加50%的大小</p>
+<p> #Java中try catch finally的执行顺序</p>
+<p> ##先执行try中代码发生异常执行catch中代码，最后一定会执行finally中代码</p>
+<p> #switch是否能作用在byte上，是否能作用在long上，是否能作用在String上？</p>
+<p> ##switch支持使用byte类型，不支持long类型，String支持在java1.7引入</p>
+<p> #Activity和Fragment生命周期有哪些？</p>
+<p> ##<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> Activity——onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onDestroy</span><br><span class="line">Fragment——onAttach-&gt;onCreate-&gt;onCreateView-&gt;onActivityCreated-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onDestroyView-&gt;onDestroy-&gt;onDetach</span><br></pre></td></tr></table></figure></p>
+<p>#onInterceptTouchEvent()和onTouchEvent()的区别？</p>
+<h2 id="onInterceptTouchEvent()用于拦截触摸事件">onInterceptTouchEvent()用于拦截触摸事件</h2><p>onTouchEvent()用于处理触摸事件</p>
+<p>#RemoteView在哪些功能中使用</p>
+<p>##APPwidget和Notification中</p>
+<p>#SurfaceView和View的区别是什么？</p>
+<p>##SurfaceView中采用了双缓存技术，在单独的线程中更新界面<br>View在UI线程中更新界面</p>
+<p>#讲一下android中进程的优先级？</p>
+<p>#一面</p>
+<p>##service生命周期，可以执行耗时操作吗？<br>JNI开发流程<br>Java线程池，线程同步<br>自己设计一个图片加载框架<br>自定义View相关方法<br>http ResponseCode<br>插件化，动态加载<br>性能优化，MAT<br>AsyncTask原理</p>
+<p>#二面<br>所使用的开源框架的实现原理，源码<br>没看过，被pass了<br>去面试之前把用到的开源框架源码分析一定要看看啊</p>
 
       
     </div>
@@ -252,18 +266,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/14/Android-面试题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          2016 新浪微博 Android 面试题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Android 网络请求OKHttp＋Retrofit</div>
+    <a href="/2016/04/13/Android-触摸⌚事件分发（翻译）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android 触摸事件分发详解（翻译）</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -298,7 +303,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android-触摸⌚事件分发（翻译）" data-title="Android 触摸事件分发详解（翻译）" data-url="http://yoursite.com/2016/04/13/Android-触摸⌚事件分发（翻译）/"></div>
+	<div class="ds-thread" data-thread-key="Android-面试题" data-title="2016 新浪微博 Android 面试题" data-url="http://yoursite.com/2016/04/14/Android-面试题/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

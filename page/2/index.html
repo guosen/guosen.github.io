@@ -202,6 +202,67 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android-PreferenceFragment的用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/09/Android-PreferenceFragment的用法/" class="article-date">
+  	<time datetime="2016-03-09T04:07:07.000Z" itemprop="datePublished">2016-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/09/Android-PreferenceFragment的用法/">Android PreferenceFragment的用法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;PreferenceCategory android:title=<span class="string">"就看天气"</span>&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"introduction"</span></span><br><span class="line">            android:title=<span class="string">"应用介绍"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"current_version"</span></span><br><span class="line">            android:title=<span class="string">"当前版本"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"check_version"</span></span><br><span class="line">            android:title=<span class="string">"检查更新"</span>/&gt;</span><br><span class="line">    &lt;/PreferenceCategory&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">	 addPreferencesFromResource(R.xml.about);</span><br><span class="line">     mIntroduction = findPreference(INTRODUCTION);</span><br><span class="line">     mIntroduction.setOnPreferenceClickListener(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>按钮点击事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> @Override public boolean onPreferenceClick(Preference preference) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mShare == preference)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Preference/">Preference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
