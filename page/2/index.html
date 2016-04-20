@@ -202,6 +202,64 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android-Activity的详解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/15/Android-Activity的详解/" class="article-date">
+  	<time datetime="2016-03-15T03:30:34.000Z" itemprop="datePublished">2016-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/Android-Activity的详解/">Android Activity的详解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Activity的生命周期">Activity的生命周期</h1><h2 id="在Android中Activity状态分为：1-激活态（Active）一个新的Activity入栈后，展示屏幕的最前端，可以与用户交互；2-OnPause：当一个Activity被一个透明或者Dialog样式的Activity给覆盖时的状态，依然可见，但是失去焦点，不能与用户交互；">在Android中Activity状态分为：1.激活态（Active）一个新的Activity入栈后，展示屏幕的最前端，可以与用户交互；2.OnPause：当一个Activity被一个透明或者Dialog样式的Activity给覆盖时的状态，依然可见，但是失去焦点，不能与用户交互；</h2><p>3.onStop:失去焦点（同样是被覆盖、不可见）<br>4.Killed：被系统杀死回收或者没有被启动。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line"> protected void <span class="function"><span class="title">onStart</span></span>() &#123;</span><br><span class="line">     super.onStart();</span><br><span class="line">     // onCreate() 方法之后被调用，或者在 Activity 从 Stop 状态转换为 Active 状态时被调用.</span><br><span class="line"> &#125;</span><br><span class="line"> @Override</span><br><span class="line"> protected void <span class="function"><span class="title">onStop</span></span>() &#123;</span><br><span class="line">     Log.i(Tag,<span class="string">"OnStop====================="</span>);//Activity变成不可见 失去焦点</span><br><span class="line">     super.onStop();</span><br><span class="line">     //Activity 从 Active 状态转换到 Stop 态时被调用。一般我们在这里保存 Activity 的状态信息</span><br><span class="line"> &#125;</span><br><span class="line"> @Override</span><br><span class="line"> protected void <span class="function"><span class="title">onPause</span></span>() &#123;</span><br><span class="line">     Log.i(Tag,<span class="string">"onPause====================="</span>);//Activity状态依然可见 失去jiaodian不能交互//<span class="number">1</span></span><br><span class="line">     super.onPause();</span><br><span class="line"> &#125;</span><br><span class="line"> @Override</span><br><span class="line"> protected void <span class="function"><span class="title">onResume</span></span>() &#123;</span><br><span class="line">     Log.i(Tag,<span class="string">"onResume====================="</span>);</span><br><span class="line">     super.onResume();</span><br><span class="line">     //Activity 从 Pause 状态转&lt;--&gt; Active 状态时被调用。</span><br><span class="line"> &#125;</span><br><span class="line"> @Override</span><br><span class="line"> protected void <span class="function"><span class="title">onDestroy</span></span>() &#123;</span><br><span class="line">     super.onDestroy();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Activity栈">Activity栈</h1><h2 id="Android_是通过一种_Activity_栈的方式来管理_Activity_的，一个_Activity_的实例的状态决定它在栈中的位置。处于前台的_Activity_总是在栈的顶端，当前台的_Activity_因为异常或其它原因被销毁时，处于栈第二层的_Activity_将被激活，上浮到栈顶。当新的_Activity_启动入栈时，原_Activity_会被压入到栈的第二层。一个_Activity_在栈中的位置变化反映了它在不同状态间的转换。">Android 是通过一种 Activity 栈的方式来管理 Activity 的，一个 Activity 的实例的状态决定它在栈中的位置。处于前台的 Activity 总是在栈的顶端，当前台的 Activity 因为异常或其它原因被销毁时，处于栈第二层的 Activity 将被激活，上浮到栈顶。当新的 Activity 启动入栈时，原 Activity 会被压入到栈的第二层。一个 Activity 在栈中的位置变化反映了它在不同状态间的转换。</h2><h1 id="Activity_的_Intent_Filter">Activity 的 Intent Filter</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;intent-filter &gt; </span><br><span class="line">&lt;action android:name=<span class="string">"android.intent.action.MAIN"</span> /&gt; </span><br><span class="line">&lt;action android:name=<span class="string">"com.zy.myaction"</span> /&gt; </span><br><span class="line">&lt;/intent-filter&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-中关于视频检索" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

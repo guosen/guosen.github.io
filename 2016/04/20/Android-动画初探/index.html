@@ -4,30 +4,33 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>AndFix使用说明(android 热修复打补丁) | Dev-Sw</title>
+  <title>Android 动画初探 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#介绍
-开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。#使用方式
-##添加依赖库1compile &apos;com.alipay.euler:andfix:0.4.0@aar&apos;
-##添加so文件可以参考https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT
-#Application">
+  <meta name="description" content="#Tween动画(Creates an animation by performing a series of transformations on a single image with an Animation)
+
+缩放
+平移
+渐变
+旋转xml实现123456789101112131415161718192021&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AndFix使用说明(android 热修复打补丁)">
-<meta property="og:url" content="http://yoursite.com/2016/04/18/AndFix使用说明-android-热修复打补丁/index.html">
+<meta property="og:title" content="Android 动画初探">
+<meta property="og:url" content="http://yoursite.com/2016/04/20/Android-动画初探/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="#介绍
-开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。#使用方式
-##添加依赖库1compile &apos;com.alipay.euler:andfix:0.4.0@aar&apos;
-##添加so文件可以参考https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT
-#Application">
-<meta property="og:updated_time" content="2016-04-18T14:51:46.000Z">
+<meta property="og:description" content="#Tween动画(Creates an animation by performing a series of transformations on a single image with an Animation)
+
+缩放
+平移
+渐变
+旋转xml实现123456789101112131415161718192021&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;">
+<meta property="og:updated_time" content="2016-04-20T03:08:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AndFix使用说明(android 热修复打补丁)">
-<meta name="twitter:description" content="#介绍
-开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。#使用方式
-##添加依赖库1compile &apos;com.alipay.euler:andfix:0.4.0@aar&apos;
-##添加so文件可以参考https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT
-#Application">
+<meta name="twitter:title" content="Android 动画初探">
+<meta name="twitter:description" content="#Tween动画(Creates an animation by performing a series of transformations on a single image with an Animation)
+
+缩放
+平移
+渐变
+旋转xml实现123456789101112131415161718192021&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -213,11 +216,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-AndFix使用说明-android-热修复打补丁" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android-动画初探" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/04/18/AndFix使用说明-android-热修复打补丁/" class="article-date">
-  	<time datetime="2016-04-18T14:08:23.000Z" itemprop="datePublished">2016-04-18</time>
+      <a href="/2016/04/20/Android-动画初探/" class="article-date">
+  	<time datetime="2016-04-20T02:56:53.000Z" itemprop="datePublished">2016-04-20</time>
 </a>
     </div>
   
@@ -230,7 +233,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      AndFix使用说明(android 热修复打补丁)
+      Android 动画初探
     </h1>
   
 
@@ -238,10 +241,6 @@
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AndFix/">AndFix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/热修复/">热修复</a></li></ul>
-	</div>
-
         
 
         <div class="clearfix"></div>
@@ -250,17 +249,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#介绍</p>
-<h2 id="开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android_2-3_到_6-0。">开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。</h2><p>#使用方式</p>
-<p>##添加依赖库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.alipay.euler:andfix:0.4.0@aar'</span></span><br></pre></td></tr></table></figure></p>
-<p>##添加so文件<br>可以参考<a href="https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT" target="_blank" rel="external">https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT</a></p>
-<p>#Application代码</p>
-<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">patchManager = new PatchManager(this);</span><br><span class="line">       patchManager.init(getAppVersion());//current version</span><br><span class="line">       patchManager.loadPatch();</span><br></pre></td></tr></table></figure></p>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">            patchManager.addPatch(Environment.getExternalStorageDirectory() + <span class="string">"/v.apatch"</span>);</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,<span class="string">"success"</span>);</span><br><span class="line">        &#125;catch (Exception ex)&#123;</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,ex.getMessage());</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,Environment.getExternalStorageDirectory().toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">public String <span class="function"><span class="title">getAppVersion</span></span>()&#123;</span><br><span class="line">        String appversion=<span class="string">""</span>;</span><br><span class="line">        try &#123;</span><br><span class="line">             appversion = getPackageManager().getPackageInfo(getPackageName(), <span class="number">0</span>).versionName;</span><br><span class="line">        &#125;catch (PackageManager.NameNotFoundException ex)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;finally &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> appversion;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>#生成补丁文件Patch</p>
-<p>##工具 apkpatch</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./apkpatch.sh <span class="operator">-f</span> volly2.apk -t volly.apk -k guosen.jks -p <span class="number">123456</span> <span class="operator">-a</span> lin <span class="operator">-e</span> <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+        <p>#Tween动画<br>(Creates an animation by performing a series of transformations on a single image with an Animation)</p>
+<ul>
+<li>缩放</li>
+<li>平移</li>
+<li>渐变</li>
+<li>旋转<h2 id="xml实现">xml实现</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line">&lt;<span class="built_in">set</span></span><br><span class="line">    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:ordering=<span class="string">"together"</span></span><br><span class="line">    android:duration=<span class="string">"2000"</span>&gt;</span><br><span class="line">    &lt;alpha</span><br><span class="line">        android:fromAlpha=<span class="string">"1.0"</span></span><br><span class="line">        android:toAlpha=<span class="string">"0.0"</span></span><br><span class="line">        &gt;&lt;/alpha&gt;</span><br><span class="line">    &lt;scale</span><br><span class="line">        android:fromXScale=<span class="string">"0"</span></span><br><span class="line">        android:fromYScale=<span class="string">"0"</span></span><br><span class="line">        android:pivotX=<span class="string">"0.5"</span></span><br><span class="line">        android:pivotY=<span class="string">"0.5"</span></span><br><span class="line">        android:toXScale=<span class="string">"50dp"</span></span><br><span class="line">        android:toYScale=<span class="string">"50dp"</span>/&gt;</span><br><span class="line">&lt;/<span class="built_in">set</span>&gt;</span><br><span class="line">//alpha              渐变透明度动画效果</span><br><span class="line">//scale              渐变尺寸伸缩动画效果</span><br><span class="line">//translate         画面位置移动动画效果</span><br><span class="line">//rotate              画面旋转动画效果</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>###调用动画<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageView image = (ImageView) findViewById(R.id.image);</span><br><span class="line">Animation hyperspaceJump = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);</span><br><span class="line">image.startAnimation(hyperspaceJump);</span><br></pre></td></tr></table></figure></p>
+<h2 id="插值器">插值器</h2><h3 id="用于修改一个动画过程中的速率，可以定义各种各样的非线性变化函数，比如加速、减速等。">用于修改一个动画过程中的速率，可以定义各种各样的非线性变化函数，比如加速、减速等。</h3><p>在Android中所有的插值器都是Interpolator 的子类，通过 android:interpolator 属性你可以引用不同的插值器</p>
+<p>#Frame 动画</p>
+<h2 id="逐帧播放动画">逐帧播放动画</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;animation-list xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">   android:oneshot=[<span class="string">"true"</span> | <span class="string">"false"</span>] &gt;</span><br><span class="line">	&lt;item</span><br><span class="line">		android:drawable=<span class="string">"@[package:]drawable/drawable_resource_name"</span></span><br><span class="line">		android:duration=<span class="string">"integer"</span> /&gt;</span><br><span class="line">&lt;/animation-list&gt;</span><br></pre></td></tr></table></figure>
+<p>调用代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image);</span><br><span class="line">rocketImage.setBackgroundResource(R.drawable.rocket_thrust);</span><br><span class="line">rocketAnimation = (AnimationDrawable) rocketImage.getBackground();</span><br><span class="line">rocketAnimation.start();&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#参考文献<br><a href="http://www.lightskystreet.com/2015/05/23/anim_basic_knowledge/" target="_blank" rel="external">http://www.lightskystreet.com/2015/05/23/anim_basic_knowledge/</a></p>
 
       
     </div>
@@ -270,18 +272,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/20/Android-动画初探/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android 动画初探
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/04/14/Android-面试题/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">2016 新浪微博 Android 面试题</div>
+    <a href="/2016/04/18/AndFix使用说明-android-热修复打补丁/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AndFix使用说明(android 热修复打补丁)</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -316,7 +309,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="AndFix使用说明-android-热修复打补丁" data-title="AndFix使用说明(android 热修复打补丁)" data-url="http://yoursite.com/2016/04/18/AndFix使用说明-android-热修复打补丁/"></div>
+	<div class="ds-thread" data-thread-key="Android-动画初探" data-title="Android 动画初探" data-url="http://yoursite.com/2016/04/20/Android-动画初探/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
