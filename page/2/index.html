@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/AndFix/" style="font-size: 10px;">AndFix</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a>
+						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/AndFix/" style="font-size: 10px;">AndFix</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/RecycleView/" style="font-size: 10px;">RecycleView</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/打包/" style="font-size: 10px;">打包</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/瀑布流/" style="font-size: 10px;">瀑布流</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a>
 					</div>
 				</section>
 				
@@ -201,6 +201,76 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Android-签名管理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/15/Android-签名管理/" class="article-date">
+  	<time datetime="2016-03-15T08:51:48.000Z" itemprop="datePublished">2016-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/Android-签名管理/">Android 签名管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="采用jdk生成签名">采用jdk生成签名</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -alias android.keystore -keyalg RSA -validity <span class="number">20000</span> -keystore android.keystore</span><br></pre></td></tr></table></figure></p>
+<h1 id="查看签名信息">查看签名信息</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list -v -keystore debug.keystore</span><br></pre></td></tr></table></figure></p>
+<h1 id="给项目签名">给项目签名</h1><h2 id="可以在项目文件下新建keystoere-properties,内容写上">可以在项目文件下新建keystoere.properties,内容写上</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">keystore=sw.keystore</span><br><span class="line">storePassword=<span class="number">123456</span></span><br><span class="line">keyAlias=sw.keystore</span><br><span class="line">keyPassword=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+<p>把事先生成的签名文件复制在根目录下。</p>
+<p>#Gradle 脚本</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">java.io.File signFile=rootProject.file(<span class="string">"keystoere.properties"</span>)</span><br><span class="line">   <span class="keyword">if</span>(signFile.exists())&#123;</span><br><span class="line">       System.println(<span class="string">"file exist"</span>);</span><br><span class="line">       Properties properties=new Properties();</span><br><span class="line">       properties.load(new FileInputStream(signFile));</span><br><span class="line">       signingConfigs&#123;</span><br><span class="line">           release&#123;</span><br><span class="line">               storeFile rootProject.file(properties[<span class="string">'keystore'</span>])</span><br><span class="line">               storePassword properties[<span class="string">'storePassword'</span>]</span><br><span class="line">               keyAlias properties[<span class="string">'keyAlias'</span>]</span><br><span class="line">               keyPassword properties[<span class="string">'keyPassword'</span>]</span><br><span class="line">               System.println(storeFile);</span><br><span class="line">               System.println(keyAlias);</span><br><span class="line">               System.println(keyPassword);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       System.println(<span class="string">"file not exist"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：写脚本时候，变量要定义在被引用之前；<br>如果出现读取签名文件错误 检查信息是否写错；</p>
+<p>#运行脚本打包</p>
+<p>##</p>
+<ol>
+<li>./gradlew assemRelease 正式包</li>
+<li>./gradlew assemDebug 打测试包</li>
+</ol>
+<p>参考文章：<a href="https://yeungeek.gitbooks.io/gradle-plugin-user-guide/content/signing_configurations.html" target="_blank" rel="external">https://yeungeek.gitbooks.io/gradle-plugin-user-guide/content/signing_configurations.html</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/打包/">打包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Android-Activity的详解" class="article article-type-post" itemscope itemprop="blogPost">
   
