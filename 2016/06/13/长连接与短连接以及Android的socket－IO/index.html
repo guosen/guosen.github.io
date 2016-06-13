@@ -4,17 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: shell | Dev-Sw</title>
+  <title>长连接与短连接以及Android的socket－IO | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Dev-Sw">
-<meta property="og:url" content="http://yoursite.com/tags/shell/index.html">
+  <meta name="description" content="TCP/IP是什么？TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。在网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议。
+在传输层中有TCP协议与UDP协议。
+在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。
+Socket是什么呢？Socket是应用层与TCP/IP协议族通信的中间软件抽象层，一组接口，把复杂的TCP/IP协议族隐藏在Soc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="长连接与短连接以及Android的socket－IO">
+<meta property="og:url" content="http://yoursite.com/2016/06/13/长连接与短连接以及Android的socket－IO/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description">
+<meta property="og:description" content="TCP/IP是什么？TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。在网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议。
+在传输层中有TCP协议与UDP协议。
+在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。
+Socket是什么呢？Socket是应用层与TCP/IP协议族通信的中间软件抽象层，一组接口，把复杂的TCP/IP协议族隐藏在Soc">
+<meta property="og:updated_time" content="2016-06-13T08:16:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dev-Sw">
-<meta name="twitter:description">
+<meta name="twitter:title" content="长连接与短连接以及Android的socket－IO">
+<meta name="twitter:description" content="TCP/IP是什么？TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。在网络层有IP协议、ICMP协议、ARP协议、RARP协议和BOOTP协议。
+在传输层中有TCP协议与UDP协议。
+在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。
+Socket是什么呢？Socket是应用层与TCP/IP协议族通信的中间软件抽象层，一组接口，把复杂的TCP/IP协议族隐藏在Soc">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -200,53 +210,117 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-长连接与短连接以及Android的socket－IO" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/24/Shell脚本的初步探析/" class="archive-article-date">
-  	<time datetime="2016-03-24T05:34:08.000Z" itemprop="datePublished">Mar 24</time>
+    <div class="article-meta">
+      <a href="/2016/06/13/长连接与短连接以及Android的socket－IO/" class="article-date">
+  	<time datetime="2016-06-13T08:06:05.000Z" itemprop="datePublished">2016-06-13</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/24/Shell脚本的初步探析/">Shell脚本的初步探析</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      长连接与短连接以及Android的socket－IO
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/长连接/">长连接</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="TCP/IP是什么？">TCP/IP是什么？</h1><h2 id="TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。">TCP/IP是个协议组，可分为三个层次：网络层、传输层和应用层。</h2><pre><code>在网络层有<span class="literal">IP</span>协议、ICMP协议、ARP协议、RARP协议和<span class="keyword">BOOTP协议。
+</span>在传输层中有TCP协议与UDP协议。
+在应用层有FTP、HTTP、TELNET、SMTP、DNS等协议。
+</code></pre><h1 id="Socket是什么呢？">Socket是什么呢？</h1><h2 id="Socket是应用层与TCP/IP协议族通信的中间软件抽象层，一组接口，把复杂的TCP/IP协议族隐藏在Socket接口后面">Socket是应用层与TCP/IP协议族通信的中间软件抽象层，一组接口，把复杂的TCP/IP协议族隐藏在Socket接口后面</h2><p>#短连接</p>
+<h2 id="连接-&gt;传输数据-&gt;关闭连接">连接-&gt;传输数据-&gt;关闭连接</h2><pre><code>HTTP是无状态的，浏览器和服务器每进行一次HTTP操作，就建立一次连接，但任务结束就中断连接。
+也可以这样说：短连接是指SOCKET连接后发送后接收完数据后马上断开连接。
+</code></pre><p>#长连接</p>
+<h2 id="连接-&gt;传输数据-&gt;保持连接_-&gt;_传输数据-&gt;_。。。_-&gt;关闭连接。">连接-&gt;传输数据-&gt;保持连接 -&gt; 传输数据-&gt; 。。。 -&gt;关闭连接。</h2><pre><code>长连接指建立SOCKET连接后不管是否使用都保持连接，但安全性较差。
+</code></pre><p>http的长连接：<br>    HTTP也可以建立长连接的，使用Connection:keep-alive，HTTP 1.1默认进行持久连接。HTTP1.1和HTTP1.0相比较而言，最大的区别就是增加了持久连接支持(貌<br> 似最新的 http1.0 可以显示的指定 keep-alive),但还是无状态的，或者说是不可以信任的。</p>
+<h1 id="参考文章">参考文章</h1><h2 id="http://www-jianshu-com/p/584707554ed7"><a href="http://www.jianshu.com/p/584707554ed7" target="_blank" rel="external">http://www.jianshu.com/p/584707554ed7</a></h2>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/06/Android-H5-采用Gradle管理离线包/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Android H5 采用Gradle管理离线包</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="长连接与短连接以及Android的socket－IO" data-title="长连接与短连接以及Android的socket－IO" data-url="http://yoursite.com/2016/06/13/长连接与短连接以及Android的socket－IO/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 </div>
       <footer id="footer">
@@ -284,9 +358,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
