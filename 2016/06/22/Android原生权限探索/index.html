@@ -4,36 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Android 消息机制Handle-Looper-Message | Dev-Sw</title>
+  <title>Android原生权限探索 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
+  <meta name="description" content="AppOpsManagerAppOps就是管理应用权限，但是API被谷歌隐藏了。###就是我们平常说的应用程序权限管理，但是每次更新时，谷歌都会隐藏入口。（6.0y已经加入运行时权限 也就是基于该类的）
+AppOpsManager总体概览核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 消息机制Handle-Looper-Message">
-<meta property="og:url" content="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/index.html">
+<meta property="og:title" content="Android原生权限探索">
+<meta property="og:url" content="http://yoursite.com/2016/06/22/Android原生权限探索/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
-<meta property="og:updated_time" content="2016-03-11T05:09:59.000Z">
+<meta property="og:description" content="AppOpsManagerAppOps就是管理应用权限，但是API被谷歌隐藏了。###就是我们平常说的应用程序权限管理，但是每次更新时，谷歌都会隐藏入口。（6.0y已经加入运行时权限 也就是基于该类的）
+AppOpsManager总体概览核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops">
+<meta property="og:updated_time" content="2016-06-22T08:54:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 消息机制Handle-Looper-Message">
-<meta name="twitter:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
+<meta name="twitter:title" content="Android原生权限探索">
+<meta name="twitter:description" content="AppOpsManagerAppOps就是管理应用权限，但是API被谷歌隐藏了。###就是我们平常说的应用程序权限管理，但是每次更新时，谷歌都会隐藏入口。（6.0y已经加入运行时权限 也就是基于该类的）
+AppOpsManager总体概览核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -219,11 +204,11 @@ publicHandler(Looperlooper, Callbackcallback)
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Android原生权限探索" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
-  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
+      <a href="/2016/06/22/Android原生权限探索/" class="article-date">
+  	<time datetime="2016-06-22T08:42:53.000Z" itemprop="datePublished">2016-06-22</time>
 </a>
     </div>
   
@@ -236,7 +221,7 @@ publicHandler(Looperlooper, Callbackcallback)
         
   
     <h1 class="article-title" itemprop="name">
-      Android 消息机制Handle-Looper-Message
+      Android原生权限探索
     </h1>
   
 
@@ -245,7 +230,7 @@ publicHandler(Looperlooper, Callbackcallback)
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权限/">权限</a></li></ul>
 	</div>
 
         
@@ -256,23 +241,14 @@ publicHandler(Looperlooper, Callbackcallback)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
-<li>publicHandler() </li>
-<li>publicHandler(Callbackcallback) </li>
-<li>publicHandler(Looperlooper) </li>
-<li>publicHandler(Looperlooper, Callbackcallback) </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//实现这个函数来接收消息</span><br><span class="line">public void handleMessage(Message msg) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>能够处理Message，我们有两种办法： </p>
-<ol>
-<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
-<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
-</ol>
-<p>}<br>};<br>``</p>
-<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class LooperThread extends Thread &#123;</span><br><span class="line">      public Handler mHandler;</span><br><span class="line">      public void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">          Looper.prepare();</span><br><span class="line"></span><br><span class="line">          mHandler = new <span class="function"><span class="title">Handler</span></span>() &#123;</span><br><span class="line">              public void handleMessage(Message msg) &#123;</span><br><span class="line">                  // process incoming messages here</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;;</span><br><span class="line">          Looper.loop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>将当前线程初始化为一个Looper，源码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void <span class="function"><span class="title">prepare</span></span>() &#123;</span><br><span class="line">        prepare(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void prepare(boolean quitAllowed) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sThreadLocal.get() != null) &#123;</span><br><span class="line">            throw new RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sThreadLocal.set(new Looper(quitAllowed));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
-<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
+        <h1 id="AppOpsManager">AppOpsManager</h1><h2 id="AppOps就是管理应用权限，但是API被谷歌隐藏了。">AppOps就是管理应用权限，但是API被谷歌隐藏了。</h2><p>###就是我们平常说的应用程序权限管理，但是每次更新时，谷歌都会隐藏入口。（6.0y已经加入运行时权限 也就是基于该类的）</p>
+<h1 id="AppOpsManager总体概览">AppOpsManager总体概览</h1><h2 id="核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops-xml_appops_policy-xml。">核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops.xml  appops_policy.xml。</h2><h1 id="相关API">相关API</h1><h2 id="int">int</h2><p>checkOp(String op, int uid, String packageName)<br> Op对应一个权限操作，该接口来检测应用是否具有该项操作权限。</p>
+<p>int<br>noteOp(String op, int uid, String packageName)<br>和checkOp基本相同，但是在检验后会做记录。</p>
+<p>int<br>checkOpNoThrow(String op, int uid, String packageName)<br> 和checkOp类似，但是权限错误，不会抛出SecurityException，而是返回AppOpsManager.MODE_ERRORED.</p>
+<p>int<br>noteOpNoThrow(String op, int uid, String packageName)<br>类似noteOp，但不会抛出SecurityException。</p>
+<h1 id="如何使用？">如何使用？</h1><h2 id="接口被隐藏了，有人想到直接把类打包成jar然后去调用，其实我们可以采用反射的方式代码如下">接口被隐藏了，有人想到直接把类打包成jar然后去调用，其实我们可以采用反射的方式代码如下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">final int version = Build.VERSION.SDK_INT;</span><br><span class="line">        <span class="keyword">if</span> (version&gt;<span class="number">19</span>) &#123;</span><br><span class="line">            Object appOpsManager = getContext().getSystemService(Context.APP_OPS_SERVICE);</span><br><span class="line">            Class c = appOpsManager.getClass();</span><br><span class="line">            try &#123;</span><br><span class="line">                Class[] arg = new Class[<span class="number">3</span>];</span><br><span class="line">                arg[<span class="number">0</span>] = int.class;</span><br><span class="line">                arg[<span class="number">1</span>] = int.class;</span><br><span class="line">                arg[<span class="number">2</span>] = String.class;</span><br><span class="line">                Method lmethod = c.getDeclaredMethod(<span class="string">"checkOp"</span>, arg);</span><br><span class="line">                //<span class="number">27</span>代表录音权限</span><br><span class="line">                //op <span class="number">1</span>~<span class="number">47</span></span><br><span class="line">                <span class="built_in">return</span> (Integer) lmethod.invoke(appOpsManager, <span class="number">27</span>, Binder.getCallingUid(), getContext().getPackageName());</span><br><span class="line">            &#125; catch (NoSuchMethodException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (InvocationTargetException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (IllegalArgumentException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (IllegalAccessException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考">参考</h1><h2 id="http://blog-csdn-net/hyhyl1990/article/details/46842915"><a href="http://blog.csdn.net/hyhyl1990/article/details/46842915" target="_blank" rel="external">http://blog.csdn.net/hyhyl1990/article/details/46842915</a></h2><p><a href="http://tmq.qq.com/2016/06/let-your-brief-encounter-android-permission-to-business-practices/" target="_blank" rel="external">http://tmq.qq.com/2016/06/let-your-brief-encounter-android-permission-to-business-practices/</a><br><a href="http://tmq.qq.com/2016/06/android-authorization-management-theory/" target="_blank" rel="external">http://tmq.qq.com/2016/06/android-authorization-management-theory/</a></p>
+
       
     </div>
     
@@ -281,18 +257,9 @@ publicHandler(Looperlooper, Callbackcallback)
     
 <nav id="article-nav">
   
-    <a href="/2016/03/09/Android-PreferenceFragment的用法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android PreferenceFragment的用法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/03/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">为什么写博客 ？</div>
+    <a href="/2016/06/22/TextView-textIsSelectable与点击事件共存/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TextView textIsSelectable与点击事件共存</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -327,7 +294,7 @@ publicHandler(Looperlooper, Callbackcallback)
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android-消息机制Handle-Looper-Message" data-title="Android 消息机制Handle-Looper-Message" data-url="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/"></div>
+	<div class="ds-thread" data-thread-key="Android原生权限探索" data-title="Android原生权限探索" data-url="http://yoursite.com/2016/06/22/Android原生权限探索/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
