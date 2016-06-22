@@ -4,21 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Bolts | Dev-Sw</title>
+  <title>TextView textIsSelectable与点击事件共存 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
+  <meta name="description" content="#问题所在
+如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；#解决
+采用OnTouch代替实现##12345678910111213141516171819202122232425262728293031//TextView 设置了TextIsSelectable属性实现选择复制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bolts">
-<meta property="og:url" content="http://yoursite.com/2016/03/02/第一篇博客/index.html">
+<meta property="og:title" content="TextView textIsSelectable与点击事件共存">
+<meta property="og:url" content="http://yoursite.com/2016/06/22/TextView-textIsSelectable与点击事件共存/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
-<meta property="og:updated_time" content="2016-03-03T07:52:07.000Z">
+<meta property="og:description" content="#问题所在
+如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；#解决
+采用OnTouch代替实现##12345678910111213141516171819202122232425262728293031//TextView 设置了TextIsSelectable属性实现选择复制">
+<meta property="og:updated_time" content="2016-06-22T04:57:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bolts">
-<meta name="twitter:description" content="Download##1234dependencies &amp;#123;  compile &apos;com.parse.bolts:bolts-tasks:1.4.0&apos;  compile &apos;com.parse.bolts:bolts-applinks:1.4.0&apos;&amp;#125;
-简介Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调用法1定义一个任务12345678910111213141516">
+<meta name="twitter:title" content="TextView textIsSelectable与点击事件共存">
+<meta name="twitter:description" content="#问题所在
+如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；#解决
+采用OnTouch代替实现##12345678910111213141516171819202122232425262728293031//TextView 设置了TextIsSelectable属性实现选择复制">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -204,11 +207,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-第一篇博客" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-TextView-textIsSelectable与点击事件共存" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/02/第一篇博客/" class="article-date">
-  	<time datetime="2016-03-02T05:13:47.000Z" itemprop="datePublished">2016-03-02</time>
+      <a href="/2016/06/22/TextView-textIsSelectable与点击事件共存/" class="article-date">
+  	<time datetime="2016-06-22T02:14:47.000Z" itemprop="datePublished">2016-06-22</time>
 </a>
     </div>
   
@@ -221,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Bolts
+      TextView textIsSelectable与点击事件共存
     </h1>
   
 
@@ -230,7 +233,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bolts/">Bolts</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GestureDetectorCompat/">GestureDetectorCompat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/手势/">手势</a></li></ul>
 	</div>
 
         
@@ -241,9 +244,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Download">Download</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-tasks:1.4.0'</span></span><br><span class="line">  compile <span class="string">'com.parse.bolts:bolts-applinks:1.4.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="简介">简介</h1><h2 id="Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调">Bolts是异步执行的第三方库，顺序结构。采用嵌套的方式，往上回调</h2><h1 id="用法">用法</h1><h2 id="1定义一个任务">1定义一个任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private Task&lt;Void&gt; uploadImages(final Post post, List&lt;Image&gt; images) &#123;</span><br><span class="line">        Task&lt;Void&gt; ret = Task.forResult(null);</span><br><span class="line">        <span class="keyword">for</span> (final Image image : images) &#123;</span><br><span class="line">            ret = ret.onSuccessTask(new Continuation&lt;Void, Task&lt;Void&gt;&gt;() &#123;</span><br><span class="line">                @Override</span><br><span class="line">                public Task&lt;Void&gt; <span class="keyword">then</span>(Task&lt;Void&gt; task) throws Exception &#123;</span><br><span class="line">                    <span class="keyword">if</span> (post.mPublishingStatus == PublishingStatus.CANCELED) &#123;</span><br><span class="line">                        //取消发布。</span><br><span class="line">                        <span class="built_in">return</span> Task.forError(new CancelledException());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="built_in">return</span> uploadImage(image);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>2 任务的嵌套<br> onSuccessTask  continueWithTask  </p>
+        <p>#问题所在</p>
+<h2 id="如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；">如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；</h2><p>#解决</p>
+<h2 id="采用OnTouch代替">采用OnTouch代替</h2><h1 id="实现">实现</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//TextView 设置了TextIsSelectable属性实现选择复制,导致点击事件在点两下才响应/</span><br><span class="line">   //采用onTouch拦截</span><br><span class="line">   public void <span class="built_in">set</span>SelectableTextViewClick(final IntentData intentData, TextView textView) &#123;</span><br><span class="line">       final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(mActivity, new SimpleOnGestureListener());</span><br><span class="line">       gestureDetector.setOnDoubleTapListener(new GestureDetector.<span class="function"><span class="title">OnDoubleTapListener</span></span>() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public boolean onSingleTapConfirmed(MotionEvent e) &#123;</span><br><span class="line">               GoodDetailActivity.start(intentData);//点击</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public boolean onDoubleTap(MotionEvent e) &#123;</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public boolean onDoubleTapEvent(MotionEvent e) &#123;</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">       textView.setOnTouchListener(new View.<span class="function"><span class="title">OnTouchListener</span></span>() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public boolean onTouch(View v, MotionEvent event) &#123;</span><br><span class="line">               gestureDetector.onTouchEvent(event);</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -253,15 +256,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/03/02/hello-world-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          采用Hexo+github搭建属于自己的博客
-        
-      </div>
-    </a>
   
+    <a href="/2016/06/13/长连接与短连接以及Android的socket－IO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">长连接与短连接以及Android的socket－IO</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -294,7 +293,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="第一篇博客" data-title="Bolts" data-url="http://yoursite.com/2016/03/02/第一篇博客/"></div>
+	<div class="ds-thread" data-thread-key="TextView-textIsSelectable与点击事件共存" data-title="TextView textIsSelectable与点击事件共存" data-url="http://yoursite.com/2016/06/22/TextView-textIsSelectable与点击事件共存/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
