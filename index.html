@@ -202,6 +202,62 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android样式开发" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/15/Android样式开发/" class="article-date">
+  	<time datetime="2016-07-15T01:58:16.000Z" itemprop="datePublished">2016-07-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/15/Android样式开发/">Android样式开发</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#Shape</p>
+<p>##矩形<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//添加内边距</span><br><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">    &lt;!-- padding设置内容区域离边界的间距 --&gt;</span><br><span class="line">    &lt;padding</span><br><span class="line">        android:bottom=<span class="string">"12dp"</span></span><br><span class="line">        android:left=<span class="string">"12dp"</span></span><br><span class="line">        android:right=<span class="string">"12dp"</span></span><br><span class="line">        android:top=<span class="string">"12dp"</span> /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br><span class="line">//渐变</span><br><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">    &lt;!-- padding设置内容区域离边界的间距 --&gt;</span><br><span class="line">    &lt;padding</span><br><span class="line">        android:bottom=<span class="string">"12dp"</span></span><br><span class="line">        android:left=<span class="string">"12dp"</span></span><br><span class="line">        android:right=<span class="string">"12dp"</span></span><br><span class="line">        android:top=<span class="string">"12dp"</span> /&gt;</span><br><span class="line">    &lt;!-- gradient设置渐变 --&gt;</span><br><span class="line">    &lt;gradient</span><br><span class="line">        android:angle=<span class="string">"270"</span></span><br><span class="line">        android:endColor=<span class="string">"#CC2F90BD"</span></span><br><span class="line">        android:startColor=<span class="string">"#222F90BD"</span> /&gt;</span><br><span class="line">&lt;/shape</span><br></pre></td></tr></table></figure>
+<p>参照：<a href="https://github.com/guosen/kstyle" target="_blank" rel="external">https://github.com/guosen/kstyle</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android原生权限探索" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -750,71 +806,6 @@
 <p> #android处理触摸事各个流程<br> 1.Activity.dispatchTouchEvent()<br> 这个是最先被调用的<br> 分发事件到Root view（attch to window）<br> 2.view.onTouchEvent()<br> -发送事件到监听（如果有view.onTouchListener.onTouch()）<br> -如果没有消费会调用自己的View.onTouchEvent()<br> 3.viewGroup.dispatchTouchEvent()<br> -oninterceptTouchEvent(检查是否粗腰传递给子View)<br> -对于每个子控件，以相反的顺序分发事件<br> -如果没有子控件处理事件，就会传到OnTouchListener.onTouch()<br> -如果没有监听 onToucheEvent()<br> 4.Intercept (拦截事件)跳过子控件</p>
 <p> #自定义Touch事件<br> 1.重写onTouchEvent方法；<br> 2.消费事件（return true）<br> 3.有用的常量ViewConfiguration<br> -getScaledTouchSlop()<br> (拖动最短距离)<br> -getScaledMinimumFlingVelocity(最少平滑距离)<br> -getLongPressTimeout()<br> 判定为长按时间值；</p>
 <p> 原文：<a href="http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank" rel="external">http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf</a><br> 事例项目：<a href="https://github.com/guosen/custom-touch-examples" target="_blank" rel="external">https://github.com/guosen/custom-touch-examples</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-网络请求OKHttp＋Retrofit" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/" class="article-date">
-  	<time datetime="2016-04-07T14:47:57.000Z" itemprop="datePublished">2016-04-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/">Android 网络请求OKHttp＋Retrofit</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#简介</p>
-<h2 id="Retrofit是Square开发的网络服务库,_简化Get/Post网络服务的使用,_配合Rx和Dagger有更好的效果-_Retrofit已经更新到第2-0版,_本文介绍一些常见的使用方式-">Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.</h2><p><a href="https://github.com/guosen/Volley" target="_blank" rel="external">https://github.com/guosen/Volley</a></p>
-<p>#引入（gradle）</p>
-<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:retrofit:2.0.0-beta1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.okhttp:okhttp:2.4.0'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:converter-gson:2.0.0-beta2'</span></span><br></pre></td></tr></table></figure></p>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by shouwang on <span class="number">16</span>/<span class="number">4</span>/<span class="number">7</span>.</span><br><span class="line"> */</span><br><span class="line">public interface ApiService &#123;</span><br><span class="line">    String END_POINT=<span class="string">"http://api.meiyaapp.cn/"</span>;</span><br><span class="line"></span><br><span class="line">    @Headers(<span class="string">"Cache-Control: public, max-age=3600"</span>)</span><br><span class="line">    @GET(<span class="string">"v1/users/&#123;id&#125;?signature=123456"</span>)</span><br><span class="line">    Call&lt;HttpResponse&lt;UserInfo&gt;&gt; getUserInfo(</span><br><span class="line">          @Path(<span class="string">"id"</span>) int id,</span><br><span class="line">          @Query(<span class="string">"with_recipients"</span>) int with_recipients,</span><br><span class="line">          @Query(<span class="string">"with_talent"</span>) int with_talent</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">//其中的@Headers 是在这边增加头部 实现缓存功能</span><br></pre></td></tr></table></figure>
-<p>注：在retrofit2.0里去掉了CallBack接口参数。</p>
-<p>#定义接口服务类，用来管理和创建ApiService</p>
-<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class ApiManager &#123;</span><br><span class="line">    public static final String HEADER_ACCEPT_JSON = <span class="string">"application/json"</span>;</span><br><span class="line">    public static final String HEADER_ACCEPT      = <span class="string">"Accept"</span>;</span><br><span class="line">    private        ApiService mApiService;</span><br><span class="line">    private static ApiManager sInstance;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public ApiManager(Context context) &#123;</span><br><span class="line">         mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ApiService <span class="function"><span class="title">createService</span></span>() &#123;</span><br><span class="line">         OkHttpClient client=new OkHttpClient();</span><br><span class="line">        //----------</span><br><span class="line">        //设置头部 例如返回类型是Json/text</span><br><span class="line">        //-----------</span><br><span class="line">         client.interceptors().add(new <span class="function"><span class="title">Interceptor</span></span>() &#123;</span><br><span class="line">             @Override</span><br><span class="line">             public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">                 final Request originalRequest = chain.request();</span><br><span class="line">                 final Request requestWithUserAgent = originalRequest.newBuilder()</span><br><span class="line">                         .addHeader(HEADER_ACCEPT, HEADER_ACCEPT_JSON)</span><br><span class="line">                         .build();</span><br><span class="line">                 Response response = chain.proceed(requestWithUserAgent);</span><br><span class="line">                 <span class="built_in">return</span> response;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">        //日志拦截 https://github.com/square/okhttp/wiki/Interceptors</span><br><span class="line">        client.interceptors().add(new LoggingInterceptor());</span><br><span class="line">        client.interceptors().add(new CacheInterceptor(mContext));</span><br><span class="line"></span><br><span class="line">        File cacheFile = new File(mContext.getCacheDir(), <span class="string">"[缓存目录]"</span>);</span><br><span class="line">        Cache cache = new Cache(cacheFile, <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">100</span>); //<span class="number">100</span>Mb</span><br><span class="line">        client.setCache(cache);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //设置请求  并设置HttpClient (OKHttp)</span><br><span class="line">        Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">                .baseUrl(ApiService.END_POINT)</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .client(client)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> retrofit.create(ApiService.class);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ApiService <span class="function"><span class="title">getService</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (mApiService == null) &#123;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mApiService == null)</span><br><span class="line">                    mApiService = createService();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> mApiService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ApiManager getInstance(Context context) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sInstance == null) &#123;</span><br><span class="line">            sInstance = new ApiManager(context.getApplicationContext());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> sInstance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>#Interceptor</p>
-<p>##Interceptor是拦截器, 在发送之前, 添加一些参数, 或者获取一些信息. loggingInterceptor是打印参数.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class CacheInterceptor implements Interceptor &#123;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public CacheInterceptor(Context context)&#123;</span><br><span class="line">        mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        <span class="keyword">if</span>(!NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            request = request.newBuilder()</span><br><span class="line">                    .cacheControl(CacheControl.FORCE_CACHE)</span><br><span class="line">                    .build();</span><br><span class="line">//            Logger.t(TAG).w(<span class="string">"no network"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Response originalResponse = chain.proceed(request);</span><br><span class="line">        <span class="keyword">if</span>(NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置</span><br><span class="line">            String cacheControl = request.cacheControl().toString();</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, cacheControl)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, <span class="string">"public, only-if-cached, max-stale=2419200"</span>)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>#Activity里的调用</p>
-<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;HttpResponse&lt;UserInfo&gt;&gt; call=ApiManager.getInstance(this).getService().getUserInfo(<span class="number">91625</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">call.enqueue(new Callback&lt;HttpResponse&lt;UserInfo&gt;&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onFailure(Throwable t) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onResponse(Response&lt;HttpResponse&lt;UserInfo&gt;&gt; response, Retrofit retrofit) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,response.body().data.username+<span class="string">"    ++++++++++"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
