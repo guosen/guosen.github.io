@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/AndFix/" style="font-size: 10px;">AndFix</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/GestureDetectorCompat/" style="font-size: 10px;">GestureDetectorCompat</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Html/" style="font-size: 10px;">Html</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/RecycleView/" style="font-size: 10px;">RecycleView</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/手势/" style="font-size: 10px;">手势</a> <a href="/tags/打包/" style="font-size: 15px;">打包</a> <a href="/tags/权限/" style="font-size: 10px;">权限</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/瀑布流/" style="font-size: 10px;">瀑布流</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a> <a href="/tags/长连接/" style="font-size: 10px;">长连接</a>
+						<a href="/tags/Activity/" style="font-size: 10px;">Activity</a> <a href="/tags/AndFix/" style="font-size: 10px;">AndFix</a> <a href="/tags/Andoid/" style="font-size: 10px;">Andoid</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Bolts/" style="font-size: 10px;">Bolts</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/GestureDetectorCompat/" style="font-size: 10px;">GestureDetectorCompat</a> <a href="/tags/Handle/" style="font-size: 10px;">Handle</a> <a href="/tags/Hexo/" style="font-size: 15px;">Hexo</a> <a href="/tags/Html/" style="font-size: 10px;">Html</a> <a href="/tags/Preference/" style="font-size: 10px;">Preference</a> <a href="/tags/RecycleView/" style="font-size: 10px;">RecycleView</a> <a href="/tags/Socket/" style="font-size: 10px;">Socket</a> <a href="/tags/TextView/" style="font-size: 10px;">TextView</a> <a href="/tags/UI/" style="font-size: 10px;">UI</a> <a href="/tags/bitmap/" style="font-size: 10px;">bitmap</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/手势/" style="font-size: 10px;">手势</a> <a href="/tags/打包/" style="font-size: 15px;">打包</a> <a href="/tags/权限/" style="font-size: 10px;">权限</a> <a href="/tags/消息机制/" style="font-size: 10px;">消息机制</a> <a href="/tags/瀑布流/" style="font-size: 10px;">瀑布流</a> <a href="/tags/热修复/" style="font-size: 10px;">热修复</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 10px;">脚本</a> <a href="/tags/自定义控件/" style="font-size: 10px;">自定义控件</a> <a href="/tags/视频检索/" style="font-size: 10px;">视频检索</a> <a href="/tags/长连接/" style="font-size: 10px;">长连接</a> <a href="/tags/项目流程/" style="font-size: 10px;">项目流程</a>
 					</div>
 				</section>
 				
@@ -201,6 +201,73 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-AndFix使用说明-android-热修复打补丁" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/18/AndFix使用说明-android-热修复打补丁/" class="article-date">
+  	<time datetime="2016-04-18T14:08:23.000Z" itemprop="datePublished">2016-04-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/18/AndFix使用说明-android-热修复打补丁/">AndFix使用说明(android 热修复打补丁)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#介绍</p>
+<h2 id="开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android_2-3_到_6-0。">开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。</h2><p>#使用方式</p>
+<p>##添加依赖库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.alipay.euler:andfix:0.4.0@aar'</span></span><br></pre></td></tr></table></figure></p>
+<p>##添加so文件<br>可以参考<a href="https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT" target="_blank" rel="external">https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT</a></p>
+<p>#Application代码</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">patchManager = new PatchManager(this);</span><br><span class="line">       patchManager.init(getAppVersion());//current version</span><br><span class="line">       patchManager.loadPatch();</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">            patchManager.addPatch(Environment.getExternalStorageDirectory() + <span class="string">"/v.apatch"</span>);</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,<span class="string">"success"</span>);</span><br><span class="line">        &#125;catch (Exception ex)&#123;</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,ex.getMessage());</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,Environment.getExternalStorageDirectory().toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">public String <span class="function"><span class="title">getAppVersion</span></span>()&#123;</span><br><span class="line">        String appversion=<span class="string">""</span>;</span><br><span class="line">        try &#123;</span><br><span class="line">             appversion = getPackageManager().getPackageInfo(getPackageName(), <span class="number">0</span>).versionName;</span><br><span class="line">        &#125;catch (PackageManager.NameNotFoundException ex)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;finally &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> appversion;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>#生成补丁文件Patch</p>
+<p>##工具 apkpatch</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./apkpatch.sh <span class="operator">-f</span> volly2.apk -t volly.apk -k guosen.jks -p <span class="number">123456</span> <span class="operator">-a</span> lin <span class="operator">-e</span> <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AndFix/">AndFix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/热修复/">热修复</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Android-面试题" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -812,66 +879,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-中关于视频检索" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/11/Android-中关于视频检索/" class="article-date">
-  	<time datetime="2016-03-11T03:43:52.000Z" itemprop="datePublished">2016-03-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/11/Android-中关于视频检索/">Android 中关于视频检索</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">MediaMetadataRetriever mmr = new MediaMetadataRetriever();</span><br><span class="line">    public List&lt;VideoInfo&gt; <span class="function"><span class="title">getVideoList</span></span>() &#123;</span><br><span class="line">        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();</span><br><span class="line">        String[] thumbColumn = &#123;</span><br><span class="line">                MediaStore.Video.Thumbnails.DATA,</span><br><span class="line">                MediaStore.Video.Thumbnails.VIDEO_ID</span><br><span class="line">        &#125;;</span><br><span class="line">        String[] mediaColumns = &#123;</span><br><span class="line">                MediaStore.Video.Media._ID,</span><br><span class="line">                MediaStore.Video.Media.DATA,</span><br><span class="line">                MediaStore.Video.Media.TITLE,</span><br><span class="line">                MediaStore.Video.Media.MIME_TYPE,</span><br><span class="line">                MediaStore.Video.Media.DISPLAY_NAME,</span><br><span class="line">                MediaStore.Video.Media.DURATION,</span><br><span class="line">                MediaStore.Video.Media.HEIGHT,</span><br><span class="line">                MediaStore.Video.Media.WIDTH</span><br><span class="line">        &#125;;</span><br><span class="line">        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</span><br><span class="line">        <span class="keyword">if</span> (cursor == null) &#123;</span><br><span class="line">            ToastUtil.showMessage(<span class="string">"没有找到相关视频文件"</span>);</span><br><span class="line">            <span class="built_in">return</span> null;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cursor.moveToFirst()) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                VideoInfo videoInfo = new VideoInfo();</span><br><span class="line">                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));</span><br><span class="line">                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI</span><br><span class="line">                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + <span class="string">"="</span> + id, null, null);</span><br><span class="line">                <span class="keyword">if</span> (thumbCursor.moveToFirst()) &#123;</span><br><span class="line">                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));</span><br><span class="line">                    videoInfo.thumbPath = thumb;</span><br><span class="line">                &#125;</span><br><span class="line">                videoInfo.id = id;</span><br><span class="line">                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));</span><br><span class="line">                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));</span><br><span class="line">                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));</span><br><span class="line">                    mmr.setDataSource(videoInfo.path);</span><br><span class="line">                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);</span><br><span class="line">                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);</span><br><span class="line">                    videoInfoList.add(videoInfo);</span><br><span class="line">            &#125; <span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        <span class="built_in">return</span> videoInfoList;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>#存在的问题</p>
-<p>##有些手机媒体哭保存视频列表会有缩略图而有些则没有。但是一我们呈现的是要有封面图也就是缩略图，那该如何获取缩略图呢？<br>我们可以这样，先判断手机里面是否有缩略图，也就是上面检索的结果是否有thumbCusor.getCounnt()`0;没有的话：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private void <span class="function"><span class="title">setThumb</span></span>() &#123;</span><br><span class="line">        Task.callInBackground(new Callable&lt;Object&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object call() throws Exception &#123;</span><br><span class="line">                getThumbBitmap();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).onSuccessTask(new Continuation&lt;Object, Task&lt;Object&gt;&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Task&lt;Object&gt; <span class="keyword">then</span>(Task&lt;Object&gt; task) throws Exception &#123;</span><br><span class="line">                mVideoInfoAdapter.notifyDataSetChanged();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //有些机型没有缩略图,需要生成bitmap</span><br><span class="line">    private void <span class="function"><span class="title">getThumbBitmap</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (VideoInfo mVideoInfo : mVideoInfoAdapter.getAll()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(TextUtil.isEmptyOrNull(mVideoInfo.thumbPath) || !new File(mVideoInfo.thumbPath).exists())&#123;</span><br><span class="line">                mVideoInfo.thumbBitmab = MediaStore.Video.Thumbnails.getThumbnail(getActivity().getContentResolver(), mVideoInfo.id, MediaStore.Video.Thumbnails.MINI_KIND, null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>###存在的问题是：每次都要去生成缩略图，每次都很耗时 待优化；<br>参考文章：<a href="http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/" target="_blank" rel="external">http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitmap/">bitmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/视频检索/">视频检索</a></li></ul>
 	</div>
 
       
