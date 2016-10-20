@@ -6,25 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>微信热修复Tinker的实践 | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#Tinker热修复简介
-Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
+  <meta name="description" content="Tinker热修复简介Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
 dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin:1.7.1’    }
-2.项目下的APP目录下的build">
+2.项目下的APP目录下的build.g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="微信热修复Tinker的实践">
 <meta property="og:url" content="http://yoursite.com/2016/10/20/微信热修复Tinker的实践/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="#Tinker热修复简介
-Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
+<meta property="og:description" content="Tinker热修复简介Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
 dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin:1.7.1’    }
-2.项目下的APP目录下的build">
-<meta property="og:updated_time" content="2016-10-20T07:44:03.000Z">
+2.项目下的APP目录下的build.g">
+<meta property="og:updated_time" content="2016-10-20T07:47:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信热修复Tinker的实践">
-<meta name="twitter:description" content="#Tinker热修复简介
-Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
+<meta name="twitter:description" content="Tinker热修复简介Tinker是微信开源出的Android热修复框架，基于MultiDex.#接入Tinker相关依赖1.项目的根目录build.gradle:``bash
 dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin:1.7.1’    }
-2.项目下的APP目录下的build">
+2.项目下的APP目录下的build.g">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -88,12 +85,12 @@ dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin
 					<div class="tips-arrow"></div>
 					<ul class="tips-inner">
 						<li>菜单</li>
-						<li>Tags</li>
+						<li>標籤</li>
 						
 						<li>友情链接</li>
 						
 						
-						<li>Über</li>
+						<li>關於</li>
 						
 					</ul>
 				</div>
@@ -247,8 +244,7 @@ dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Tinker热修复简介</p>
-<h2 id="Tinker是微信开源出的Android热修复框架，基于MultiDex-">Tinker是微信开源出的Android热修复框架，基于MultiDex.</h2><p>#接入Tinker相关依赖<br>1.项目的根目录build.gradle:<br>``bash</p>
+        <h1 id="Tinker热修复简介">Tinker热修复简介</h1><h2 id="Tinker是微信开源出的Android热修复框架，基于MultiDex-">Tinker是微信开源出的Android热修复框架，基于MultiDex.</h2><p>#接入Tinker相关依赖<br>1.项目的根目录build.gradle:<br>``bash</p>
 <p>dependencies {<br>        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin:1.7.1’<br>    }</p>
 <p><code>2.项目下的APP目录下的build.gradle:</code>bash<br>compile(‘com.tencent.tinker:tinker-android-anno:1.7.1’)<br>    //tinker 核心 Android lib<br>    compile(‘com.tencent.tinker:tinker-android-lib:1.7.1’)</p>
 <p><code>3.添加gradle脚本，主要是生成patch包，Tinker是采用插件的形式，你可以参照Tinker－sample－android的做法：</code>bash</p>
@@ -448,13 +444,10 @@ dependencies {        classpath ‘com.tencent.tinker:tinker-patch-gradle-plugin
 }
 </code></pre><p>}</p>
 <p>``</p>
-<p>＃如何生成补丁，这边有几个步骤<br>1.修改buildPatch.gradle里面tinkerOldApkPath的值（对应上个apk名称，就是要修复的APK）（运行项目会生成在APP/build/bakApk/ 目录下）<br>2.要填写TinkerId的值，在gradle.properties里，项目里采用App-VersionName（默认是git版本号）<br>3.修改buildPatch.gradle里tinkerEnabled的值为true(注：发版本的时候也要用true打包)<br>4.运行task tinkerPatchDebug.补丁包为patch_signed_7zip.apk，生成目录在App/build/output/tinkerPatch/ 下<br>5.可以push到手机测试</p>
+<h1 id="如何生成补丁，这边有几个步骤">如何生成补丁，这边有几个步骤</h1><p>1.修改buildPatch.gradle里面tinkerOldApkPath的值（对应上个apk名称，就是要修复的APK）（运行项目会生成在APP/build/bakApk/ 目录下）<br>2.要填写TinkerId的值，在gradle.properties里，项目里采用App-VersionName（默认是git版本号）<br>3.修改buildPatch.gradle里tinkerEnabled的值为true(注：发版本的时候也要用true打包)<br>4.运行task tinkerPatchDebug.补丁包为patch_signed_7zip.apk，生成目录在App/build/output/tinkerPatch/ 下<br>5.可以push到手机测试</p>
 <p>这里注意一点：Tinker支持对同一基准版本做多次补丁修复，在生成补丁时，oldApk依然是已经发布出去的那个版本。即补丁版本二的oldApk不能是补丁版本一，它应该依然是用户手机上已经安装的基准版本。<br><code>bash
 adb push ./Meiya/build/outputs/tinkerPatch/debug/patch_signed_7zip.apk /storage/sdcard0/</code></p>
-<p>#关于打包</p>
-<p>##我们需要保证tinkerId一定是要唯一性的，这里我们一定要注意，升级可客户端版本，需要更新tinkerId!</p>
-<p>#补丁加载</p>
-<p>##关于补丁加载，其实主要是项目Applicaion类的改造，改造的话主要是代理：<br>``bash<br>public class APP extends TinkerApplication {<br> private static APP sInstance;<br> public APP() {</p>
+<h1 id="关于打包">关于打包</h1><h2 id="我们需要保证tinkerId一定是要唯一性的，这里我们一定要注意，升级可客户端版本，需要更新tinkerId!">我们需要保证tinkerId一定是要唯一性的，这里我们一定要注意，升级可客户端版本，需要更新tinkerId!</h2><h1 id="补丁加载">补丁加载</h1><h2 id="关于补丁加载，其实主要是项目Applicaion类的改造，改造的话主要是代理：">关于补丁加载，其实主要是项目Applicaion类的改造，改造的话主要是代理：</h2><p>``bash<br>public class APP extends TinkerApplication {<br> private static APP sInstance;<br> public APP() {</p>
 <pre><code><span class="keyword">super</span>(
         <span class="comment">//tinker标志, 要支持那种类型 默认为ALL</span>
         <span class="comment">//dex only, library only, all support</span>
