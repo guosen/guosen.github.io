@@ -202,6 +202,71 @@
 
       <div class="body-wrap">
   
+    <article id="post-Hexo-Yilia-主题配置基于swiftype的站内搜索引擎" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/24/Hexo-Yilia-主题配置基于swiftype的站内搜索引擎/" class="article-date">
+  	<time datetime="2016-03-24T08:16:43.000Z" itemprop="datePublished">2016-03-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/24/Hexo-Yilia-主题配置基于swiftype的站内搜索引擎/">Hexo Yilia 主题配置基于swiftype的站内搜索引擎</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="swiftype">swiftype</h1><h2 id="swiftype是为web及移动提供站内搜索的服务，原理十分简单，就是抓取你所配置的网页数据。">swiftype是为web及移动提供站内搜索的服务，原理十分简单，就是抓取你所配置的网页数据。</h2><p>#注册</p>
+<h2 id="https://swiftype-com/_在网站上注册账号，获取Key以及安装脚本；"><a href="https://swiftype.com/" target="_blank" rel="external">https://swiftype.com/</a> 在网站上注册账号，获取Key以及安装脚本；</h2><p>#修改配置文件</p>
+<p>##打开Yilia的_config.yml文件吗，末尾加入如下代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">swift_search:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>打开目录hexo\themes\yilia\layout_partial，打开文件left-col.ejs</p>
+<p>添加 swiftype 代码<br>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.swift_search&amp;&amp;theme.swift_search.enable)&#123; %&gt;</span><br><span class="line">		&lt;form class=<span class="string">"search"</span> action=<span class="string">"&lt;%- config.root %&gt;search/index.html"</span> method=<span class="string">"get"</span> accept-charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">			&lt;label&gt;Search&lt;/label&gt;</span><br><span class="line">			&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> id=<span class="string">"st-search-input"</span> class=<span class="string">"st-default-search-input "</span> maxlength=<span class="string">"30"</span> placeholder=<span class="string">"Search"</span> /&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在主题目录的css/style.styl文件添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">.search</span><br><span class="line">  padding <span class="number">1</span>em <span class="number">0</span> <span class="number">0</span> <span class="number">2.5</span>em</span><br><span class="line">  input</span><br><span class="line">    line-height line-height+<span class="number">0.2</span></span><br><span class="line">    border <span class="number">1</span>px solid color-white</span><br><span class="line">    color color-white</span><br><span class="line">    background transparent</span><br><span class="line">    padding-left <span class="number">4</span>em</span><br><span class="line">    @media tablet</span><br><span class="line">      width <span class="number">4</span>em</span><br><span class="line">      transition .<span class="number">5</span>s width</span><br><span class="line">      &amp;:focus</span><br><span class="line">        width <span class="number">8</span>em</span><br><span class="line">  label</span><br><span class="line">    display none</span><br><span class="line">form input.st-default-search-input  &#123;</span><br><span class="line">  font-size: <span class="number">12</span>px;</span><br><span class="line">  padding: <span class="number">4</span>px <span class="number">9</span>px <span class="number">4</span>px <span class="number">27</span>px;</span><br><span class="line">  height: <span class="number">20</span>px;</span><br><span class="line">  width: <span class="number">190</span>px;</span><br><span class="line">  position: absolute;</span><br><span class="line">  left: <span class="number">32</span>px;</span><br><span class="line">  top: <span class="number">70</span>px;</span><br><span class="line">  color: <span class="comment">#666;</span></span><br><span class="line">  border: <span class="number">1</span>px solid <span class="comment">#ccc;</span></span><br><span class="line">  -webkit-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -moz-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -ms-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -o-border-radius: <span class="number">15</span>px;</span><br><span class="line">  border-radius: <span class="number">15</span>px;</span><br><span class="line">  -webkit-box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  -moz-box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  outline: none;</span><br><span class="line">  background: <span class="comment">#fcfcfc url(/img/search.png) no-repeat 7px 7px;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里面设置搜索框的位置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: absolute;</span><br><span class="line"> left: <span class="number">32</span>px;</span><br><span class="line"> top: <span class="number">70</span>px;</span><br></pre></td></tr></table></figure></p>
+<p>并且必须修改main.style<br>的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.left-col &#123;</span><br><span class="line">z-index: -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">//在overlay里</span><br></pre></td></tr></table></figure></p>
+<p>参考文章：<a href="http://www.xianingtan.xyz/2015/08/28/Hexo-Yilia-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E5%9F%BA%E4%BA%8Eswiftype%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" target="_blank" rel="external">http://www.xianingtan.xyz/2015/08/28/Hexo-Yilia-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E5%9F%BA%E4%BA%8Eswiftype%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Shell脚本的初步探析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -799,70 +864,6 @@
     <div class="article-info article-info-index">
       
       
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/02/hello-world-1/" class="article-date">
-  	<time datetime="2016-03-02T09:14:10.000Z" itemprop="datePublished">2016-03-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/02/hello-world-1/">采用Hexo+github搭建属于自己的博客</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-Hexo介绍">1.Hexo介绍</h1><h2 id="Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。">Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。</h2><h1 id="2-Hexo安装">2.Hexo安装</h1><p>这边主要介绍在Mac环境下的安装和配置<br>采用命令 npm install -g hexo<br>＃ 3.创建项目</p>
-<h2 id="hexo_init_nodejs-hexo_然后启动服务器是：hexo_server">hexo init nodejs-hexo 然后启动服务器是：hexo server</h2><p>浏览地址是：<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> </p>
-<p>生成静态页面cd 到你的init目录，执行如下命令，生成静态页面至hexo\public\目录。hexo generate （hexo g  也可以）</p>
-<p>＃ 配置Github</p>
-<h2 id="建立与用户名对应的仓库必须是［your_user_name-git-io］,">建立与用户名对应的仓库必须是［your_user_name.git.io］,</h2><p>  修改根目录下的_config.yml文件最底下的deploy:  type: git repository:<a href="https://github.com/guosen/guosen.github.io.git" target="_blank" rel="external">https://github.com/guosen/guosen.github.io.git</a><br>  branch:master 注意：1、冒号跟后面的内容要有空格 2、第二行的type跟左边也要有空格否则出现YMLException.</p>
-<h1 id="部署">部署</h1><h2 id="就是部署到Github的相应分支，先hexo_clean_再生成静态网页hexo_generate,然后hexo_deploy部署。">就是部署到Github的相应分支，先hexo clean 再生成静态网页hexo generate,然后hexo deploy部署。</h2><h1 id="更换主题">更换主题</h1><h2 id="替换掉默认主题，首先下载一个主题采用命令：git_clone_https://github-com/daisygao/hexo-themes-cover-git_themes/cove">替换掉默认主题，首先下载一个主题采用命令：git clone <a href="https://github.com/daisygao/hexo-themes-cover.git" target="_blank" rel="external">https://github.com/daisygao/hexo-themes-cover.git</a> themes/cove</h2><p>然后修改 _config.yml文件。再部署OK！</p>
-<p>遇到的问题：fatal:multiple stage entries for merged file处理办法<br>删掉git下的index文件。</p>
-<p>参考链接：<a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">https://hexo.io/docs/troubleshooting.html</a><br>        <a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">http://blog.fens.me/hexo-blog-github/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
-	</div>
-
       
 
       

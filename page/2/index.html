@@ -202,6 +202,69 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android原生权限探索" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/22/Android原生权限探索/" class="article-date">
+  	<time datetime="2016-06-22T08:42:53.000Z" itemprop="datePublished">2016-06-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/22/Android原生权限探索/">Android原生权限探索</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AppOpsManager">AppOpsManager</h1><h2 id="AppOps就是管理应用权限，但是API被谷歌隐藏了。">AppOps就是管理应用权限，但是API被谷歌隐藏了。</h2><p>###就是我们平常说的应用程序权限管理，但是每次更新时，谷歌都会隐藏入口。（6.0y已经加入运行时权限 也就是基于该类的）</p>
+<h1 id="AppOpsManager总体概览">AppOpsManager总体概览</h1><h2 id="核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops-xml_appops_policy-xml。">核心服务是AppOpsService，API是AppOpsManager，UI层是AppOpsSummary，AppOpsCategory，配置文件为appops.xml  appops_policy.xml。</h2><h1 id="相关API">相关API</h1><h2 id="int">int</h2><p>checkOp(String op, int uid, String packageName)<br> Op对应一个权限操作，该接口来检测应用是否具有该项操作权限。</p>
+<p>int<br>noteOp(String op, int uid, String packageName)<br>和checkOp基本相同，但是在检验后会做记录。</p>
+<p>int<br>checkOpNoThrow(String op, int uid, String packageName)<br> 和checkOp类似，但是权限错误，不会抛出SecurityException，而是返回AppOpsManager.MODE_ERRORED.</p>
+<p>int<br>noteOpNoThrow(String op, int uid, String packageName)<br>类似noteOp，但不会抛出SecurityException。</p>
+<h1 id="如何使用？">如何使用？</h1><h2 id="接口被隐藏了，有人想到直接把类打包成jar然后去调用，其实我们可以采用反射的方式代码如下">接口被隐藏了，有人想到直接把类打包成jar然后去调用，其实我们可以采用反射的方式代码如下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">final int version = Build.VERSION.SDK_INT;</span><br><span class="line">        <span class="keyword">if</span> (version&gt;<span class="number">19</span>) &#123;</span><br><span class="line">            Object appOpsManager = getContext().getSystemService(Context.APP_OPS_SERVICE);</span><br><span class="line">            Class c = appOpsManager.getClass();</span><br><span class="line">            try &#123;</span><br><span class="line">                Class[] arg = new Class[<span class="number">3</span>];</span><br><span class="line">                arg[<span class="number">0</span>] = int.class;</span><br><span class="line">                arg[<span class="number">1</span>] = int.class;</span><br><span class="line">                arg[<span class="number">2</span>] = String.class;</span><br><span class="line">                Method lmethod = c.getDeclaredMethod(<span class="string">"checkOp"</span>, arg);</span><br><span class="line">                //<span class="number">27</span>代表录音权限</span><br><span class="line">                //op <span class="number">1</span>~<span class="number">47</span></span><br><span class="line">                <span class="built_in">return</span> (Integer) lmethod.invoke(appOpsManager, <span class="number">27</span>, Binder.getCallingUid(), getContext().getPackageName());</span><br><span class="line">            &#125; catch (NoSuchMethodException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (InvocationTargetException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (IllegalArgumentException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125; catch (IllegalAccessException ex) &#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考">参考</h1><h2 id="http://blog-csdn-net/hyhyl1990/article/details/46842915"><a href="http://blog.csdn.net/hyhyl1990/article/details/46842915" target="_blank" rel="external">http://blog.csdn.net/hyhyl1990/article/details/46842915</a></h2><p><a href="http://tmq.qq.com/2016/06/let-your-brief-encounter-android-permission-to-business-practices/" target="_blank" rel="external">http://tmq.qq.com/2016/06/let-your-brief-encounter-android-permission-to-business-practices/</a><br><a href="http://tmq.qq.com/2016/06/android-authorization-management-theory/" target="_blank" rel="external">http://tmq.qq.com/2016/06/android-authorization-management-theory/</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权限/">权限</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-TextView-textIsSelectable与点击事件共存" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -759,71 +822,6 @@
     <div class="article-info article-info-index">
       
       
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hexo-Yilia-主题配置基于swiftype的站内搜索引擎" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/24/Hexo-Yilia-主题配置基于swiftype的站内搜索引擎/" class="article-date">
-  	<time datetime="2016-03-24T08:16:43.000Z" itemprop="datePublished">2016-03-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/24/Hexo-Yilia-主题配置基于swiftype的站内搜索引擎/">Hexo Yilia 主题配置基于swiftype的站内搜索引擎</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="swiftype">swiftype</h1><h2 id="swiftype是为web及移动提供站内搜索的服务，原理十分简单，就是抓取你所配置的网页数据。">swiftype是为web及移动提供站内搜索的服务，原理十分简单，就是抓取你所配置的网页数据。</h2><p>#注册</p>
-<h2 id="https://swiftype-com/_在网站上注册账号，获取Key以及安装脚本；"><a href="https://swiftype.com/" target="_blank" rel="external">https://swiftype.com/</a> 在网站上注册账号，获取Key以及安装脚本；</h2><p>#修改配置文件</p>
-<p>##打开Yilia的_config.yml文件吗，末尾加入如下代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">swift_search:</span><br><span class="line">  <span class="built_in">enable</span>: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<p>打开目录hexo\themes\yilia\layout_partial，打开文件left-col.ejs</p>
-<p>添加 swiftype 代码<br>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.swift_search&amp;&amp;theme.swift_search.enable)&#123; %&gt;</span><br><span class="line">		&lt;form class=<span class="string">"search"</span> action=<span class="string">"&lt;%- config.root %&gt;search/index.html"</span> method=<span class="string">"get"</span> accept-charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">			&lt;label&gt;Search&lt;/label&gt;</span><br><span class="line">			&lt;input <span class="built_in">type</span>=<span class="string">"text"</span> id=<span class="string">"st-search-input"</span> class=<span class="string">"st-default-search-input "</span> maxlength=<span class="string">"30"</span> placeholder=<span class="string">"Search"</span> /&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在主题目录的css/style.styl文件添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">.search</span><br><span class="line">  padding <span class="number">1</span>em <span class="number">0</span> <span class="number">0</span> <span class="number">2.5</span>em</span><br><span class="line">  input</span><br><span class="line">    line-height line-height+<span class="number">0.2</span></span><br><span class="line">    border <span class="number">1</span>px solid color-white</span><br><span class="line">    color color-white</span><br><span class="line">    background transparent</span><br><span class="line">    padding-left <span class="number">4</span>em</span><br><span class="line">    @media tablet</span><br><span class="line">      width <span class="number">4</span>em</span><br><span class="line">      transition .<span class="number">5</span>s width</span><br><span class="line">      &amp;:focus</span><br><span class="line">        width <span class="number">8</span>em</span><br><span class="line">  label</span><br><span class="line">    display none</span><br><span class="line">form input.st-default-search-input  &#123;</span><br><span class="line">  font-size: <span class="number">12</span>px;</span><br><span class="line">  padding: <span class="number">4</span>px <span class="number">9</span>px <span class="number">4</span>px <span class="number">27</span>px;</span><br><span class="line">  height: <span class="number">20</span>px;</span><br><span class="line">  width: <span class="number">190</span>px;</span><br><span class="line">  position: absolute;</span><br><span class="line">  left: <span class="number">32</span>px;</span><br><span class="line">  top: <span class="number">70</span>px;</span><br><span class="line">  color: <span class="comment">#666;</span></span><br><span class="line">  border: <span class="number">1</span>px solid <span class="comment">#ccc;</span></span><br><span class="line">  -webkit-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -moz-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -ms-border-radius: <span class="number">15</span>px;</span><br><span class="line">  -o-border-radius: <span class="number">15</span>px;</span><br><span class="line">  border-radius: <span class="number">15</span>px;</span><br><span class="line">  -webkit-box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  -moz-box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  box-shadow: inset <span class="number">0</span> <span class="number">1</span>px <span class="number">3</span>px <span class="number">0</span> rgba(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.17</span>);</span><br><span class="line">  outline: none;</span><br><span class="line">  background: <span class="comment">#fcfcfc url(/img/search.png) no-repeat 7px 7px;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里面设置搜索框的位置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: absolute;</span><br><span class="line"> left: <span class="number">32</span>px;</span><br><span class="line"> top: <span class="number">70</span>px;</span><br></pre></td></tr></table></figure></p>
-<p>并且必须修改main.style<br>的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.left-col &#123;</span><br><span class="line">z-index: -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">//在overlay里</span><br></pre></td></tr></table></figure></p>
-<p>参考文章：<a href="http://www.xianingtan.xyz/2015/08/28/Hexo-Yilia-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E5%9F%BA%E4%BA%8Eswiftype%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/" target="_blank" rel="external">http://www.xianingtan.xyz/2015/08/28/Hexo-Yilia-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E5%9F%BA%E4%BA%8Eswiftype%E7%9A%84%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
-	</div>
-
       
 
       
