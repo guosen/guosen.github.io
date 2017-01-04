@@ -202,6 +202,63 @@
 
       <div class="body-wrap">
   
+    <article id="post-Android-手势监听" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/04/Android-手势监听/" class="article-date">
+  	<time datetime="2017-01-04T07:26:45.000Z" itemprop="datePublished">2017-01-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/04/Android-手势监听/">Android 手势监听</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#ScaleGestureDetector<br>缩放事件，<br><figure class="highlight java"><figcaption><span>@Override</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> scaleEvent = mScaleGestureDetector.onTouchEvent(event);<span class="comment">//缩放事件</span></span><br><span class="line">    <span class="keyword">boolean</span> gestureEvent = mGestureDetector.onTouchEvent(event);<span class="comment">//处理一般事件</span></span><br><span class="line">    <span class="comment">//如果没有焦点的状态应该交给父类,缩放背景。</span></span><br><span class="line">    <span class="comment">//二维码被选中时缩放就缩放二维码 背景不改变。</span></span><br><span class="line">    <span class="keyword">return</span> !isFocusState()?<span class="keyword">false</span>:scaleEvent || gestureEvent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于手势监听，只有当onTouch 返回为True的情况下，才会执行，（也就是说event.getPonterCount()返回才会大于1）</p>
+<p>#关于这个类的用法:<br><figure class="highlight java"><figcaption><span>mScaleGestureDetector = new ScaleGestureDetector(getContext(), new           ScaleGestureDetector.SimpleOnScaleGestureListener() &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onScale</span><span class="params">(ScaleGestureDetector detector)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFocusState()) &#123;</span><br><span class="line">            <span class="keyword">float</span> scaleFactor = mScaleFactor * detector.getScaleFactor();</span><br><span class="line">            <span class="keyword">float</span> distance = calculateDistance(mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>], detector.getFocusX(), detector.getFocusY());</span><br><span class="line">            <span class="keyword">float</span> scale = distance / mOldDistance;</span><br><span class="line">            <span class="keyword">float</span>[] currentCorners = Arrays.copyOf(mCurrentImageCorners, mCurrentImageCorners.length);</span><br><span class="line">            mTempMatrix.reset();</span><br><span class="line">            mTempMatrix.postScale(scaleFactor, scaleFactor, mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>]);</span><br><span class="line">            mTempMatrix.mapPoints(currentCorners); <span class="comment">//限制缩放不能小于原始尺寸四分之一//</span></span><br><span class="line">            <span class="keyword">float</span> currentSize = calculateDistance(currentCorners[<span class="number">0</span>], currentCorners[<span class="number">1</span>], currentCorners[<span class="number">2</span>], currentCorners[<span class="number">3</span>]);</span><br><span class="line">            <span class="keyword">if</span> (currentSize &gt;= mMinWidth) &#123;</span><br><span class="line">                mCurrentImageCorners = currentCorners;</span><br><span class="line">                mOldScale = scale;</span><br><span class="line">            &#125;</span><br><span class="line">            invalidate();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>#GestureDetector<br>一般手势监听（包括单击、滑动、触摸）</p>
+<p>#关于这类的用法<br><figure class="highlight java"><figcaption><span>mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDown</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">float</span> x = event.getX();</span><br><span class="line">            <span class="keyword">float</span> y = event.getY();</span><br><span class="line">            mTouchDownX = x;</span><br><span class="line">            mTouchDownY = y;</span><br><span class="line">            <span class="keyword">if</span> (isFocusState()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mBtnEditDrawable != <span class="keyword">null</span> &amp;&amp; mBtnEditDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_EDIT;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mBtnRotationDrawable != <span class="keyword">null</span> &amp;&amp; mBtnRotationDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_CONTROLL;</span><br><span class="line">                    mOldDistance = calculateDistance(mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>], x, y);</span><br><span class="line">                    mOldScale = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mBtnDelDrawable != <span class="keyword">null</span> &amp;&amp; mBtnDelDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_DELETE;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            mTouchBtnType = TOUCH_NO_BTN;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onScroll</span><span class="params">(MotionEvent e1, MotionEvent e2, <span class="keyword">float</span> distanceX, <span class="keyword">float</span> distanceY)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//放大//拖动</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == StickerView.TOUCH_BTN_CONTROLL) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"processScale"</span>);</span><br><span class="line">                processScale(e2.getX(), e2.getY());</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ((MarkLayout) getParent()).processScrollEvent(e1, e2, distanceX, distanceY);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onSingleTapUp</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//触摸</span></span><br><span class="line">            <span class="comment">//删除</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == StickerView.TOUCH_BTN_DELETE</span><br><span class="line">                    &amp;&amp; (mTouchDownX == event.getX() &amp;&amp; mTouchDownY == event.getY())) &#123;</span><br><span class="line">                delete();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//编辑</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == TOUCH_BTN_EDIT</span><br><span class="line">                    &amp;&amp; (mTouchDownX == event.getX() &amp;&amp; mTouchDownY == event.getY())) &#123;</span><br><span class="line">                editTDCode();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ((MarkLayout) getParent()).processSingleTapUpEvent(event);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Mon工具－MarkDown语法的编辑" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -237,7 +294,7 @@
 <h4 id="Blockquotes">Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#46;&#x63;&#x6f;&#x6d;">&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#46;&#x63;&#x6f;&#x6d;</a> link.</p>
+<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#101;&#x78;&#97;&#109;&#x70;&#108;&#x65;&#x40;&#x65;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#101;&#x78;&#97;&#109;&#x70;&#108;&#x65;&#x40;&#x65;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
@@ -1159,68 +1216,9 @@ sInstance=<span class="keyword">this</span>;
 
 
   
-    <article id="post-TextView-textIsSelectable与点击事件共存" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/22/TextView-textIsSelectable与点击事件共存/" class="article-date">
-  	<time datetime="2016-06-22T02:14:47.000Z" itemprop="datePublished">2016-06-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/22/TextView-textIsSelectable与点击事件共存/">TextView textIsSelectable与点击事件共存</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#问题所在</p>
-<h2 id="如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；">如果一个TextView设置了textIsSelectable属性来实现文字可选复制，这时候设置其点击事件（OnClickListener）会出现第二次点击才响应事件；</h2><p>#解决</p>
-<h2 id="采用OnTouch代替">采用OnTouch代替</h2><h1 id="实现">实现</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//TextView 设置了TextIsSelectable属性实现选择复制,导致点击事件在点两下才响应/</span><br><span class="line">   //采用onTouch拦截</span><br><span class="line">   public void <span class="built_in">set</span>SelectableTextViewClick(final IntentData intentData, TextView textView) &#123;</span><br><span class="line">       final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(mActivity, new SimpleOnGestureListener());</span><br><span class="line">       gestureDetector.setOnDoubleTapListener(new GestureDetector.<span class="function"><span class="title">OnDoubleTapListener</span></span>() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public boolean onSingleTapConfirmed(MotionEvent e) &#123;</span><br><span class="line">               GoodDetailActivity.start(intentData);//点击</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public boolean onDoubleTap(MotionEvent e) &#123;</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">           @Override</span><br><span class="line">           public boolean onDoubleTapEvent(MotionEvent e) &#123;</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">       textView.setOnTouchListener(new View.<span class="function"><span class="title">OnTouchListener</span></span>() &#123;</span><br><span class="line">           @Override</span><br><span class="line">           public boolean onTouch(View v, MotionEvent event) &#123;</span><br><span class="line">               gestureDetector.onTouchEvent(event);</span><br><span class="line">               <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GestureDetectorCompat/">GestureDetectorCompat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/手势/">手势</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -1228,7 +1226,7 @@ sInstance=<span class="keyword">this</span>;
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 Guo Sen
+    		&copy; 2017 Guo Sen
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
