@@ -202,11 +202,11 @@
 
       <div class="body-wrap">
   
-    <article id="post-hello-world-1" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Android-中关于视频检索" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/02/hello-world-1/" class="article-date">
-  	<time datetime="2016-03-02T09:14:10.000Z" itemprop="datePublished">2016-03-02</time>
+      <a href="/2016/03/11/Android-中关于视频检索/" class="article-date">
+  	<time datetime="2016-03-11T03:43:52.000Z" itemprop="datePublished">2016-03-11</time>
 </a>
     </div>
   
@@ -219,7 +219,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/02/hello-world-1/">采用Hexo+github搭建属于自己的博客</a>
+      <a class="article-title" href="/2016/03/11/Android-中关于视频检索/">Android 中关于视频检索</a>
     </h1>
   
 
@@ -228,14 +228,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-Hexo介绍">1.Hexo介绍</h1><h2 id="Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。">Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。</h2><h1 id="2-Hexo安装">2.Hexo安装</h1><p>这边主要介绍在Mac环境下的安装和配置<br>采用命令 npm install -g hexo<br>＃ 3.创建项目</p>
-<h2 id="hexo_init_nodejs-hexo_然后启动服务器是：hexo_server">hexo init nodejs-hexo 然后启动服务器是：hexo server</h2><p>浏览地址是：<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> </p>
-<p>生成静态页面cd 到你的init目录，执行如下命令，生成静态页面至hexo\public\目录。hexo generate （hexo g  也可以）</p>
-<p>＃ 配置Github</p>
-<h2 id="建立与用户名对应的仓库必须是［your_user_name-git-io］,">建立与用户名对应的仓库必须是［your_user_name.git.io］,</h2><p>  修改根目录下的_config.yml文件最底下的deploy:  type: git repository:<a href="https://github.com/guosen/guosen.github.io.git" target="_blank" rel="external">https://github.com/guosen/guosen.github.io.git</a><br>  branch:master 注意：1、冒号跟后面的内容要有空格 2、第二行的type跟左边也要有空格否则出现YMLException.</p>
-<h1 id="部署">部署</h1><h2 id="就是部署到Github的相应分支，先hexo_clean_再生成静态网页hexo_generate,然后hexo_deploy部署。">就是部署到Github的相应分支，先hexo clean 再生成静态网页hexo generate,然后hexo deploy部署。</h2><h1 id="更换主题">更换主题</h1><h2 id="替换掉默认主题，首先下载一个主题采用命令：git_clone_https://github-com/daisygao/hexo-themes-cover-git_themes/cove">替换掉默认主题，首先下载一个主题采用命令：git clone <a href="https://github.com/daisygao/hexo-themes-cover.git" target="_blank" rel="external">https://github.com/daisygao/hexo-themes-cover.git</a> themes/cove</h2><p>然后修改 _config.yml文件。再部署OK！</p>
-<p>遇到的问题：fatal:multiple stage entries for merged file处理办法<br>删掉git下的index文件。</p>
-<p>参考链接：<a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">https://hexo.io/docs/troubleshooting.html</a><br>        <a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">http://blog.fens.me/hexo-blog-github/</a></p>
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">MediaMetadataRetriever mmr = new MediaMetadataRetriever();</span><br><span class="line">    public List&lt;VideoInfo&gt; <span class="function"><span class="title">getVideoList</span></span>() &#123;</span><br><span class="line">        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();</span><br><span class="line">        String[] thumbColumn = &#123;</span><br><span class="line">                MediaStore.Video.Thumbnails.DATA,</span><br><span class="line">                MediaStore.Video.Thumbnails.VIDEO_ID</span><br><span class="line">        &#125;;</span><br><span class="line">        String[] mediaColumns = &#123;</span><br><span class="line">                MediaStore.Video.Media._ID,</span><br><span class="line">                MediaStore.Video.Media.DATA,</span><br><span class="line">                MediaStore.Video.Media.TITLE,</span><br><span class="line">                MediaStore.Video.Media.MIME_TYPE,</span><br><span class="line">                MediaStore.Video.Media.DISPLAY_NAME,</span><br><span class="line">                MediaStore.Video.Media.DURATION,</span><br><span class="line">                MediaStore.Video.Media.HEIGHT,</span><br><span class="line">                MediaStore.Video.Media.WIDTH</span><br><span class="line">        &#125;;</span><br><span class="line">        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</span><br><span class="line">        <span class="keyword">if</span> (cursor == null) &#123;</span><br><span class="line">            ToastUtil.showMessage(<span class="string">"没有找到相关视频文件"</span>);</span><br><span class="line">            <span class="built_in">return</span> null;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cursor.moveToFirst()) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                VideoInfo videoInfo = new VideoInfo();</span><br><span class="line">                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));</span><br><span class="line">                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI</span><br><span class="line">                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + <span class="string">"="</span> + id, null, null);</span><br><span class="line">                <span class="keyword">if</span> (thumbCursor.moveToFirst()) &#123;</span><br><span class="line">                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));</span><br><span class="line">                    videoInfo.thumbPath = thumb;</span><br><span class="line">                &#125;</span><br><span class="line">                videoInfo.id = id;</span><br><span class="line">                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));</span><br><span class="line">                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));</span><br><span class="line">                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));</span><br><span class="line">                    mmr.setDataSource(videoInfo.path);</span><br><span class="line">                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);</span><br><span class="line">                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);</span><br><span class="line">                    videoInfoList.add(videoInfo);</span><br><span class="line">            &#125; <span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        <span class="built_in">return</span> videoInfoList;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>#存在的问题</p>
+<p>##有些手机媒体哭保存视频列表会有缩略图而有些则没有。但是一我们呈现的是要有封面图也就是缩略图，那该如何获取缩略图呢？<br>我们可以这样，先判断手机里面是否有缩略图，也就是上面检索的结果是否有thumbCusor.getCounnt()`0;没有的话：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private void <span class="function"><span class="title">setThumb</span></span>() &#123;</span><br><span class="line">        Task.callInBackground(new Callable&lt;Object&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object call() throws Exception &#123;</span><br><span class="line">                getThumbBitmap();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).onSuccessTask(new Continuation&lt;Object, Task&lt;Object&gt;&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Task&lt;Object&gt; <span class="keyword">then</span>(Task&lt;Object&gt; task) throws Exception &#123;</span><br><span class="line">                mVideoInfoAdapter.notifyDataSetChanged();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //有些机型没有缩略图,需要生成bitmap</span><br><span class="line">    private void <span class="function"><span class="title">getThumbBitmap</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (VideoInfo mVideoInfo : mVideoInfoAdapter.getAll()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(TextUtil.isEmptyOrNull(mVideoInfo.thumbPath) || !new File(mVideoInfo.thumbPath).exists())&#123;</span><br><span class="line">                mVideoInfo.thumbBitmab = MediaStore.Video.Thumbnails.getThumbnail(getActivity().getContentResolver(), mVideoInfo.id, MediaStore.Video.Thumbnails.MINI_KIND, null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>###存在的问题是：每次都要去生成缩略图，每次都很耗时 待优化；<br>参考文章：<a href="http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/" target="_blank" rel="external">http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/</a></p>
 
       
     </div>
@@ -244,7 +240,140 @@
       
       
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitmap/">bitmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/视频检索/">视频检索</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-PreferenceFragment的用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/09/Android-PreferenceFragment的用法/" class="article-date">
+  	<time datetime="2016-03-09T04:07:07.000Z" itemprop="datePublished">2016-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/09/Android-PreferenceFragment的用法/">Android PreferenceFragment的用法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;PreferenceCategory android:title=<span class="string">"就看天气"</span>&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"introduction"</span></span><br><span class="line">            android:title=<span class="string">"应用介绍"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"current_version"</span></span><br><span class="line">            android:title=<span class="string">"当前版本"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"check_version"</span></span><br><span class="line">            android:title=<span class="string">"检查更新"</span>/&gt;</span><br><span class="line">    &lt;/PreferenceCategory&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">	 addPreferencesFromResource(R.xml.about);</span><br><span class="line">     mIntroduction = findPreference(INTRODUCTION);</span><br><span class="line">     mIntroduction.setOnPreferenceClickListener(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>按钮点击事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> @Override public boolean onPreferenceClick(Preference preference) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mShare == preference)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Preference/">Preference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
+  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/04/Android-消息机制Handle-Looper-Message/">Android 消息机制Handle-Looper-Message</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
+<li>publicHandler() </li>
+<li>publicHandler(Callbackcallback) </li>
+<li>publicHandler(Looperlooper) </li>
+<li>publicHandler(Looperlooper, Callbackcallback) </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//实现这个函数来接收消息</span><br><span class="line">public void handleMessage(Message msg) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>能够处理Message，我们有两种办法： </p>
+<ol>
+<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
+<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
+</ol>
+<p>}<br>};<br>``</p>
+<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class LooperThread extends Thread &#123;</span><br><span class="line">      public Handler mHandler;</span><br><span class="line">      public void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">          Looper.prepare();</span><br><span class="line"></span><br><span class="line">          mHandler = new <span class="function"><span class="title">Handler</span></span>() &#123;</span><br><span class="line">              public void handleMessage(Message msg) &#123;</span><br><span class="line">                  // process incoming messages here</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;;</span><br><span class="line">          Looper.loop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>将当前线程初始化为一个Looper，源码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void <span class="function"><span class="title">prepare</span></span>() &#123;</span><br><span class="line">        prepare(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void prepare(boolean quitAllowed) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sThreadLocal.get() != null) &#123;</span><br><span class="line">            throw new RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sThreadLocal.set(new Looper(quitAllowed));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
+<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
 	</div>
 
       

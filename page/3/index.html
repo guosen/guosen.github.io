@@ -202,6 +202,268 @@
 
       <div class="body-wrap">
   
+    <article id="post-AndFix使用说明-android-热修复打补丁" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/18/AndFix使用说明-android-热修复打补丁/" class="article-date">
+  	<time datetime="2016-04-18T14:08:23.000Z" itemprop="datePublished">2016-04-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/18/AndFix使用说明-android-热修复打补丁/">AndFix使用说明(android 热修复打补丁)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#介绍</p>
+<h2 id="开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android_2-3_到_6-0。">开源框架阿里巴巴的AndFix,允许APP在不重新发布版本的情况下修复线上的bug。支持Android 2.3 到 6.0。</h2><p>#使用方式</p>
+<p>##添加依赖库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.alipay.euler:andfix:0.4.0@aar'</span></span><br></pre></td></tr></table></figure></p>
+<p>##添加so文件<br>可以参考<a href="https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT" target="_blank" rel="external">https://github.com/zhonghanwen/AndFix-Ndk-Build-ADT</a></p>
+<p>#Application代码</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">patchManager = new PatchManager(this);</span><br><span class="line">       patchManager.init(getAppVersion());//current version</span><br><span class="line">       patchManager.loadPatch();</span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">            patchManager.addPatch(Environment.getExternalStorageDirectory() + <span class="string">"/v.apatch"</span>);</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,<span class="string">"success"</span>);</span><br><span class="line">        &#125;catch (Exception ex)&#123;</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,ex.getMessage());</span><br><span class="line">            Log.i(<span class="string">"MyApplication"</span>,Environment.getExternalStorageDirectory().toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">public String <span class="function"><span class="title">getAppVersion</span></span>()&#123;</span><br><span class="line">        String appversion=<span class="string">""</span>;</span><br><span class="line">        try &#123;</span><br><span class="line">             appversion = getPackageManager().getPackageInfo(getPackageName(), <span class="number">0</span>).versionName;</span><br><span class="line">        &#125;catch (PackageManager.NameNotFoundException ex)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;finally &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> appversion;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>#生成补丁文件Patch</p>
+<p>##工具 apkpatch</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./apkpatch.sh <span class="operator">-f</span> volly2.apk -t volly.apk -k guosen.jks -p <span class="number">123456</span> <span class="operator">-a</span> lin <span class="operator">-e</span> <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AndFix/">AndFix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/热修复/">热修复</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/14/Android-面试题/" class="article-date">
+  	<time datetime="2016-04-14T08:11:50.000Z" itemprop="datePublished">2016-04-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/14/Android-面试题/">2016 新浪微博 Android 面试题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？">静态内部类、内部类、匿名内部类，为什么内部类会持有外部类的引用？持有的引用是this？还是其它？</h1><p>##<br>1.静态内部类：使用static修饰的内部类<br>2.匿名内部类：使用new生成的内部类<br>3.因为内部类的产生依赖于外部类，持有的引用是类名.this。</p>
+<h1 id="ArrayList和Vector的主要区别是什么？">ArrayList和Vector的主要区别是什么？</h1><h2 id="ArrayList在Java1-2引入，用于替换Vector">ArrayList在Java1.2引入，用于替换Vector</h2><h1 id="Vector:">Vector:</h1><p>##<br> -线程同步<br> -当Vector中的元素超过它的初始大小时，Vector会将它的容量翻倍</p>
+<p> #ArrayList:</p>
+<p> ##<br> 1.线程不同步，但性能很好<br> 2.当ArrayList中的元素超过它的初始大小时，ArrayList只增加50%的大小</p>
+<p> #Java中try catch finally的执行顺序</p>
+<p> ##先执行try中代码发生异常执行catch中代码，最后一定会执行finally中代码</p>
+<p> #switch是否能作用在byte上，是否能作用在long上，是否能作用在String上？</p>
+<p> ##switch支持使用byte类型，不支持long类型，String支持在java1.7引入</p>
+<p> #Activity和Fragment生命周期有哪些？</p>
+<p> ##<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> Activity——onCreate-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onDestroy</span><br><span class="line">Fragment——onAttach-&gt;onCreate-&gt;onCreateView-&gt;onActivityCreated-&gt;onStart-&gt;onResume-&gt;onPause-&gt;onStop-&gt;onDestroyView-&gt;onDestroy-&gt;onDetach</span><br></pre></td></tr></table></figure></p>
+<p>#onInterceptTouchEvent()和onTouchEvent()的区别？</p>
+<h2 id="onInterceptTouchEvent()用于拦截触摸事件">onInterceptTouchEvent()用于拦截触摸事件</h2><p>onTouchEvent()用于处理触摸事件</p>
+<p>#RemoteView在哪些功能中使用</p>
+<p>##APPwidget和Notification中</p>
+<p>#SurfaceView和View的区别是什么？</p>
+<p>##SurfaceView中采用了双缓存技术，在单独的线程中更新界面<br>View在UI线程中更新界面</p>
+<p>#讲一下android中进程的优先级？</p>
+<p>#一面</p>
+<p>##service生命周期，可以执行耗时操作吗？<br>JNI开发流程<br>Java线程池，线程同步<br>自己设计一个图片加载框架<br>自定义View相关方法<br>http ResponseCode<br>插件化，动态加载<br>性能优化，MAT<br>AsyncTask原理</p>
+<p>#二面<br>所使用的开源框架的实现原理，源码<br>没看过，被pass了<br>去面试之前把用到的开源框架源码分析一定要看看啊</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-触摸⌚事件分发（翻译）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/13/Android-触摸⌚事件分发（翻译）/" class="article-date">
+  	<time datetime="2016-04-13T07:58:42.000Z" itemprop="datePublished">2016-04-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/13/Android-触摸⌚事件分发（翻译）/">Android 触摸事件分发详解（翻译）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#android 怎样处理触摸事件</p>
+<h2 id="1-每一个用户触摸事件都被当作是一个MotionEvent对象；">1.每一个用户触摸事件都被当作是一个MotionEvent对象；</h2><p>2.描述用户的当前行为<br>  -ACTION_DOWN<br>  -ACTION_UP<br>  -ACTION_MOVE<br>  -ACTION_POINTER_DOWN<br>  -ACTION_POINTER_UP<br>  -ACTION_CANCEL<br>3.数据包括<br> -触摸的位置（x,y）<br> -手指数<br> -时间点<br> 4.手势（gesture）就是从ACTION_DOWN到ACTION_UP之间过程</p>
+<p> #android处理触摸事件流程<br> 1.事件的起始点是Activity的dispatchTouchEvent()<br> 2.事件是从上一层往下传递（ViewGroup-&gt;子View），并且可以在任意一层intercept（拦截事件）<br> 3.任何没有被消费的事件最终都会到Activity的onTouchEvent()去处理<br> 4.监听器onTouchListener可以拦截onTouch()z在任意一个View和viewGroup；</p>
+<p> #android处理触摸事各个流程<br> 1.Activity.dispatchTouchEvent()<br> 这个是最先被调用的<br> 分发事件到Root view（attch to window）<br> 2.view.onTouchEvent()<br> -发送事件到监听（如果有view.onTouchListener.onTouch()）<br> -如果没有消费会调用自己的View.onTouchEvent()<br> 3.viewGroup.dispatchTouchEvent()<br> -oninterceptTouchEvent(检查是否粗腰传递给子View)<br> -对于每个子控件，以相反的顺序分发事件<br> -如果没有子控件处理事件，就会传到OnTouchListener.onTouch()<br> -如果没有监听 onToucheEvent()<br> 4.Intercept (拦截事件)跳过子控件</p>
+<p> #自定义Touch事件<br> 1.重写onTouchEvent方法；<br> 2.消费事件（return true）<br> 3.有用的常量ViewConfiguration<br> -getScaledTouchSlop()<br> (拖动最短距离)<br> -getScaledMinimumFlingVelocity(最少平滑距离)<br> -getLongPressTimeout()<br> 判定为长按时间值；</p>
+<p> 原文：<a href="http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf" target="_blank" rel="external">http://trinea.github.io/download/pdf/android/PRE_andevcon_mastering-the-android-touch-system.pdf</a><br> 事例项目：<a href="https://github.com/guosen/custom-touch-examples" target="_blank" rel="external">https://github.com/guosen/custom-touch-examples</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android-网络请求OKHttp＋Retrofit" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/" class="article-date">
+  	<time datetime="2016-04-07T14:47:57.000Z" itemprop="datePublished">2016-04-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/07/Android-网络请求OKHttp＋Retrofit/">Android 网络请求OKHttp＋Retrofit</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#简介</p>
+<h2 id="Retrofit是Square开发的网络服务库,_简化Get/Post网络服务的使用,_配合Rx和Dagger有更好的效果-_Retrofit已经更新到第2-0版,_本文介绍一些常见的使用方式-">Retrofit是Square开发的网络服务库, 简化Get/Post网络服务的使用, 配合Rx和Dagger有更好的效果. Retrofit已经更新到第2.0版, 本文介绍一些常见的使用方式.</h2><p><a href="https://github.com/guosen/Volley" target="_blank" rel="external">https://github.com/guosen/Volley</a></p>
+<p>#引入（gradle）</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">'com.android.support:appcompat-v7:23.2.1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:retrofit:2.0.0-beta1'</span></span><br><span class="line">    compile <span class="string">'com.squareup.okhttp:okhttp:2.4.0'</span></span><br><span class="line">    compile <span class="string">'com.squareup.retrofit:converter-gson:2.0.0-beta2'</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by shouwang on <span class="number">16</span>/<span class="number">4</span>/<span class="number">7</span>.</span><br><span class="line"> */</span><br><span class="line">public interface ApiService &#123;</span><br><span class="line">    String END_POINT=<span class="string">"http://api.meiyaapp.cn/"</span>;</span><br><span class="line"></span><br><span class="line">    @Headers(<span class="string">"Cache-Control: public, max-age=3600"</span>)</span><br><span class="line">    @GET(<span class="string">"v1/users/&#123;id&#125;?signature=123456"</span>)</span><br><span class="line">    Call&lt;HttpResponse&lt;UserInfo&gt;&gt; getUserInfo(</span><br><span class="line">          @Path(<span class="string">"id"</span>) int id,</span><br><span class="line">          @Query(<span class="string">"with_recipients"</span>) int with_recipients,</span><br><span class="line">          @Query(<span class="string">"with_talent"</span>) int with_talent</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line">//其中的@Headers 是在这边增加头部 实现缓存功能</span><br></pre></td></tr></table></figure>
+<p>注：在retrofit2.0里去掉了CallBack接口参数。</p>
+<p>#定义接口服务类，用来管理和创建ApiService</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class ApiManager &#123;</span><br><span class="line">    public static final String HEADER_ACCEPT_JSON = <span class="string">"application/json"</span>;</span><br><span class="line">    public static final String HEADER_ACCEPT      = <span class="string">"Accept"</span>;</span><br><span class="line">    private        ApiService mApiService;</span><br><span class="line">    private static ApiManager sInstance;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public ApiManager(Context context) &#123;</span><br><span class="line">         mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private ApiService <span class="function"><span class="title">createService</span></span>() &#123;</span><br><span class="line">         OkHttpClient client=new OkHttpClient();</span><br><span class="line">        //----------</span><br><span class="line">        //设置头部 例如返回类型是Json/text</span><br><span class="line">        //-----------</span><br><span class="line">         client.interceptors().add(new <span class="function"><span class="title">Interceptor</span></span>() &#123;</span><br><span class="line">             @Override</span><br><span class="line">             public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">                 final Request originalRequest = chain.request();</span><br><span class="line">                 final Request requestWithUserAgent = originalRequest.newBuilder()</span><br><span class="line">                         .addHeader(HEADER_ACCEPT, HEADER_ACCEPT_JSON)</span><br><span class="line">                         .build();</span><br><span class="line">                 Response response = chain.proceed(requestWithUserAgent);</span><br><span class="line">                 <span class="built_in">return</span> response;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">        //日志拦截 https://github.com/square/okhttp/wiki/Interceptors</span><br><span class="line">        client.interceptors().add(new LoggingInterceptor());</span><br><span class="line">        client.interceptors().add(new CacheInterceptor(mContext));</span><br><span class="line"></span><br><span class="line">        File cacheFile = new File(mContext.getCacheDir(), <span class="string">"[缓存目录]"</span>);</span><br><span class="line">        Cache cache = new Cache(cacheFile, <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">100</span>); //<span class="number">100</span>Mb</span><br><span class="line">        client.setCache(cache);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //设置请求  并设置HttpClient (OKHttp)</span><br><span class="line">        Retrofit retrofit = new Retrofit.Builder()</span><br><span class="line">                .baseUrl(ApiService.END_POINT)</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .client(client)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="built_in">return</span> retrofit.create(ApiService.class);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ApiService <span class="function"><span class="title">getService</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (mApiService == null) &#123;</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mApiService == null)</span><br><span class="line">                    mApiService = createService();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> mApiService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static ApiManager getInstance(Context context) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sInstance == null) &#123;</span><br><span class="line">            sInstance = new ApiManager(context.getApplicationContext());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> sInstance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>#Interceptor</p>
+<p>##Interceptor是拦截器, 在发送之前, 添加一些参数, 或者获取一些信息. loggingInterceptor是打印参数.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class CacheInterceptor implements Interceptor &#123;</span><br><span class="line">    private Context mContext;</span><br><span class="line">    public CacheInterceptor(Context context)&#123;</span><br><span class="line">        mContext=context;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Response intercept(Chain chain) throws IOException &#123;</span><br><span class="line">        Request request = chain.request();</span><br><span class="line">        <span class="keyword">if</span>(!NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            request = request.newBuilder()</span><br><span class="line">                    .cacheControl(CacheControl.FORCE_CACHE)</span><br><span class="line">                    .build();</span><br><span class="line">//            Logger.t(TAG).w(<span class="string">"no network"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Response originalResponse = chain.proceed(request);</span><br><span class="line">        <span class="keyword">if</span>(NetworkUtil.isNetworkAvailable(mContext))&#123;</span><br><span class="line">            //有网的时候读接口上的@Headers里的配置，你可以在这里进行统一的设置</span><br><span class="line">            String cacheControl = request.cacheControl().toString();</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, cacheControl)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">return</span> originalResponse.newBuilder()</span><br><span class="line">                    .header(<span class="string">"Cache-Control"</span>, <span class="string">"public, only-if-cached, max-stale=2419200"</span>)</span><br><span class="line">                    .removeHeader(<span class="string">"Pragma"</span>)</span><br><span class="line">                    .build();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#Activity里的调用</p>
+<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Call&lt;HttpResponse&lt;UserInfo&gt;&gt; call=ApiManager.getInstance(this).getService().getUserInfo(<span class="number">91625</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">call.enqueue(new Callback&lt;HttpResponse&lt;UserInfo&gt;&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onFailure(Throwable t) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,t.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onResponse(Response&lt;HttpResponse&lt;UserInfo&gt;&gt; response, Retrofit retrofit) &#123;</span><br><span class="line">        Log.i(<span class="string">"MainActivity"</span>,response.body().data.username+<span class="string">"    ++++++++++"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Hexo-Yilia-主题配置基于swiftype的站内搜索引擎" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -619,251 +881,6 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Activity/">Activity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
 	</div>
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-中关于视频检索" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/11/Android-中关于视频检索/" class="article-date">
-  	<time datetime="2016-03-11T03:43:52.000Z" itemprop="datePublished">2016-03-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/11/Android-中关于视频检索/">Android 中关于视频检索</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">MediaMetadataRetriever mmr = new MediaMetadataRetriever();</span><br><span class="line">    public List&lt;VideoInfo&gt; <span class="function"><span class="title">getVideoList</span></span>() &#123;</span><br><span class="line">        List&lt;VideoInfo&gt; videoInfoList = new ArrayList&lt;&gt;();</span><br><span class="line">        String[] thumbColumn = &#123;</span><br><span class="line">                MediaStore.Video.Thumbnails.DATA,</span><br><span class="line">                MediaStore.Video.Thumbnails.VIDEO_ID</span><br><span class="line">        &#125;;</span><br><span class="line">        String[] mediaColumns = &#123;</span><br><span class="line">                MediaStore.Video.Media._ID,</span><br><span class="line">                MediaStore.Video.Media.DATA,</span><br><span class="line">                MediaStore.Video.Media.TITLE,</span><br><span class="line">                MediaStore.Video.Media.MIME_TYPE,</span><br><span class="line">                MediaStore.Video.Media.DISPLAY_NAME,</span><br><span class="line">                MediaStore.Video.Media.DURATION,</span><br><span class="line">                MediaStore.Video.Media.HEIGHT,</span><br><span class="line">                MediaStore.Video.Media.WIDTH</span><br><span class="line">        &#125;;</span><br><span class="line">        Cursor cursor = mContext.getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, mediaColumns, null, null, null);</span><br><span class="line">        <span class="keyword">if</span> (cursor == null) &#123;</span><br><span class="line">            ToastUtil.showMessage(<span class="string">"没有找到相关视频文件"</span>);</span><br><span class="line">            <span class="built_in">return</span> null;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cursor.moveToFirst()) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                VideoInfo videoInfo = new VideoInfo();</span><br><span class="line">                int id = cursor.getInt(cursor.getColumnIndex(MediaStore.Video.Media._ID));</span><br><span class="line">                Cursor thumbCursor = mContext.getContentResolver().query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI</span><br><span class="line">                        , thumbColumn, MediaStore.Video.Thumbnails.VIDEO_ID + <span class="string">"="</span> + id, null, null);</span><br><span class="line">                <span class="keyword">if</span> (thumbCursor.moveToFirst()) &#123;</span><br><span class="line">                    String thumb = thumbCursor.getString(thumbCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));</span><br><span class="line">                    videoInfo.thumbPath = thumb;</span><br><span class="line">                &#125;</span><br><span class="line">                videoInfo.id = id;</span><br><span class="line">                    videoInfo.path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));</span><br><span class="line">                    videoInfo.title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));</span><br><span class="line">                    videoInfo.duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));</span><br><span class="line">                    mmr.setDataSource(videoInfo.path);</span><br><span class="line">                    videoInfo.height = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);</span><br><span class="line">                    videoInfo.width = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);</span><br><span class="line">                    videoInfoList.add(videoInfo);</span><br><span class="line">            &#125; <span class="keyword">while</span> (cursor.moveToNext());</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        <span class="built_in">return</span> videoInfoList;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>#存在的问题</p>
-<p>##有些手机媒体哭保存视频列表会有缩略图而有些则没有。但是一我们呈现的是要有封面图也就是缩略图，那该如何获取缩略图呢？<br>我们可以这样，先判断手机里面是否有缩略图，也就是上面检索的结果是否有thumbCusor.getCounnt()`0;没有的话：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private void <span class="function"><span class="title">setThumb</span></span>() &#123;</span><br><span class="line">        Task.callInBackground(new Callable&lt;Object&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Object call() throws Exception &#123;</span><br><span class="line">                getThumbBitmap();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).onSuccessTask(new Continuation&lt;Object, Task&lt;Object&gt;&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public Task&lt;Object&gt; <span class="keyword">then</span>(Task&lt;Object&gt; task) throws Exception &#123;</span><br><span class="line">                mVideoInfoAdapter.notifyDataSetChanged();</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //有些机型没有缩略图,需要生成bitmap</span><br><span class="line">    private void <span class="function"><span class="title">getThumbBitmap</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (VideoInfo mVideoInfo : mVideoInfoAdapter.getAll()) &#123;</span><br><span class="line">            <span class="keyword">if</span>(TextUtil.isEmptyOrNull(mVideoInfo.thumbPath) || !new File(mVideoInfo.thumbPath).exists())&#123;</span><br><span class="line">                mVideoInfo.thumbBitmab = MediaStore.Video.Thumbnails.getThumbnail(getActivity().getContentResolver(), mVideoInfo.id, MediaStore.Video.Thumbnails.MINI_KIND, null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>###存在的问题是：每次都要去生成缩略图，每次都很耗时 待优化；<br>参考文章：<a href="http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/" target="_blank" rel="external">http://jayfeng.com/2016/03/16/%E7%90%86%E8%A7%A3ThumbnailUtils/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitmap/">bitmap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/视频检索/">视频检索</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-PreferenceFragment的用法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/09/Android-PreferenceFragment的用法/" class="article-date">
-  	<time datetime="2016-03-09T04:07:07.000Z" itemprop="datePublished">2016-03-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/09/Android-PreferenceFragment的用法/">Android PreferenceFragment的用法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介">简介</h1><h2 id="使用来定义App_关于_界面的一个Fragment，将条目定义在xml中，可直接跳转Activity">使用来定义App 关于 界面的一个Fragment，将条目定义在xml中，可直接跳转Activity</h2><h1 id="用法">用法</h1><h2 id="xml定义">xml定义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;PreferenceCategory android:title=<span class="string">"就看天气"</span>&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"introduction"</span></span><br><span class="line">            android:title=<span class="string">"应用介绍"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"current_version"</span></span><br><span class="line">            android:title=<span class="string">"当前版本"</span>/&gt;</span><br><span class="line">        &lt;Preference</span><br><span class="line">            android:key=<span class="string">"check_version"</span></span><br><span class="line">            android:title=<span class="string">"检查更新"</span>/&gt;</span><br><span class="line">    &lt;/PreferenceCategory&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void onCreate(Bundle savedInstanceState)&#123;</span><br><span class="line">	 addPreferencesFromResource(R.xml.about);</span><br><span class="line">     mIntroduction = findPreference(INTRODUCTION);</span><br><span class="line">     mIntroduction.setOnPreferenceClickListener(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>按钮点击事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> @Override public boolean onPreferenceClick(Preference preference) &#123;</span><br><span class="line">    <span class="keyword">if</span>(mShare == preference)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Preference/">Preference</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
-  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/04/Android-消息机制Handle-Looper-Message/">Android 消息机制Handle-Looper-Message</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
-<li>publicHandler() </li>
-<li>publicHandler(Callbackcallback) </li>
-<li>publicHandler(Looperlooper) </li>
-<li>publicHandler(Looperlooper, Callbackcallback) </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//实现这个函数来接收消息</span><br><span class="line">public void handleMessage(Message msg) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>能够处理Message，我们有两种办法： </p>
-<ol>
-<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
-<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
-</ol>
-<p>}<br>};<br>``</p>
-<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class LooperThread extends Thread &#123;</span><br><span class="line">      public Handler mHandler;</span><br><span class="line">      public void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">          Looper.prepare();</span><br><span class="line"></span><br><span class="line">          mHandler = new <span class="function"><span class="title">Handler</span></span>() &#123;</span><br><span class="line">              public void handleMessage(Message msg) &#123;</span><br><span class="line">                  // process incoming messages here</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;;</span><br><span class="line">          Looper.loop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>将当前线程初始化为一个Looper，源码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void <span class="function"><span class="title">prepare</span></span>() &#123;</span><br><span class="line">        prepare(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void prepare(boolean quitAllowed) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sThreadLocal.get() != null) &#123;</span><br><span class="line">            throw new RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sThreadLocal.set(new Looper(quitAllowed));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
-<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/03/03/hello-world/" class="article-date">
-  	<time datetime="2016-03-03T05:54:25.000Z" itemprop="datePublished">2016-03-03</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/03/hello-world/">为什么写博客 ？</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="原因">原因</h2><h3 id="作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。">作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。</h3><h2 id="写什么呢">写什么呢</h2><h3 id="主要就是技术文章，然后随想，吐槽等等。">主要就是技术文章，然后随想，吐槽等等。</h3>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
       
 
       

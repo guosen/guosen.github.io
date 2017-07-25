@@ -4,36 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Android 消息机制Handle-Looper-Message | Dev-Sw</title>
+  <title>关于gson 解析不规范json | Dev-Sw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
+  <meta name="description" content="{“data”:{“sign”:”2113fe846f348d1b07263573eaa1c530”,”result”:”{\”eaccountId\”:41,\”sex\”:\”1\”,\”contactTel\”:\”16585854282\”,\”merchantProvince\”:\”福建省\”,\”city\”:null,\”bankCount\”:1,\”balance\”:113,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android 消息机制Handle-Looper-Message">
-<meta property="og:url" content="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/index.html">
+<meta property="og:title" content="关于gson 解析不规范json">
+<meta property="og:url" content="http://yoursite.com/2017/07/25/关于gson-解析不规范json/index.html">
 <meta property="og:site_name" content="Dev-Sw">
-<meta property="og:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
-<meta property="og:updated_time" content="2016-03-11T05:09:59.000Z">
+<meta property="og:description" content="{“data”:{“sign”:”2113fe846f348d1b07263573eaa1c530”,”result”:”{\”eaccountId\”:41,\”sex\”:\”1\”,\”contactTel\”:\”16585854282\”,\”merchantProvince\”:\”福建省\”,\”city\”:null,\”bankCount\”:1,\”balance\”:113,">
+<meta property="og:updated_time" content="2017-07-25T08:31:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android 消息机制Handle-Looper-Message">
-<meta name="twitter:description" content="HandlerHandler这个类可以说是消息的处理者他有几个个构造函数：
-publicHandler() 
-publicHandler(Callbackcallback) 
-publicHandler(Looperlooper) 
-publicHandler(Looperlooper, Callbackcallback) 
-
-123//实现这个函数来接收消息public void handleM">
+<meta name="twitter:title" content="关于gson 解析不规范json">
+<meta name="twitter:description" content="{“data”:{“sign”:”2113fe846f348d1b07263573eaa1c530”,”result”:”{\”eaccountId\”:41,\”sex\”:\”1\”,\”contactTel\”:\”16585854282\”,\”merchantProvince\”:\”福建省\”,\”city\”:null,\”bankCount\”:1,\”balance\”:113,">
   
     <link rel="alternative" href="/atom.xml" title="Dev-Sw" type="application/atom+xml">
   
@@ -219,11 +201,11 @@ publicHandler(Looperlooper, Callbackcallback)
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-Android-消息机制Handle-Looper-Message" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-关于gson-解析不规范json" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/04/Android-消息机制Handle-Looper-Message/" class="article-date">
-  	<time datetime="2016-03-04T09:03:48.000Z" itemprop="datePublished">2016-03-04</time>
+      <a href="/2017/07/25/关于gson-解析不规范json/" class="article-date">
+  	<time datetime="2017-07-25T08:25:26.000Z" itemprop="datePublished">2017-07-25</time>
 </a>
     </div>
   
@@ -236,7 +218,7 @@ publicHandler(Looperlooper, Callbackcallback)
         
   
     <h1 class="article-title" itemprop="name">
-      Android 消息机制Handle-Looper-Message
+      关于gson 解析不规范json
     </h1>
   
 
@@ -244,10 +226,6 @@ publicHandler(Looperlooper, Callbackcallback)
       
       <div class="article-info article-info-post">
         
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Handle/">Handle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息机制/">消息机制</a></li></ul>
-	</div>
-
         
 
         <div class="clearfix"></div>
@@ -256,23 +234,97 @@ publicHandler(Looperlooper, Callbackcallback)
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Handler">Handler</h1><h2 id="Handler这个类可以说是消息的处理者他有几个个构造函数：">Handler这个类可以说是消息的处理者他有几个个构造函数：</h2><ol>
-<li>publicHandler() </li>
-<li>publicHandler(Callbackcallback) </li>
-<li>publicHandler(Looperlooper) </li>
-<li>publicHandler(Looperlooper, Callbackcallback) </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//实现这个函数来接收消息</span><br><span class="line">public void handleMessage(Message msg) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>能够处理Message，我们有两种办法： </p>
-<ol>
-<li>向Hanlder的构造函数传入一个Handler.Callback对象，并实现Handler.Callback的handleMessage方法 </li>
-<li>无需向Hanlder的构造函数传入Handler.Callback对象，但是需要重写Handler本身的handleMessage方法<br>所以一般的用法就是：<br>``bash<br>Handler handler=new Handler(Looper.myLooper){<br> handleMassage(Message obj){</li>
-</ol>
-<p>}<br>};<br>``</p>
-<h1 id="Looper_循环者">Looper 循环者</h1><h2 id="Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！">Looper字面上意思就是循环者，我们知道MessageQueue就是一个消息队列，就是存储Message的地方，一个队列摆在那只是静止的，那么怎么让他动起来发挥它原本应该有的作用呢。这时Looper就出来了，它可以说睡是一个动力让队列动起来！</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class LooperThread extends Thread &#123;</span><br><span class="line">      public Handler mHandler;</span><br><span class="line">      public void <span class="function"><span class="title">run</span></span>() &#123;</span><br><span class="line">          Looper.prepare();</span><br><span class="line"></span><br><span class="line">          mHandler = new <span class="function"><span class="title">Handler</span></span>() &#123;</span><br><span class="line">              public void handleMessage(Message msg) &#123;</span><br><span class="line">                  // process incoming messages here</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;;</span><br><span class="line">          Looper.loop();</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>将当前线程初始化为一个Looper，源码如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void <span class="function"><span class="title">prepare</span></span>() &#123;</span><br><span class="line">        prepare(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static void prepare(boolean quitAllowed) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sThreadLocal.get() != null) &#123;</span><br><span class="line">            throw new RuntimeException(<span class="string">"Only one Looper may be created per thread"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sThreadLocal.set(new Looper(quitAllowed));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们在用的时候应该是：在run方法里面，调用prepare（）和loop（）方法；<br>一个线程只能有一个Looper。</p>
-<h1 id="Message">Message</h1><h2 id="顾名思义_消息，就是传递的对象">顾名思义 消息，就是传递的对象</h2>
+        <p>{“data”:{“sign”:”2113fe846f348d1b07263573eaa1c530”,”result”:”{\”eaccountId\”:41,\”sex\”:\”1\”,\”contactTel\”:\”16585854282\”,\”merchantProvince\”:\”福建省\”,\”city\”:null,\”bankCount\”:1,\”balance\”:113,\”area\”:null,\”is_finger_pay\”:\”0\”,\”token\”:\”eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0SWQiOiI0MSIsInVzZXJJZCI6IjQxIiwiaWF0IjoxNTAwOTY4OTA2NDU4LCJjdXN0VHlwZSI6IjAifQ.HXkuHO_OrG4LbOAILFv6eJA8T4VepKJCeqT6YtRiwbE\”,\”nickName\”:\”守望\”,\”merchantType\”:\”0\”,\”province\”:\”北京 北京市 西城区\”,\”merchantName\”:\”莆田卤面\”,\”alipayAccount\”:\”18060031709\”,\”custId\”:41,\”merchantLogo\”:\”header/758f2ffa-f057-474f-b0c4-57a703a8dfa0.jpg\”,\”is_open_pay_code\”:\”0\”,\”avatar\”:\”header/e5be6d17-c27d-4db5-8fe6-d20cf89e5598.jpg\”,\”isOpenEcash\”:\”1\”,\”merchantArea\”:\”思明区\”,\”isAuth\”:\”1\”,\”email\”:\”1432967264@qq.com\”,\”contactName\”:\”林国森\”,\”contactType\”:\”00\”,\”is_free_pay\”:0,\”realName\”:\”林国森\”,\”merchantCity\”:\”厦门市\”,\”is_set_pay_pwd\”:1,\”mobile\”:18060031709}”},”description”:”服务处理成功”,”status”:”success</p>
+<p>如上json<br>应该说对于对象必须是不加双引号的，如果加上双引号会识别为字符串。<br>那也只能按照字符串去解析<br>``java<br>package com.npay.merchant.retrofit.response;</p>
+<p>import com.google.gson.Gson;<br>import com.google.gson.reflect.TypeToken;<br>import com.npay.merchant.bean.User;</p>
+<p>import org.json.JSONException;<br>import org.json.JSONObject;</p>
+<p>import java.lang.reflect.Type;</p>
+<p>/**</p>
+<ul>
+<li><p>Created by guosenlin on 2017/7/25.<br>*/<br>public class UserData<t> {<br> String sign;<br> String result;</t></p>
+<p> public T getResult(Class<t> clazz){</t></p>
+<pre><code><span class="keyword">try</span> {
+    <span class="type">JSONObject</span> jsonObject = new <span class="type">JSONObject</span>(<span class="literal">result</span>);
+    <span class="type">Type</span> fooType = new <span class="type">TypeToken</span>&lt; T&gt;() {}.getType();
+     <span class="keyword">return</span> new <span class="type">Gson</span>().fromJson(<span class="literal">result</span>, clazz);
+} catch (<span class="type">JSONException</span> e) {
+    e.printStackTrace();
+}
+<span class="keyword">return</span> null;
+</code></pre><p> }</p>
+<p> //一般来说没必要在这边再继续序列化一次 但是由于 这个后端的json格式有问题多了””（嵌套对象）</p>
+</li>
+</ul>
+<p>}</p>
+<p>``</p>
+<p>``java<br>package com.npay.merchant.retrofit.response;</p>
+<p>import com.google.gson.Gson;</p>
+<p>import java.lang.reflect.ParameterizedType;<br>import java.lang.reflect.Type;</p>
+<p>/**</p>
+<ul>
+<li>Created by guosenlin on 2017/6/23.<br>*/</li>
+</ul>
+<p>public class HttpResponse<t>     {</t></p>
+<pre><code><span class="keyword">public</span> UserData&lt;T&gt; <span class="type">data</span>;
+
+<span class="keyword">public</span> String description;
+
+<span class="keyword">public</span> String <span class="keyword">status</span>;
+
+
+<span class="keyword">public</span> static HttpResponse fromJson(String json, <span class="keyword">Class</span> clazz) {
+    Gson gson = new Gson();
+    <span class="keyword">Type</span> objectType = <span class="keyword">type</span>(HttpResponse.<span class="keyword">class</span>, clazz);
+    <span class="keyword">return</span> gson.fromJson(json, objectType);
+}
+
+<span class="keyword">public</span> String toJson(<span class="keyword">Class</span>&lt;T&gt; clazz) {
+    Gson gson = new Gson();
+    <span class="keyword">Type</span> objectType = <span class="keyword">type</span>(HttpResponse.<span class="keyword">class</span>, clazz);
+    <span class="keyword">return</span> gson.toJson(this, objectType);
+}
+
+static ParameterizedType <span class="keyword">type</span>(<span class="keyword">final</span> <span class="keyword">Class</span> raw, <span class="keyword">final</span> <span class="keyword">Type</span>... args) {
+    <span class="keyword">return</span> new ParameterizedType() {
+        <span class="keyword">public</span> <span class="keyword">Type</span> getRawType() {
+            <span class="keyword">return</span> raw;
+        }
+
+        <span class="keyword">public</span> <span class="keyword">Type</span>[] getActualTypeArguments() {
+            <span class="keyword">return</span> args;
+        }
+
+        <span class="keyword">public</span> <span class="keyword">Type</span> getOwnerType() {
+            <span class="keyword">return</span> null;
+        }
+    };
+}
+</code></pre><p>}</p>
+<pre><code><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpResultFunc</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Func1</span>&lt;<span class="title">T</span>, <span class="title">T</span>&gt; </span>{
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> T <span class="title">call</span><span class="params">(T httpResult)</span> </span>{
+        <span class="keyword">if</span> (httpResult  == <span class="keyword">null</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> ApiException(<span class="number">100</span>);
+        }
+        <span class="keyword">return</span> httpResult;
+    }
+}
+
+<span class="comment">/***
+ * 用户登录
+ * <span class="doctag">@param</span> subscriber
+ * <span class="doctag">@param</span> phone
+ * <span class="doctag">@param</span> pwd
+ * <span class="doctag">@param</span> custType
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accountLogin</span><span class="params">(Subscriber&lt;HttpResponse&lt;User&gt;&gt; subscriber, String phone, String pwd, <span class="keyword">int</span> custType )</span></span>{
+    Observable observable = mApiService.login(phone,pwd,custType)
+            .map(<span class="keyword">new</span> HttpResultFunc&lt;HttpResponse&lt;User&gt;&gt;());
+    toSubscribe(observable, subscriber);
+}
+</code></pre><p>``</p>
+
       
     </div>
     
@@ -281,18 +333,9 @@ publicHandler(Looperlooper, Callbackcallback)
     
 <nav id="article-nav">
   
-    <a href="/2016/03/09/Android-PreferenceFragment的用法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Android PreferenceFragment的用法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/03/02/第一篇博客/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Bolts</div>
+    <a href="/2017/07/21/Handler-Android/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Handler Android</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -327,7 +370,7 @@ publicHandler(Looperlooper, Callbackcallback)
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Android-消息机制Handle-Looper-Message" data-title="Android 消息机制Handle-Looper-Message" data-url="http://yoursite.com/2016/03/04/Android-消息机制Handle-Looper-Message/"></div>
+	<div class="ds-thread" data-thread-key="关于gson-解析不规范json" data-title="关于gson 解析不规范json" data-url="http://yoursite.com/2017/07/25/关于gson-解析不规范json/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

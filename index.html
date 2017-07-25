@@ -202,6 +202,316 @@
 
       <div class="body-wrap">
   
+    <article id="post-关于gson-解析不规范json" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/25/关于gson-解析不规范json/" class="article-date">
+  	<time datetime="2017-07-25T08:25:26.000Z" itemprop="datePublished">2017-07-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/25/关于gson-解析不规范json/">关于gson 解析不规范json</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>{“data”:{“sign”:”2113fe846f348d1b07263573eaa1c530”,”result”:”{\”eaccountId\”:41,\”sex\”:\”1\”,\”contactTel\”:\”16585854282\”,\”merchantProvince\”:\”福建省\”,\”city\”:null,\”bankCount\”:1,\”balance\”:113,\”area\”:null,\”is_finger_pay\”:\”0\”,\”token\”:\”eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdXN0SWQiOiI0MSIsInVzZXJJZCI6IjQxIiwiaWF0IjoxNTAwOTY4OTA2NDU4LCJjdXN0VHlwZSI6IjAifQ.HXkuHO_OrG4LbOAILFv6eJA8T4VepKJCeqT6YtRiwbE\”,\”nickName\”:\”守望\”,\”merchantType\”:\”0\”,\”province\”:\”北京 北京市 西城区\”,\”merchantName\”:\”莆田卤面\”,\”alipayAccount\”:\”18060031709\”,\”custId\”:41,\”merchantLogo\”:\”header/758f2ffa-f057-474f-b0c4-57a703a8dfa0.jpg\”,\”is_open_pay_code\”:\”0\”,\”avatar\”:\”header/e5be6d17-c27d-4db5-8fe6-d20cf89e5598.jpg\”,\”isOpenEcash\”:\”1\”,\”merchantArea\”:\”思明区\”,\”isAuth\”:\”1\”,\”email\”:\”1432967264@qq.com\”,\”contactName\”:\”林国森\”,\”contactType\”:\”00\”,\”is_free_pay\”:0,\”realName\”:\”林国森\”,\”merchantCity\”:\”厦门市\”,\”is_set_pay_pwd\”:1,\”mobile\”:18060031709}”},”description”:”服务处理成功”,”status”:”success</p>
+<p>如上json<br>应该说对于对象必须是不加双引号的，如果加上双引号会识别为字符串。<br>那也只能按照字符串去解析<br>``java<br>package com.npay.merchant.retrofit.response;</p>
+<p>import com.google.gson.Gson;<br>import com.google.gson.reflect.TypeToken;<br>import com.npay.merchant.bean.User;</p>
+<p>import org.json.JSONException;<br>import org.json.JSONObject;</p>
+<p>import java.lang.reflect.Type;</p>
+<p>/**</p>
+<ul>
+<li><p>Created by guosenlin on 2017/7/25.<br>*/<br>public class UserData<t> {<br> String sign;<br> String result;</t></p>
+<p> public T getResult(Class<t> clazz){</t></p>
+<pre><code><span class="keyword">try</span> {
+    <span class="type">JSONObject</span> jsonObject = new <span class="type">JSONObject</span>(<span class="literal">result</span>);
+    <span class="type">Type</span> fooType = new <span class="type">TypeToken</span>&lt; T&gt;() {}.getType();
+     <span class="keyword">return</span> new <span class="type">Gson</span>().fromJson(<span class="literal">result</span>, clazz);
+} catch (<span class="type">JSONException</span> e) {
+    e.printStackTrace();
+}
+<span class="keyword">return</span> null;
+</code></pre><p> }</p>
+<p> //一般来说没必要在这边再继续序列化一次 但是由于 这个后端的json格式有问题多了””（嵌套对象）</p>
+</li>
+</ul>
+<p>}</p>
+<p>``</p>
+<p>``java<br>package com.npay.merchant.retrofit.response;</p>
+<p>import com.google.gson.Gson;</p>
+<p>import java.lang.reflect.ParameterizedType;<br>import java.lang.reflect.Type;</p>
+<p>/**</p>
+<ul>
+<li>Created by guosenlin on 2017/6/23.<br>*/</li>
+</ul>
+<p>public class HttpResponse<t>     {</t></p>
+<pre><code><span class="keyword">public</span> UserData&lt;T&gt; <span class="type">data</span>;
+
+<span class="keyword">public</span> String description;
+
+<span class="keyword">public</span> String <span class="keyword">status</span>;
+
+
+<span class="keyword">public</span> static HttpResponse fromJson(String json, <span class="keyword">Class</span> clazz) {
+    Gson gson = new Gson();
+    <span class="keyword">Type</span> objectType = <span class="keyword">type</span>(HttpResponse.<span class="keyword">class</span>, clazz);
+    <span class="keyword">return</span> gson.fromJson(json, objectType);
+}
+
+<span class="keyword">public</span> String toJson(<span class="keyword">Class</span>&lt;T&gt; clazz) {
+    Gson gson = new Gson();
+    <span class="keyword">Type</span> objectType = <span class="keyword">type</span>(HttpResponse.<span class="keyword">class</span>, clazz);
+    <span class="keyword">return</span> gson.toJson(this, objectType);
+}
+
+static ParameterizedType <span class="keyword">type</span>(<span class="keyword">final</span> <span class="keyword">Class</span> raw, <span class="keyword">final</span> <span class="keyword">Type</span>... args) {
+    <span class="keyword">return</span> new ParameterizedType() {
+        <span class="keyword">public</span> <span class="keyword">Type</span> getRawType() {
+            <span class="keyword">return</span> raw;
+        }
+
+        <span class="keyword">public</span> <span class="keyword">Type</span>[] getActualTypeArguments() {
+            <span class="keyword">return</span> args;
+        }
+
+        <span class="keyword">public</span> <span class="keyword">Type</span> getOwnerType() {
+            <span class="keyword">return</span> null;
+        }
+    };
+}
+</code></pre><p>}</p>
+<pre><code><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpResultFunc</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Func1</span>&lt;<span class="title">T</span>, <span class="title">T</span>&gt; </span>{
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> T <span class="title">call</span><span class="params">(T httpResult)</span> </span>{
+        <span class="keyword">if</span> (httpResult  == <span class="keyword">null</span>) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> ApiException(<span class="number">100</span>);
+        }
+        <span class="keyword">return</span> httpResult;
+    }
+}
+
+<span class="comment">/***
+ * 用户登录
+ * <span class="doctag">@param</span> subscriber
+ * <span class="doctag">@param</span> phone
+ * <span class="doctag">@param</span> pwd
+ * <span class="doctag">@param</span> custType
+ */</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accountLogin</span><span class="params">(Subscriber&lt;HttpResponse&lt;User&gt;&gt; subscriber, String phone, String pwd, <span class="keyword">int</span> custType )</span></span>{
+    Observable observable = mApiService.login(phone,pwd,custType)
+            .map(<span class="keyword">new</span> HttpResultFunc&lt;HttpResponse&lt;User&gt;&gt;());
+    toSubscribe(observable, subscriber);
+}
+</code></pre><p>``</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Handler-Android" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/21/Handler-Android/" class="article-date">
+  	<time datetime="2017-07-21T07:36:38.000Z" itemprop="datePublished">2017-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/21/Handler-Android/">Handler Android</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/19/hello-world/" class="article-date">
+  	<time datetime="2017-06-19T10:03:44.000Z" itemprop="datePublished">2017-06-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/19/hello-world/">为什么写博客 ？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="原因">原因</h2><h3 id="作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。">作为一个技术人员，技术的成长是非常重要的，然而自己每天在工作忙碌着而没有去注意到自己是否在上升，自己所到达的一个层次，如果能把一些遇到的问题和自己解决的办法等等清晰的记录下来，一个是留到以后回过来看更佳方便；其次，可以提高自己的表达能力，还有就是能把一些东西用文章的形式表达下来，说明自己已经对这个已经比较清楚的理解。</h3><h2 id="写什么呢">写什么呢</h2><h3 id="主要就是技术文章，然后随想，吐槽等等。">主要就是技术文章，然后随想，吐槽等等。</h3>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-hello-world-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/19/hello-world-1/" class="article-date">
+  	<time datetime="2017-06-19T10:03:44.000Z" itemprop="datePublished">2017-06-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/19/hello-world-1/">采用Hexo+github搭建属于自己的博客</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Hexo介绍">1.Hexo介绍</h1><h2 id="Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。">Hexo是一个简单的静态博客框架。采用命令的方式，我们可以简单的创建属于我们自己的博客。</h2><h1 id="2-Hexo安装">2.Hexo安装</h1><p>这边主要介绍在Mac环境下的安装和配置<br>采用命令 npm install -g hexo<br>＃ 3.创建项目</p>
+<h2 id="hexo_init_nodejs-hexo_然后启动服务器是：hexo_server">hexo init nodejs-hexo 然后启动服务器是：hexo server</h2><p>浏览地址是：<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> </p>
+<p>生成静态页面cd 到你的init目录，执行如下命令，生成静态页面至hexo\public\目录。hexo generate （hexo g  也可以）</p>
+<p>＃ 配置Github</p>
+<h2 id="建立与用户名对应的仓库必须是［your_user_name-git-io］,">建立与用户名对应的仓库必须是［your_user_name.git.io］,</h2><p>  修改根目录下的_config.yml文件最底下的deploy:  type: git repository:<a href="https://github.com/guosen/guosen.github.io.git" target="_blank" rel="external">https://github.com/guosen/guosen.github.io.git</a><br>  branch:master 注意：1、冒号跟后面的内容要有空格 2、第二行的type跟左边也要有空格否则出现YMLException.</p>
+<h1 id="部署">部署</h1><h2 id="就是部署到Github的相应分支，先hexo_clean_再生成静态网页hexo_generate,然后hexo_deploy部署。">就是部署到Github的相应分支，先hexo clean 再生成静态网页hexo generate,然后hexo deploy部署。</h2><h1 id="更换主题">更换主题</h1><h2 id="替换掉默认主题，首先下载一个主题采用命令：git_clone_https://github-com/daisygao/hexo-themes-cover-git_themes/cove">替换掉默认主题，首先下载一个主题采用命令：git clone <a href="https://github.com/daisygao/hexo-themes-cover.git" target="_blank" rel="external">https://github.com/daisygao/hexo-themes-cover.git</a> themes/cove</h2><p>然后修改 _config.yml文件。再部署OK！</p>
+<p>遇到的问题：fatal:multiple stage entries for merged file处理办法<br>删掉git下的index文件。</p>
+<p>参考链接：<a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">https://hexo.io/docs/troubleshooting.html</a><br>        <a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">http://blog.fens.me/hexo-blog-github/</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/">github</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android-三大图片缓存原理、特性对比" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -369,7 +679,7 @@
 <h4 id="Blockquotes">Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#101;&#120;&#97;&#109;&#112;&#108;&#x65;&#64;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;">&#101;&#120;&#97;&#109;&#112;&#108;&#x65;&#64;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;</a> link.</p>
+<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#x40;&#101;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#99;&#x6f;&#109;">&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#x40;&#101;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#99;&#x6f;&#109;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
@@ -921,287 +1231,6 @@ sInstance=<span class="keyword">this</span>;
         <p>＃什么是热修复？</p>
 <p>##传统的开发流程－版本上线－安装－发现bug－紧急修复－发布新版本。<br> 热修复说白了就是“打补丁”－让用户下载没有bug的代码替换掉当前apk的代码－解决了问题，也提高了用户体验。</p>
 <p>#业界热门的热修复技术</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-总结Android开发流程" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/08/06/总结Android开发流程/" class="article-date">
-  	<time datetime="2016-08-06T09:35:34.000Z" itemprop="datePublished">2016-08-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/06/总结Android开发流程/">总结Android开发流程</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#前言</p>
-<p>##对于开发App 无论你是在哪个公司，无论你是不是公司的主程，还是说小弟，我觉得吧，你都应该有一套完成开发一个App的流程，当然这里主要是说安卓开发。</p>
-<p>#开发环境选择</p>
-<p>##很早之前是采用eclipse，自从进了美芽，在前辈的带领下开启了AndroidStudio之旅，越来越觉得AndroidStudio的好处，从此就用这开发了。</p>
-<p>#模拟器的选择</p>
-<p>##选好的模拟器很重要的，尤其是运行速度，不能卡。Genymotion是好的选择。</p>
-<p>#产品开发流程</p>
-<p>##正常的互联网开发app的流程大致如下：</p>
-<p>-产品规划，定产品方向<br>=需求调研，产出需求文档<br>-需求评审，修订需求文档<br>-产品狗画app线框图提供给射鸡师<br>-射鸡师根据线框图设计视觉稿<br>-程序猿根据视觉稿搭建UI框架<br>-程序猿根据需求文档开发功能<br>-测试媛编写测试用例，根据排期进行测试<br>-程序猿修复回归测试反馈的bug，提交beta版<br>-测试通过，提交给运营喵发布到渠道上线</p>
-<p>#定义一套开发规范</p>
-<p>##这边规范主要主要是命名规范（项目命名、包命名、变量命名、资源文件命名、<a href="http://blog.csdn.net/wwj_748/article/details/42347283）" target="_blank" rel="external">http://blog.csdn.net/wwj_748/article/details/42347283）</a></p>
-<p>#代码管理</p>
-<p>##一个产品迭代是必须的最好是采用git管理，可以自己搭建gitlab</p>
-<p>#架构搭建</p>
-<p>##Android应用其实就是简单的MVC－MVP框架，基本的视图与数据分离方式；</p>
-<p>#架构设计</p>
-<p>##包括接口设计、技术选型、数据层设计、业务层设计、展示层设计</p>
-<p>#接口设计</p>
-<p>##1.安全机制  RESTful，设计Token用户用密码登录成功后，服务器返回token给客户端；<br>客户端将token保存在本地，发起后续的相关请求时，将token发回给服务器；<br>服务器检查token的有效性，有效则返回数据，若无效，分两种情况：<br>token错误，这时需要用户重新登录，获取正确的token<br>token过期，这时客户端需要再发起一次认证请求，获取新的token</p>
-<p>#接口数据设计</p>
-<p>##JSON数据格式<br>Number：整数或浮点数<br>String：字符串<br>Boolean：true 或 false<br>Array：数组包含在方括号[]中<br>Object：对象包含在大括号{}中<br>Null：空类型</p>
-<p>#接口版本设计/v2 /v1</p>
-<p>#技术选型</p>
-<p>##主要是H5/Native的抉择</p>
-<p>#轮子的选择</p>
-<p>##UI框架（比如下拉刷新PullToRefresh、侧滑菜单Slidingmenu）<br>网络请求库（比如okhtttp、AndroidAsyncHttp、Volley）<br>数据操作库（比如GreenDao、Ormlite）<br>图片缓存框架（比如Universal-Imageloader）<br>数据解析库（比如Gson)</p>
-<p>#第三方集成</p>
-<p>#云测</p>
-<p>#混淆</p>
-<p>#打包</p>
-<p>#APP壳</p>
-<p>参考：<a href="http://www.jianshu.com/p/42c249168275" target="_blank" rel="external">http://www.jianshu.com/p/42c249168275</a><br><a href="http://keeganlee.me/post/architecture/20160222" target="_blank" rel="external">http://keeganlee.me/post/architecture/20160222</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目流程/">项目流程</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android解析Html标签" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/20/Android解析Html标签/" class="article-date">
-  	<time datetime="2016-07-20T07:09:05.000Z" itemprop="datePublished">2016-07-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/20/Android解析Html标签/">Android解析Html标签</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#富文本</p>
-<h2 id="在安卓显示富文本是一个比较常见的功能，我们对一个TextView的文本显示不同的样式，包括字体颜色、字体大小等等。">在安卓显示富文本是一个比较常见的功能，我们对一个TextView的文本显示不同的样式，包括字体颜色、字体大小等等。</h2><p>#实现方式</p>
-<h2 id="有两种简单的方式实现富文本的现实，有个共同点就是和html有关。一个是采用webView直接显示；一个是个用TextView解析标签。">有两种简单的方式实现富文本的现实，有个共同点就是和html有关。一个是采用webView直接显示；一个是个用TextView解析标签。</h2><p>#关于Html.formHtml()</p>
-<p>##安卓自带的解析是有限的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=<span class="string">"..."</span>&gt;</span><br><span class="line">&lt;b&gt;</span><br><span class="line">&lt;big&gt;</span><br><span class="line">&lt;blockquote&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line">&lt;cite&gt;</span><br><span class="line">&lt;dfn&gt;</span><br><span class="line">&lt;div align=<span class="string">"..."</span>&gt;</span><br><span class="line">&lt;em&gt;</span><br><span class="line">&lt;font size=<span class="string">"..."</span> color=<span class="string">"..."</span> face=<span class="string">"..."</span>&gt;</span><br><span class="line">&lt;h1&gt;</span><br><span class="line">&lt;h2&gt;</span><br><span class="line">&lt;h3&gt;</span><br><span class="line">&lt;h4&gt;</span><br><span class="line">&lt;h5&gt;</span><br><span class="line">&lt;h6&gt;</span><br><span class="line">&lt;i&gt;</span><br><span class="line">&lt;img src=<span class="string">"..."</span>&gt;</span><br><span class="line">&lt;p&gt;</span><br><span class="line">&lt;small&gt;</span><br><span class="line">&lt;strike&gt;</span><br><span class="line">&lt;strong&gt;</span><br><span class="line">&lt;sub&gt;</span><br><span class="line">&lt;sup&gt;</span><br><span class="line">&lt;tt&gt;</span><br><span class="line">&lt;u&gt;</span><br></pre></td></tr></table></figure></p>
-<p>也就是说除了以上标签，其他的自定义标签就得自己实现；</p>
-<p>#如何实现</p>
-<h2 id="自己实现Html-TagHandler">自己实现Html.TagHandler</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * HTML标签解析</span><br><span class="line"> * 实现Html.TagHandle解析</span><br><span class="line"> *</span><br><span class="line"> * @author shouwang</span><br><span class="line"> * @date <span class="number">2016</span>-<span class="number">7</span>-<span class="number">20</span></span><br><span class="line"> */</span><br><span class="line">public class HtmlParser implements Html.TagHandler, ContentHandler &#123;</span><br><span class="line"></span><br><span class="line">    private final TagHandler     handler;</span><br><span class="line">    private       ContentHandler wrapped;</span><br><span class="line">    private       Editable       text;</span><br><span class="line">    private ArrayDeque&lt;Boolean&gt; tagStatus = new ArrayDeque&lt;Boolean&gt;();</span><br><span class="line"></span><br><span class="line">    public HtmlParser(TagHandler handler) &#123;</span><br><span class="line">        this.handler = handler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static Spanned buildSpannedText(String html, TagHandler handler) &#123;</span><br><span class="line">        <span class="built_in">return</span> Html.fromHtml(html, null, new HtmlParser(handler));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String getValue(Attributes attributes, String name) &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = <span class="number">0</span>, n = attributes.getLength(); i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (name.equals(attributes.getLocalName(i)))</span><br><span class="line">                <span class="built_in">return</span> attributes.getValue(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) &#123;</span><br><span class="line">        <span class="keyword">if</span> (wrapped == null) &#123;</span><br><span class="line">            text = output;</span><br><span class="line">            wrapped = xmlReader.getContentHandler();</span><br><span class="line">            xmlReader.setContentHandler(this);</span><br><span class="line">            tagStatus.addLast(Boolean.FALSE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void startElement(String uri, String <span class="built_in">local</span>Name, String qName, Attributes attributes) throws SAXException &#123;</span><br><span class="line">        boolean isHandled = handler.handleTag(<span class="literal">true</span>, <span class="built_in">local</span>Name, text, attributes);</span><br><span class="line">        tagStatus.addLast(isHandled);</span><br><span class="line">        <span class="keyword">if</span> (!isHandled)</span><br><span class="line">            wrapped.startElement(uri, <span class="built_in">local</span>Name, qName, attributes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void endElement(String uri, String <span class="built_in">local</span>Name, String qName) throws SAXException &#123;</span><br><span class="line">        <span class="keyword">if</span> (!tagStatus.removeLast())</span><br><span class="line">            wrapped.endElement(uri, <span class="built_in">local</span>Name, qName);</span><br><span class="line">        handler.handleTag(<span class="literal">false</span>, <span class="built_in">local</span>Name, text, null);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void <span class="built_in">set</span>DocumentLocator(Locator locator) &#123;</span><br><span class="line">        wrapped.setDocumentLocator(locator);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void startDocument() throws SAXException &#123;</span><br><span class="line">        wrapped.startDocument();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void endDocument() throws SAXException &#123;</span><br><span class="line">        wrapped.endDocument();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void startPrefixMapping(String prefix, String uri) throws SAXException &#123;</span><br><span class="line">        wrapped.startPrefixMapping(prefix, uri);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void endPrefixMapping(String prefix) throws SAXException &#123;</span><br><span class="line">        wrapped.endPrefixMapping(prefix);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void characters(char[] ch, int start, int length) throws SAXException &#123;</span><br><span class="line">        wrapped.characters(ch, start, length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException &#123;</span><br><span class="line">        wrapped.ignorableWhitespace(ch, start, length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void processingInstruction(String target, String data) throws SAXException &#123;</span><br><span class="line">        wrapped.processingInstruction(target, data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void skippedEntity(String name) throws SAXException &#123;</span><br><span class="line">        wrapped.skippedEntity(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public interface TagHandler &#123;</span><br><span class="line">        boolean handleTag(boolean opening, String tag, Editable output, Attributes attributes);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>#对标签进行解析</p>
-<p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">public class HtmlTagFormatter &#123;</span><br><span class="line">    private static final String TAG_HANDLE_SPAN      = <span class="string">"span"</span>;</span><br><span class="line">    private static final String TAG_HANDLE_STYLE     = <span class="string">"style"</span>;</span><br><span class="line">    private static final String TAG_HANDLE_ALIGN     = <span class="string">"align"</span>;</span><br><span class="line">    private static final String TAG_FONT_SIZE        = <span class="string">"font-size"</span>;</span><br><span class="line">    private static final String TAG_BACKGROUND_COLOR = <span class="string">"background-color"</span>;</span><br><span class="line">    private static final String Tag_FONT_COLOR       = <span class="string">"color"</span>;</span><br><span class="line">    private static final String TAG_TEXT_ALIGN       = <span class="string">"text-align"</span>;</span><br><span class="line">    private int startIndex;</span><br><span class="line">    private int stopIndex;</span><br><span class="line">    private String         styleContent   = <span class="string">""</span>;</span><br><span class="line">    private Vector&lt;String&gt; mListParents   = new Vector&lt;String&gt;();//用来标记列表(有序和无序列表)</span><br><span class="line">    private int            mListItemCount = <span class="number">0</span>;//用来标记列表(有序和无序列表)</span><br><span class="line"></span><br><span class="line">    public Spanned handlerHtmlContent(final Context context, String htmlContent) throws NumberFormatException &#123;</span><br><span class="line">        <span class="built_in">return</span> HtmlParser.buildSpannedText(htmlContent, new HtmlParser.<span class="function"><span class="title">TagHandler</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public boolean handleTag(boolean opening, String tag, Editable output, Attributes attributes) &#123;</span><br><span class="line">                <span class="keyword">if</span> (tag.equals(TAG_HANDLE_SPAN)) &#123;</span><br><span class="line">                    //&lt;style&gt;标签的处理方式</span><br><span class="line">                    <span class="keyword">if</span> (opening) &#123;</span><br><span class="line">                        startIndex = output.length();</span><br><span class="line">                        styleContent = HtmlParser.getValue(attributes, TAG_HANDLE_STYLE);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        stopIndex = output.length();</span><br><span class="line">                        <span class="keyword">if</span> (!TextUtils.isEmpty(styleContent)) &#123;</span><br><span class="line">                            String[] styleValues = styleContent.split(<span class="string">";"</span>);</span><br><span class="line">                            <span class="keyword">for</span> (String styleValue : styleValues) &#123;</span><br><span class="line">                                String[] tmpValues = styleValue.split(<span class="string">":"</span>);</span><br><span class="line">                                <span class="keyword">if</span> (tmpValues != null &amp;&amp; tmpValues.length &gt; <span class="number">0</span>) &#123; //(font-size=<span class="number">14</span>px)</span><br><span class="line">                                    <span class="keyword">if</span> (TAG_FONT_SIZE.equals(tmpValues[<span class="number">0</span>])) &#123; //处理文字效果字体大小</span><br><span class="line">                                        int size = Integer.valueOf(getAllNumbers(tmpValues[<span class="number">1</span>]));</span><br><span class="line">                                        output.setSpan(new AbsoluteSizeSpan(sp2px(context, size)), startIndex, stopIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (TAG_BACKGROUND_COLOR.equals(tmpValues[<span class="number">0</span>])) &#123; //处理背景效果</span><br><span class="line">                                        output.setSpan(new BackgroundColorSpan(Color.parseColor(tmpValues[<span class="number">1</span>])), startIndex, stopIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Tag_FONT_COLOR.equals(tmpValues[<span class="number">0</span>])) &#123;//处理字体颜色&lt;span style=<span class="string">"color:"</span><span class="comment">#000000"&gt;</span></span><br><span class="line">                                        output.setSpan(new ForegroundColorSpan(Color.parseColor(tmpValues[<span class="number">1</span>])), startIndex, stopIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">                                    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(TAG_TEXT_ALIGN.equals(tmpValues[<span class="number">0</span>]))&#123;</span><br><span class="line">                                        handleAlignTag(output,tmpValues[<span class="number">1</span>]);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tag.equals(TAG_HANDLE_ALIGN)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (opening) &#123;</span><br><span class="line">                        startIndex = output.length();</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        stopIndex = output.length();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                //列表标签的解析渲染</span><br><span class="line">                <span class="keyword">if</span> (tag.equals(<span class="string">"ul"</span>) || tag.equals(<span class="string">"ol"</span>) || tag.equals(<span class="string">"dd"</span>)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (opening) &#123;</span><br><span class="line">                        mListParents.add(tag);</span><br><span class="line">                    &#125; <span class="keyword">else</span> mListParents.remove(tag);</span><br><span class="line"></span><br><span class="line">                    mListItemCount = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tag.equals(<span class="string">"li"</span>) &amp;&amp; !opening) &#123;</span><br><span class="line">                    handleListTag(output);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //正则获取字体</span><br><span class="line">    private static String getAllNumbers(String body) &#123;</span><br><span class="line">        Pattern pattern = Pattern.compile(<span class="string">"\\d+"</span>);</span><br><span class="line">        Matcher matcher = pattern.matcher(body);</span><br><span class="line">        <span class="keyword">while</span> (matcher.find()) &#123;</span><br><span class="line">            <span class="built_in">return</span> matcher.group(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //处理列表标签</span><br><span class="line">    private void handleListTag(Editable output) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mListParents.lastElement().equals(<span class="string">"ul"</span>)) &#123;</span><br><span class="line">            output.append(<span class="string">"\n"</span>);</span><br><span class="line">            String[] split = output.toString().split(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">            int lastIndex = split.length - <span class="number">1</span>;</span><br><span class="line">            int start = output.length() - split[lastIndex].length() - <span class="number">1</span>;</span><br><span class="line">            output.setSpan(new BulletSpan(<span class="number">15</span>), start, output.length(), <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mListParents.lastElement().equals(<span class="string">"ol"</span>)) &#123;</span><br><span class="line">            mListItemCount++;</span><br><span class="line">            output.append(<span class="string">"\n"</span>);</span><br><span class="line">            String[] split = output.toString().split(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">            int lastIndex = split.length - <span class="number">1</span>;</span><br><span class="line">            int start = output.length() - split[lastIndex].length() - <span class="number">1</span>;</span><br><span class="line">            output.insert(start, mListItemCount + <span class="string">". "</span>);</span><br><span class="line">            output.setSpan(new LeadingMarginSpan.Standard(<span class="number">15</span> * mListParents.size()), start, output.length(), <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //处理&lt;text-align&gt;</span><br><span class="line">    private void handleAlignTag(Editable output,String alignTag)&#123;</span><br><span class="line">        AlignmentSpan.Standard as=new AlignmentSpan.Standard(Layout.Alignment.ALIGN_NORMAL);</span><br><span class="line">        <span class="keyword">if</span>(alignTag.equals(<span class="string">"center"</span>))&#123;</span><br><span class="line">            as = new AlignmentSpan.Standard(</span><br><span class="line">                    Layout.Alignment.ALIGN_CENTER);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(alignTag.equals(<span class="string">"right"</span>))&#123;</span><br><span class="line">            as = new AlignmentSpan.Standard(</span><br><span class="line">                    Layout.Alignment.ALIGN_OPPOSITE);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(alignTag.equals(<span class="string">"left"</span>))&#123;</span><br><span class="line">            as = new AlignmentSpan.Standard(</span><br><span class="line">                    Layout.Alignment.ALIGN_NORMAL);</span><br><span class="line">        &#125;</span><br><span class="line">        // 参考:https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/text/SpannableStringBuilder.java</span><br><span class="line">        // throw new RuntimeException(<span class="string">"PARAGRAPH span must start at paragraph boundary"</span>);</span><br><span class="line">        // AlignmentSpan继承ParagraphStyle;会检查前后是不是有换行符\n;没有的话抛出以上异常</span><br><span class="line">        <span class="keyword">if</span>(!<span class="string">"\n"</span>.equals(output.charAt(stopIndex-<span class="number">1</span>))) &#123;</span><br><span class="line">            output.append(<span class="string">"\n"</span>);</span><br><span class="line">            output.setSpan(as, startIndex, stopIndex+<span class="number">1</span>, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int sp2px(Context context, <span class="built_in">float</span> spValue) &#123;</span><br><span class="line">        final <span class="built_in">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">        <span class="built_in">return</span> (int) (spValue * fontScale + <span class="number">0.5</span>f);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>#几个坑</p>
-<p>##<br>1.各种预设的span类为我们带来了各种各样的样式，这些span分为两类，</p>
-<ul>
-<li>一类是CharacterStyle，也就是说是针对单个字符可以设置的样式</li>
-<li>另一类是ParagraphStyle，是针对段落进行的操作，ParagraphStyle的span运行的时候会检测目标段落前后是否有\n，如果没有的话会抛出错误”PARAGRAPH span must start at paragraph boundary”，这是一个大坑请务必要注意。<br>2.设置文字大小要进行单位转换<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final <span class="built_in">float</span> fontScale = context.getResources().getDisplayMetrics().scaledDensity;</span><br><span class="line">       <span class="built_in">return</span> (int) (spValue * fontScale + <span class="number">0.5</span>f);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>#参考<br><a href="https://commonsware.com/blog/Android/2010/05/26/html-tags-supported-by-textview.html" target="_blank" rel="external">https://commonsware.com/blog/Android/2010/05/26/html-tags-supported-by-textview.html</a></p>
-<p><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/text/SpannableStringBuilder.java" target="_blank" rel="external">https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/text/SpannableStringBuilder.java</a></p>
-<p><a href="http://lrdcq.com/me/read.php/37.htm" target="_blank" rel="external">http://lrdcq.com/me/read.php/37.htm</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Html/">Html</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TextView/">TextView</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android快速打渠道包" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/18/Android快速打渠道包/" class="article-date">
-  	<time datetime="2016-07-18T05:49:51.000Z" itemprop="datePublished">2016-07-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/18/Android快速打渠道包/">Android快速打渠道包</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="修改项目gradle">修改项目gradle</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    ......</span><br><span class="line">    dependencies&#123;</span><br><span class="line">    // add packer-ng</span><br><span class="line">        classpath <span class="string">'com.mcxiaoke.gradle:packer-ng:1.0.5'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="修改修改moudle级别gradle">修改修改moudle级别gradle</h1><p>##<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'packer'</span> </span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    // add packer-helper</span><br><span class="line">    compile <span class="string">'com.mcxiaoke.gradle:packer-helper:1.0.5'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="注意：packer-ng_和_packer-helper_的版本号需要保持一致">注意：packer-ng 和 packer-helper 的版本号需要保持一致</h1><h1 id="在你的项目根目录中加入渠道列表文件，比如文件名是market-txt，内容是">在你的项目根目录中加入渠道列表文件，比如文件名是market.txt，内容是</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Google_Play<span class="comment">#play store market</span></span><br><span class="line">Gradle_Test<span class="comment">#test</span></span><br><span class="line">SomeMarket<span class="comment">#some market</span></span><br></pre></td></tr></table></figure>
-<p>#打包</p>
-<h2 id="gradle_-Pmarket=markets-txt_clean_apkRelease">gradle -Pmarket=markets.txt clean apkRelease</h2><p>#友盟统计</p>
-<p>##<br>最后需要提的一点就是如何让友盟统计知道目前的apk是哪个渠道。首先你需要删除之前的productFlavor或者manifest的占位符的方式的代码，删除AndroidManifest中友盟的渠道Channel的META-Data的配置。<br>然后在app入口（Application）的onCreate中加入下列代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final String market = PackerNg.getMarket(this,<span class="string">"defaul_channel);</span><br><span class="line">AnalyticsConfig.setChannel(market); //AnalyticsConfig是友盟的代码方式设置渠道类</span></span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/打包/">打包</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android样式开发" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/15/Android样式开发/" class="article-date">
-  	<time datetime="2016-07-15T01:58:16.000Z" itemprop="datePublished">2016-07-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/15/Android样式开发/">Android样式开发</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#Shape</p>
-<p>##矩形<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//添加内边距</span><br><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">    &lt;!-- padding设置内容区域离边界的间距 --&gt;</span><br><span class="line">    &lt;padding</span><br><span class="line">        android:bottom=<span class="string">"12dp"</span></span><br><span class="line">        android:left=<span class="string">"12dp"</span></span><br><span class="line">        android:right=<span class="string">"12dp"</span></span><br><span class="line">        android:top=<span class="string">"12dp"</span> /&gt;</span><br><span class="line">&lt;/shape&gt;</span><br><span class="line">//渐变</span><br><span class="line">&lt;shape xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">    &lt;!-- solid指定形状的填充色，只有android:color一个属性 --&gt;</span><br><span class="line">    &lt;solid android:color=<span class="string">"#2F90BD"</span> /&gt;</span><br><span class="line">    &lt;!-- padding设置内容区域离边界的间距 --&gt;</span><br><span class="line">    &lt;padding</span><br><span class="line">        android:bottom=<span class="string">"12dp"</span></span><br><span class="line">        android:left=<span class="string">"12dp"</span></span><br><span class="line">        android:right=<span class="string">"12dp"</span></span><br><span class="line">        android:top=<span class="string">"12dp"</span> /&gt;</span><br><span class="line">    &lt;!-- gradient设置渐变 --&gt;</span><br><span class="line">    &lt;gradient</span><br><span class="line">        android:angle=<span class="string">"270"</span></span><br><span class="line">        android:endColor=<span class="string">"#CC2F90BD"</span></span><br><span class="line">        android:startColor=<span class="string">"#222F90BD"</span> /&gt;</span><br><span class="line">&lt;/shape</span><br></pre></td></tr></table></figure>
-<p>参照：<a href="https://github.com/guosen/kstyle" target="_blank" rel="external">https://github.com/guosen/kstyle</a></p>
 
       
     </div>
