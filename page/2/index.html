@@ -202,6 +202,61 @@
 
       <div class="body-wrap">
   
+    <article id="post-android-热修复原理与实践" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/10/android-热修复原理与实践/" class="article-date">
+  	<time datetime="2016-09-10T13:01:46.000Z" itemprop="datePublished">2016-09-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/10/android-热修复原理与实践/">android 热修复原理与实践</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>＃什么是热修复？</p>
+<p>##传统的开发流程－版本上线－安装－发现bug－紧急修复－发布新版本。<br> 热修复说白了就是“打补丁”－让用户下载没有bug的代码替换掉当前apk的代码－解决了问题，也提高了用户体验。</p>
+<p>#业界热门的热修复技术</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-总结Android开发流程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -775,72 +830,6 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RecycleView/">RecycleView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/瀑布流/">瀑布流</a></li></ul>
 	</div>
 
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Android-动画初探" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/04/20/Android-动画初探/" class="article-date">
-  	<time datetime="2016-04-20T02:56:53.000Z" itemprop="datePublished">2016-04-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/20/Android-动画初探/">Android 动画初探</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#Tween动画<br>(Creates an animation by performing a series of transformations on a single image with an Animation)</p>
-<ul>
-<li>缩放</li>
-<li>平移</li>
-<li>渐变</li>
-<li>旋转<h2 id="xml实现">xml实现</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line">&lt;<span class="built_in">set</span></span><br><span class="line">    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    android:ordering=<span class="string">"together"</span></span><br><span class="line">    android:duration=<span class="string">"2000"</span>&gt;</span><br><span class="line">    &lt;alpha</span><br><span class="line">        android:fromAlpha=<span class="string">"1.0"</span></span><br><span class="line">        android:toAlpha=<span class="string">"0.0"</span></span><br><span class="line">        &gt;&lt;/alpha&gt;</span><br><span class="line">    &lt;scale</span><br><span class="line">        android:fromXScale=<span class="string">"0"</span></span><br><span class="line">        android:fromYScale=<span class="string">"0"</span></span><br><span class="line">        android:pivotX=<span class="string">"0.5"</span></span><br><span class="line">        android:pivotY=<span class="string">"0.5"</span></span><br><span class="line">        android:toXScale=<span class="string">"50dp"</span></span><br><span class="line">        android:toYScale=<span class="string">"50dp"</span>/&gt;</span><br><span class="line">&lt;/<span class="built_in">set</span>&gt;</span><br><span class="line">//alpha              渐变透明度动画效果</span><br><span class="line">//scale              渐变尺寸伸缩动画效果</span><br><span class="line">//translate         画面位置移动动画效果</span><br><span class="line">//rotate              画面旋转动画效果</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>###调用动画<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageView image = (ImageView) findViewById(R.id.image);</span><br><span class="line">Animation hyperspaceJump = AnimationUtils.loadAnimation(this, R.anim.hyperspace_jump);</span><br><span class="line">image.startAnimation(hyperspaceJump);</span><br></pre></td></tr></table></figure></p>
-<h2 id="插值器">插值器</h2><h3 id="用于修改一个动画过程中的速率，可以定义各种各样的非线性变化函数，比如加速、减速等。">用于修改一个动画过程中的速率，可以定义各种各样的非线性变化函数，比如加速、减速等。</h3><p>在Android中所有的插值器都是Interpolator 的子类，通过 android:interpolator 属性你可以引用不同的插值器</p>
-<p>#Frame 动画</p>
-<h2 id="逐帧播放动画">逐帧播放动画</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;animation-list xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">   android:oneshot=[<span class="string">"true"</span> | <span class="string">"false"</span>] &gt;</span><br><span class="line">	&lt;item</span><br><span class="line">		android:drawable=<span class="string">"@[package:]drawable/drawable_resource_name"</span></span><br><span class="line">		android:duration=<span class="string">"integer"</span> /&gt;</span><br><span class="line">&lt;/animation-list&gt;</span><br></pre></td></tr></table></figure>
-<p>调用代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ImageView rocketImage = (ImageView) findViewById(R.id.rocket_image);</span><br><span class="line">rocketImage.setBackgroundResource(R.drawable.rocket_thrust);</span><br><span class="line">rocketAnimation = (AnimationDrawable) rocketImage.getBackground();</span><br><span class="line">rocketAnimation.start();&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<p>#参考文献<br><a href="http://www.lightskystreet.com/2015/05/23/anim_basic_knowledge/" target="_blank" rel="external">http://www.lightskystreet.com/2015/05/23/anim_basic_knowledge/</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
       
 
       
