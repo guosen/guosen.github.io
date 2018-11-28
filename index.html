@@ -202,6 +202,61 @@
 
       <div class="body-wrap">
   
+    <article id="post-Gradle插件自定义" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/28/Gradle插件自定义/" class="article-date">
+  	<time datetime="2018-11-28T09:12:42.000Z" itemprop="datePublished">2018-11-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/28/Gradle插件自定义/">Gradle插件自定义</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="删除java文件夹、res文件夹">删除java文件夹、res文件夹</h1><h1 id="在main下面新建_groovy_文件夹">在main下面新建 groovy 文件夹</h1><h1 id="新建_com-guosen-plugin_（名字自己定义）">新建 com.guosen.plugin （名字自己定义）</h1><h1 id="新建resources_文件夹_和groovy同级，在resources里面新建META-INF。gradle-plugins目录，底下有guosen-plugin(插件名称)-properties">新建resources 文件夹 和groovy同级，在resources里面新建META-INF。gradle-plugins目录，底下有guosen-plugin(插件名称).properties</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation-<span class="class"><span class="keyword">class</span></span>=com.guosen.plugin.MyHelloWorldPlugin</span><br><span class="line"><span class="comment">//后面为实现类</span></span><br></pre></td></tr></table></figure>
+<h1 id="插件model_的build-gradle">插件model 的build.gradle</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'java-library'</span></span><br><span class="line">apply plugin: <span class="string">'java-gradle-plugin'</span></span><br><span class="line">apply plugin: <span class="string">'groovy'</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="function">implementation <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span><br><span class="line">    implementation <span class="title">gradleApi</span><span class="params">()</span></span><br><span class="line">    implementation <span class="title">localGroovy</span><span class="params">()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">apply plugin: 'maven'</span><br><span class="line">uploadArchives </span>&#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">            pom.groupId = <span class="string">'com.guosen.implePlugin'</span></span><br><span class="line">            pom.artifactId = <span class="string">'guosen-plugin'</span></span><br><span class="line">            pom.version = <span class="number">1.0</span></span><br><span class="line">            <span class="comment">//本地的Maven地址设置为D:/repos</span></span><br><span class="line">            repository(url: uri(<span class="string">'../repo'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sourceCompatibility = <span class="string">"1.8"</span></span><br><span class="line">targetCompatibility = <span class="string">"1.8"</span></span><br></pre></td></tr></table></figure>
+<h1 id="整个项目的build。gradle">整个项目的build。gradle</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line">apply plugin: <span class="string">'guosen-plugin'</span></span><br><span class="line">buildscript &#123;</span><br><span class="line">    </span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        maven &#123;</span><br><span class="line">            <span class="comment">//cooker-plugin 所在的仓库</span></span><br><span class="line">            <span class="comment">//这里是发布在本地文件夹了</span></span><br><span class="line">            <span class="function">url <span class="title">uri</span><span class="params">(<span class="string">'./repo'</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies </span>&#123;</span><br><span class="line">        classpath <span class="string">'com.android.tools.build:gradle:3.2.1'</span></span><br><span class="line">        classpath <span class="string">'com.guosen.implePlugin:guosen-plugin:1.0'</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">task <span class="title">clean</span><span class="params">(type: Delete)</span> </span>&#123;</span><br><span class="line">    delete rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-数据结构" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1623,7 +1678,7 @@ static ParameterizedType <span class="keyword">type</span>(<span class="keyword"
 <h4 id="Blockquotes">Blockquotes</h4><blockquote>
 <p>Right angle brackets &gt; are used for block quotes.</p>
 </blockquote>
-<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#64;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;">&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#64;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#x65;&#x2e;&#x63;&#111;&#x6d;</a> link.</p>
+<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;">&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;</a> link.</p>
 <p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
 <p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
 <p>Titles ( or called tool tips ) in the links are optional.</p>
@@ -1796,60 +1851,6 @@ var Mou = exactlyTheAppIwant;
 <p>Follow <a href="https://twitter.com/mou" target="_blank" rel="external">@Mou</a> on Twitter for the latest news.</p>
 <p>For feedback, use the menu <code>Help</code> - <code>Send Feedback</code></p>
 
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jenkin打包ANdroid的配置" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/21/jenkin打包ANdroid的配置/" class="article-date">
-  	<time datetime="2016-10-21T03:30:06.000Z" itemprop="datePublished">2016-10-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/21/jenkin打包ANdroid的配置/">jenkin打包Android的配置</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="安装Jenkins">安装Jenkins</h1><h2 id="下载Jenkins-war,cd_进去当前目录，运行：java_-jar_Jenkins-war">下载Jenkins.war,cd 进去当前目录，运行：java -jar Jenkins.war</h2><h1 id="安装相关插件">安装相关插件</h1><h1 id="包括git\gradle等的插件">包括git\gradle等的插件</h1><h1 id="配置">配置</h1><hr>
-<h2 id=""><img src="/img/jenkin1.png" alt=""></h2><hr>
-<h2 id="-1"><img src="/img/jenkin2.png" alt=""></h2>
       
     </div>
     
