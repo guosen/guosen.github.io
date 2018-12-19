@@ -202,6 +202,111 @@
 
       <div class="body-wrap">
   
+    <article id="post-记一次优化列表" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/19/记一次优化列表/" class="article-date">
+  	<time datetime="2018-12-19T02:11:51.000Z" itemprop="datePublished">2018-12-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/19/记一次优化列表/">记一次优化列表(BaseMultiItemQuickAdapter 源码分析)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Android中列表是每个应用都会有的UI效果，而与用户的交互无非就是用户上下滑动、左右滑动、点击item_等等，本文就从小编遇到一次加载大量数据而影响体验优化之旅。">Android中列表是每个应用都会有的UI效果，而与用户的交互无非就是用户上下滑动、左右滑动、点击item 等等，本文就从小编遇到一次加载大量数据而影响体验优化之旅。</h2><h2 id="项目的列表采用RecycleView_+_BaseMultiItemQuickAdapter_分组效果，数据量10000～20000以上">项目的列表采用RecycleView + BaseMultiItemQuickAdapter 分组效果，数据量10000～20000以上</h2><h1 id="数据拉取、缓存">数据拉取、缓存</h1><p>  首先是数据的获取方式，分页？还是全部获取？ 这得考虑到后端的查询效率，数据库可以采用建立索引，提高效率，前端可以采用分页获取，并且为了提高体验，当然是存储在本地数据库了(NoSql)，这里就有一个问题分页获取分页 再存储，数据库存储会导致阻塞线程，</p>
+<p>   果然出现了：Message Blocked in Main Thread XXXX ms,这是anr日志，说明，执行了耗时任务，UI 无响应。。。。。。。。。。<br>   所以就想到了<br>   这里采用了线程控制存储(建议采用线程池的方式来实现，不然物极必反，过多创建线程，浪费了资源。。。)<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CustomerReposity</span><span class="params">()</span></span>&#123;</span><br><span class="line">      mThreadPool = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">3</span>, <span class="number">5</span>,</span><br><span class="line">              <span class="number">10</span>, TimeUnit.SECONDS, <span class="keyword">new</span> LinkedBlockingDeque&lt;Runnable&gt;(<span class="number">128</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mThreadPool.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                         <span class="annotation">@Override</span></span><br><span class="line">                         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                             Log.d(<span class="string">"customer"</span>,<span class="string">"thread save to db ::"</span>+data.list.size());</span><br><span class="line">                             saveCustomerToLocalDB(data.list, pageNumer == <span class="number">1</span>);</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="从后端拉取到解析-再到数据库的时间">从后端拉取到解析-再到数据库的时间</h1><p>  这边其实考虑到序列化，序列化有两种 Serializable\Parcelable,Serializable 采用反射机制，会导致大量对象产生，所以，考虑到性能的话，采用Parcelable<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel out, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    out.writeString(cid);</span><br><span class="line">    pingYin = in.readString();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Parcelable.Creator&lt;Customer&gt; CREATOR = <span class="keyword">new</span> Parcelable.Creator&lt;Customer&gt;() &#123;</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Customer <span class="title">createFromParcel</span><span class="params">(Parcel source)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Customer(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Customer[] newArray(<span class="keyword">int</span> size) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Customer[size];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总不能全部加载完毕才显示给用户看吧？">总不能全部加载完毕才显示给用户看吧？</h1><p>  刚开始采用了数据监听（LiveData的方式，项目架构本身采用MVVM的方式）<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mReposity.getCustomerDefaultTeam().observe(<span class="keyword">this</span>, <span class="keyword">new</span> Observer&lt;List&lt;Customer&gt;&gt;() &#123;</span><br><span class="line">         <span class="annotation">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChanged</span><span class="params">(@Nullable List&lt;Customer&gt; customers)</span> </span>&#123;</span><br><span class="line">             mAdapter.setNewData(customers);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>  又会有问题：数据边加载边刷新？？？ 列表一直notifyDataChanged………这边采用preFetch思想，先给用户展示部分数据</p>
+<h1 id="RecycleView_优化">RecycleView 优化</h1><h2 id="布局优化">布局优化</h2><p>   也就是item 布局，减少层级，这样就避免多次绘制UI，如果 Item 高度是固定的话，可以使用 RecyclerView.setHasFixedSize(true); 来避免 requestLayout 浪费资源，如果不要求动画，可以通过 ((SimpleItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false); 把默认动画关闭来提神效率，通过 getExtraLayoutSpace 来增加 RecyclerView 预留的额外空间（显示范围之外，应该额外缓存的空间），如下所示<br>   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mViewDataBinding.rvCustomers.setLayoutManager(<span class="keyword">new</span> LinearLayoutManager(<span class="keyword">this</span>)&#123;</span><br><span class="line">         <span class="annotation">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getExtraLayoutSpace</span><span class="params">(RecyclerView.State state)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br><span class="line">     mViewDataBinding.rvCustomers.setAdapter(mAdapter);</span><br><span class="line">     mViewDataBinding.rvCustomers.setHasFixedSize(<span class="keyword">true</span>);</span><br><span class="line">     mViewDataBinding.rvCustomers.setItemViewCacheSize(<span class="number">20</span>);</span><br><span class="line">     ((SimpleItemAnimator) mViewDataBinding.rvCustomers.getItemAnimator()).setSupportsChangeAnima  mAdapter.expandAll();</span><br><span class="line">     mCustomerReposity = CustomerReposity.getmInstances();</span><br></pre></td></tr></table></figure></p>
+<p>  可参考资料来源：<a href="https://blankj.com/2018/09/29/optimize-recycler-view/" target="_blank" rel="external">https://blankj.com/2018/09/29/optimize-recycler-view/</a></p>
+<h1 id="List_Remove效率">List Remove效率</h1><pre><code>在页面点击展开分组、收缩分组的时候发现，展开的时候很顺利，收缩的时候即卡顿个几秒，，看下日志ANR。。。。。，查看  <span class="keyword">BaseQuickAdapter </span> 源码
+</code></pre> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">collapse</span><span class="params">(@IntRange(from = <span class="number">0</span>)</span> <span class="keyword">int</span> position, <span class="keyword">boolean</span> animate, <span class="keyword">boolean</span> notify) </span>&#123;</span><br><span class="line">        position -= getHeaderLayoutCount();</span><br><span class="line"></span><br><span class="line">        IExpandable expandable = getExpandableItem(position);</span><br><span class="line">        <span class="keyword">if</span> (expandable == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> subItemCount = recursiveCollapse(position);</span><br><span class="line">        expandable.setExpanded(<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">int</span> parentPos = position + getHeaderLayoutCount();</span><br><span class="line">        <span class="keyword">if</span> (notify) &#123;</span><br><span class="line">            <span class="keyword">if</span> (animate) &#123;</span><br><span class="line">                notifyItemChanged(parentPos);</span><br><span class="line">                notifyItemRangeRemoved(parentPos + <span class="number">1</span>, subItemCount);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                notifyDataSetChanged();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> subItemCount;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>因此分析 原因估计是出在recursiveCollapse(position)这个方法 ，继续往下看<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="annotation">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">recursiveCollapse</span><span class="params">(@IntRange(from = <span class="number">0</span>)</span> <span class="keyword">int</span> position) </span>&#123;</span><br><span class="line">    T item = getItem(position);</span><br><span class="line">    <span class="keyword">if</span> (!isExpandable(item)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    IExpandable expandable = (IExpandable) item;</span><br><span class="line">    <span class="keyword">int</span> subItemCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (expandable.isExpanded()) &#123;</span><br><span class="line">        List&lt;T&gt; subItems = expandable.getSubItems();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == subItems) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = subItems.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            T subItem = subItems.get(i);</span><br><span class="line">            <span class="keyword">int</span> pos = getItemPosition(subItem);</span><br><span class="line">            <span class="keyword">if</span> (pos &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (subItem <span class="keyword">instanceof</span> IExpandable) &#123;</span><br><span class="line">                subItemCount += recursiveCollapse(pos);</span><br><span class="line">            &#125;</span><br><span class="line">            mData.remove(pos);</span><br><span class="line">            subItemCount++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> subItemCount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看了下代码好像没做什么，就是删除分组下的item，就想到了，我一个分组有几十W+的item，它这样remove，是不是时间花太久了？？？？？？》〉》〉<br>果然 remove 方法执行耗时了。。。。。。开始改造</p>
+<p>```java</p>
+<pre><code>/<span class="keyword">*</span><span class="keyword">*</span>
+ <span class="keyword">*</span> 改造源码<span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span><span class="comment">###</span>
+ <span class="keyword">*</span> <span class="comment">@param position</span>
+ <span class="keyword">*</span> <span class="comment">@return</span>
+ <span class="keyword">*</span>/
+private int recursiveCollapse(<span class="comment">@IntRange(from = 0) int position) {</span>
+    MultiItemEntity item = getItem(position);
+    if (!isExpandable(item)) {
+        return 0;
+    }
+    IExpandable expandable = (IExpandable) item;
+    if (expandable.isExpanded()) {
+        List<span class="variable">&lt;MultiItemEntity&gt;</span> subItems = expandable.getSubItems();
+        mData = removeAllChildList(mData,subItems);
+    }
+    return expandable.getSubItems().size();
+}
+
+public int collapsew(<span class="comment">@IntRange(from = 0) int position, boolean animate) {</span>
+    return collapses(position, animate, true);
+}
+
+
+/<span class="keyword">*</span><span class="keyword">*</span>
+ <span class="keyword">*</span> 替代List.removeAll()的方法提高效率
+ <span class="keyword">*</span> <span class="comment">@param source</span>
+ <span class="keyword">*</span> <span class="comment">@param destination</span>
+ <span class="keyword">*</span> <span class="comment">@return</span>
+ <span class="keyword">*</span>/
+public List<span class="variable">&lt;MultiItemEntity&gt;</span> removeAllChildList(List<span class="variable">&lt;MultiItemEntity&gt;</span> source, List<span class="variable">&lt;MultiItemEntity&gt;</span> destination) {
+    List<span class="variable">&lt;MultiItemEntity&gt;</span> afterRemove = new LinkedList<span class="variable">&lt;MultiItemEntity&gt;</span>();
+    Set<span class="variable">&lt;MultiItemEntity&gt;</span> destinaToRemove = new HashSet<span class="variable">&lt;MultiItemEntity&gt;</span>(destination);
+    for (MultiItemEntity t : source) {
+        if (!destinaToRemove.contains(t)) {
+            afterRemove.add(t);
+        }
+    }
+    return afterRemove;
+}
+</code></pre><p>```java</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Gradle插件自定义" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -1617,239 +1722,6 @@ static ParameterizedType <span class="keyword">type</span>(<span class="keyword"
 <p>#关于这个类的用法:<br><figure class="highlight java"><figcaption><span>mScaleGestureDetector = new ScaleGestureDetector(getContext(), new           ScaleGestureDetector.SimpleOnScaleGestureListener() &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onScale</span><span class="params">(ScaleGestureDetector detector)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isFocusState()) &#123;</span><br><span class="line">            <span class="keyword">float</span> scaleFactor = mScaleFactor * detector.getScaleFactor();</span><br><span class="line">            <span class="keyword">float</span> distance = calculateDistance(mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>], detector.getFocusX(), detector.getFocusY());</span><br><span class="line">            <span class="keyword">float</span> scale = distance / mOldDistance;</span><br><span class="line">            <span class="keyword">float</span>[] currentCorners = Arrays.copyOf(mCurrentImageCorners, mCurrentImageCorners.length);</span><br><span class="line">            mTempMatrix.reset();</span><br><span class="line">            mTempMatrix.postScale(scaleFactor, scaleFactor, mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>]);</span><br><span class="line">            mTempMatrix.mapPoints(currentCorners); <span class="comment">//限制缩放不能小于原始尺寸四分之一//</span></span><br><span class="line">            <span class="keyword">float</span> currentSize = calculateDistance(currentCorners[<span class="number">0</span>], currentCorners[<span class="number">1</span>], currentCorners[<span class="number">2</span>], currentCorners[<span class="number">3</span>]);</span><br><span class="line">            <span class="keyword">if</span> (currentSize &gt;= mMinWidth) &#123;</span><br><span class="line">                mCurrentImageCorners = currentCorners;</span><br><span class="line">                mOldScale = scale;</span><br><span class="line">            &#125;</span><br><span class="line">            invalidate();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>#GestureDetector<br>一般手势监听（包括单击、滑动、触摸）</p>
 <p>#关于这类的用法<br><figure class="highlight java"><figcaption><span>mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onDown</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">float</span> x = event.getX();</span><br><span class="line">            <span class="keyword">float</span> y = event.getY();</span><br><span class="line">            mTouchDownX = x;</span><br><span class="line">            mTouchDownY = y;</span><br><span class="line">            <span class="keyword">if</span> (isFocusState()) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mBtnEditDrawable != <span class="keyword">null</span> &amp;&amp; mBtnEditDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_EDIT;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mBtnRotationDrawable != <span class="keyword">null</span> &amp;&amp; mBtnRotationDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_CONTROLL;</span><br><span class="line">                    mOldDistance = calculateDistance(mImageCenterCorners[<span class="number">0</span>], mImageCenterCorners[<span class="number">1</span>], x, y);</span><br><span class="line">                    mOldScale = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mBtnDelDrawable != <span class="keyword">null</span> &amp;&amp; mBtnDelDrawable.getBounds().contains((<span class="keyword">int</span>) x, (<span class="keyword">int</span>) y)) &#123;</span><br><span class="line">                    mTouchBtnType = TOUCH_BTN_DELETE;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            mTouchBtnType = TOUCH_NO_BTN;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onScroll</span><span class="params">(MotionEvent e1, MotionEvent e2, <span class="keyword">float</span> distanceX, <span class="keyword">float</span> distanceY)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//放大//拖动</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == StickerView.TOUCH_BTN_CONTROLL) &#123;</span><br><span class="line">                Log.d(TAG, <span class="string">"processScale"</span>);</span><br><span class="line">                processScale(e2.getX(), e2.getY());</span><br><span class="line">                invalidate();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ((MarkLayout) getParent()).processScrollEvent(e1, e2, distanceX, distanceY);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="annotation">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onSingleTapUp</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">            <span class="comment">//触摸</span></span><br><span class="line">            <span class="comment">//删除</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == StickerView.TOUCH_BTN_DELETE</span><br><span class="line">                    &amp;&amp; (mTouchDownX == event.getX() &amp;&amp; mTouchDownY == event.getY())) &#123;</span><br><span class="line">                delete();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//编辑</span></span><br><span class="line">            <span class="keyword">if</span> (mTouchBtnType == TOUCH_BTN_EDIT</span><br><span class="line">                    &amp;&amp; (mTouchDownX == event.getX() &amp;&amp; mTouchDownY == event.getY())) &#123;</span><br><span class="line">                editTDCode();</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> ((MarkLayout) getParent()).processSingleTapUpEvent(event);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Mon工具－MarkDown语法的编辑" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/07/Mon工具－MarkDown语法的编辑/" class="article-date">
-  	<time datetime="2016-12-07T09:13:51.000Z" itemprop="datePublished">2016-12-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/07/Mon工具－MarkDown语法的编辑/">Mon工具－MarkDown语法的编辑</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#Mon</p>
-<p><img src="http://25.io/mou/Mou_128.png" alt="Mou icon"></p>
-<h2 id="MarkeDown语法">MarkeDown语法</h2><p><strong>Mou</strong>, the missing Markdown editor for <em>web developers</em>.</p>
-<h3 id="Syntax">Syntax</h3><h4 id="Strong_and_Emphasize">Strong and Emphasize</h4><p><strong>strong</strong> or <strong>strong</strong> ( Cmd + B )</p>
-<p><em>emphasize</em> or <em>emphasize</em> ( Cmd + I )</p>
-<p><strong>Sometimes I want a lot of text to be bold.<br>Like, seriously, a <em>LOT</em> of text</strong></p>
-<h4 id="Blockquotes">Blockquotes</h4><blockquote>
-<p>Right angle brackets &gt; are used for block quotes.</p>
-</blockquote>
-<h4 id="Links_and_Email">Links and Email</h4><p>An email <a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;">&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#64;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;</a> link.</p>
-<p>Simple inline link <a href="http://chenluois.com" target="_blank" rel="external">http://chenluois.com</a>, another inline link <a href="http://25.io/smaller/" target="_blank" rel="external">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension" target="_blank" rel="external">Resize</a>.</p>
-<p>A <a href="http://25.io/mou/" title="Markdown editor on Mac OS X" target="_blank" rel="external">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
-<p>Titles ( or called tool tips ) in the links are optional.</p>
-<h4 id="Images">Images</h4><p>An inline image <img src="http://25.io/smaller/favicon.ico" alt="Smaller icon" title="Title here">, title is optional.</p>
-<p>A <img src="http://resizesafari.com/favicon.ico" alt="Resize icon" title="Title"> reference style image.</p>
-<h4 id="Inline_code_and_Block_code">Inline code and Block code</h4><p>Inline code are surround by <code>backtick</code> key. To create a block code:</p>
-<pre><code>Indent <span class="keyword">each</span> <span class="built_in">line</span> <span class="keyword">by</span> <span class="keyword">at</span> least <span class="number">1</span> <span class="constant">tab</span>, <span class="operator">or</span> <span class="number">4</span> spaces.
-var Mou = exactlyTheAppIwant; 
-</code></pre><h4 id="Ordered_Lists">Ordered Lists</h4><p>Ordered lists are created using “1.” + Space:</p>
-<ol>
-<li>Ordered list item</li>
-<li>Ordered list item</li>
-<li>Ordered list item</li>
-</ol>
-<h4 id="Unordered_Lists">Unordered Lists</h4><p>Unordered list are created using “*” + Space:</p>
-<ul>
-<li>Unordered list item</li>
-<li>Unordered list item</li>
-<li>Unordered list item </li>
-</ul>
-<p>Or using “-“ + Space:</p>
-<ul>
-<li>Unordered list item</li>
-<li>Unordered list item</li>
-<li>Unordered list item</li>
-</ul>
-<h4 id="Hard_Linebreak">Hard Linebreak</h4><p>End a line with two or more spaces will create a hard linebreak, called <code>&lt;br /&gt;</code> in HTML. ( Control + Return )<br>Above line ended with 2 spaces.</p>
-<h4 id="Horizontal_Rules">Horizontal Rules</h4><p>Three or more asterisks or dashes:</p>
-<hr>
-<hr>
-<hr>
-<h4 id="Headers">Headers</h4><p>Setext-style:</p>
-<h1 id="This_is_H1">This is H1</h1><h2 id="This_is_H2">This is H2</h2><p>atx-style:</p>
-<h1 id="This_is_H1-1">This is H1</h1><h2 id="This_is_H2-1">This is H2</h2><h3 id="This_is_H3">This is H3</h3><h4 id="This_is_H4">This is H4</h4><h5 id="This_is_H5">This is H5</h5><h6 id="This_is_H6">This is H6</h6><h3 id="Extra_Syntax">Extra Syntax</h3><h4 id="Footnotes">Footnotes</h4><p>Footnotes work mostly like reference-style links. A footnote is made of two things: a marker in the text that will become a superscript number; a footnote definition that will be placed in a list of footnotes at the end of the document. A footnote looks like this:</p>
-<p>That’s some text with a footnote.[^1]</p>
-<p>[^1]: And that’s the footnote.</p>
-<h4 id="Strikethrough">Strikethrough</h4><p>Wrap with 2 tilde characters:</p>
-<p><del>Strikethrough</del></p>
-<h4 id="Fenced_Code_Blocks">Fenced Code Blocks</h4><p>Start with a line containing 3 or more backticks, and ends with the first line with the same number of backticks:</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">Fenced</span> <span class="preprocessor">code</span> <span class="keyword">blocks </span>are like Stardard <span class="keyword">Markdown’s </span>regular <span class="preprocessor">code</span></span><br><span class="line"><span class="keyword">blocks, </span>except that they’re not indented <span class="keyword">and </span>instead rely on</span><br><span class="line">a start <span class="keyword">and </span><span class="preprocessor">end</span> fence lines to delimit the <span class="preprocessor">code</span> <span class="keyword">block.</span></span><br></pre></td></tr></table></figure>
-<h4 id="Tables">Tables</h4><p>A simple table looks like this:</p>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-<th>Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
-<p>If you wish, you can add a leading and tailing pipe to each line of the table:</p>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-<th>Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
-<p>Specify alignment for each column by adding colons to separator lines:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">First Header</th>
-<th style="text-align:center">Second Header</th>
-<th style="text-align:right">Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Shortcuts">Shortcuts</h3><h4 id="View">View</h4><ul>
-<li>Toggle live preview: Shift + Cmd + I</li>
-<li>Toggle Words Counter: Shift + Cmd + W</li>
-<li>Toggle Transparent: Shift + Cmd + T</li>
-<li>Toggle Floating: Shift + Cmd + F</li>
-<li>Left/Right = 1/1: Cmd + 0</li>
-<li>Left/Right = 3/1: Cmd + +</li>
-<li>Left/Right = 1/3: Cmd + -</li>
-<li>Toggle Writing orientation: Cmd + L</li>
-<li>Toggle fullscreen: Control + Cmd + F</li>
-</ul>
-<h4 id="Actions">Actions</h4><ul>
-<li>Copy HTML: Option + Cmd + C</li>
-<li>Strong: Select text, Cmd + B</li>
-<li>Emphasize: Select text, Cmd + I</li>
-<li>Inline Code: Select text, Cmd + K</li>
-<li>Strikethrough: Select text, Cmd + U</li>
-<li>Link: Select text, Control + Shift + L</li>
-<li>Image: Select text, Control + Shift + I</li>
-<li>Select Word: Control + Option + W</li>
-<li>Select Line: Shift + Cmd + L</li>
-<li>Select All: Cmd + A</li>
-<li>Deselect All: Cmd + D</li>
-<li>Convert to Uppercase: Select text, Control + U</li>
-<li>Convert to Lowercase: Select text, Control + Shift + U</li>
-<li>Convert to Titlecase: Select text, Control + Option + U</li>
-<li>Convert to List: Select lines, Control + L</li>
-<li>Convert to Blockquote: Select lines, Control + Q</li>
-<li>Convert to H1: Cmd + 1</li>
-<li>Convert to H2: Cmd + 2</li>
-<li>Convert to H3: Cmd + 3</li>
-<li>Convert to H4: Cmd + 4</li>
-<li>Convert to H5: Cmd + 5</li>
-<li>Convert to H6: Cmd + 6</li>
-<li>Convert Spaces to Tabs: Control + [</li>
-<li>Convert Tabs to Spaces: Control + ]</li>
-<li>Insert Current Date: Control + Shift + 1</li>
-<li>Insert Current Time: Control + Shift + 2</li>
-<li>Insert entity &lt;: Control + Shift + ,</li>
-<li>Insert entity &gt;: Control + Shift + .</li>
-<li>Insert entity &amp;: Control + Shift + 7</li>
-<li>Insert entity Space: Control + Shift + Space</li>
-<li>Insert Scriptogr.am Header: Control + Shift + G</li>
-<li>Shift Line Left: Select lines, Cmd + [</li>
-<li>Shift Line Right: Select lines, Cmd + ]</li>
-<li>New Line: Cmd + Return</li>
-<li>Comment: Cmd + /</li>
-<li>Hard Linebreak: Control + Return</li>
-</ul>
-<h4 id="Edit">Edit</h4><ul>
-<li>Auto complete current word: Esc</li>
-<li>Find: Cmd + F</li>
-<li>Close find bar: Esc</li>
-</ul>
-<h4 id="Post">Post</h4><ul>
-<li>Post on Scriptogr.am: Control + Shift + S</li>
-<li>Post on Tumblr: Control + Shift + T</li>
-</ul>
-<h4 id="Export">Export</h4><ul>
-<li>Export HTML: Option + Cmd + E</li>
-<li>Export PDF:  Option + Cmd + P</li>
-</ul>
-<h3 id="And_more?">And more?</h3><p>Don’t forget to check Preferences, lots of useful options are there.</p>
-<p>Follow <a href="https://twitter.com/mou" target="_blank" rel="external">@Mou</a> on Twitter for the latest news.</p>
-<p>For feedback, use the menu <code>Help</code> - <code>Send Feedback</code></p>
 
       
     </div>
